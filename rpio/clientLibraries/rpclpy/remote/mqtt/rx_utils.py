@@ -1,9 +1,9 @@
 import jsonpickle
 import yaml
 
-from rpio.clientLibraries.rappclpy.remote.mqtt.MQTTInterface import *
-from rpio.clientLibraries.rappclpy.constants import *
-from rpio.clientLibraries.rappclpy.utils import *
+from rpio.clientLibraries.rpclpy.remote.mqtt.MQTTInterface import *
+from rpio.clientLibraries.rpclpy.constants import *
+from rpio.clientLibraries.rpclpy.utils import *
 
 class Logger():
 

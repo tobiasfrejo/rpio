@@ -1,5 +1,5 @@
-from rpio.clientLibraries.rappclpy.constants import *
-from rpio.clientLibraries.rappclpy.remote.mqtt.rx_utils import Logger, Knowledge, EventHandler
+from rpio.clientLibraries.rpclpy.constants import *
+from rpio.clientLibraries.rpclpy.remote.mqtt.rx_utils import Logger, Knowledge, EventHandler
 
 class Node(object):
 
