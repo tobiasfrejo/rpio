@@ -49,6 +49,11 @@ class Node(object):
     # ------------------------------------------------------------------------------------------------
     # -------------------------------------INTERFACE FUNCTIONS----------------------------------------
     # ------------------------------------------------------------------------------------------------
+    def start(self):
+        """Start the node."""
+        x=1
+        #TODO: implement the starting behavior
+
     def RaPEnterInitializationMode(self):
         """Function to enter the initialization mode of a genericNode.
 

@@ -6,7 +6,7 @@
 # * RAP R&D concepts can not be copied and/or distributed without the express
 # * permission of Bert Van Acker
 # **********************************************************************************
-from rpio.clientLibraries.rappclpy.node import Node
+from rpio.clientLibraries.rpclpy.node import Node
 from messages.messages import *
 
 
@@ -16,6 +16,7 @@ class {{swc.name}}(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "{{swc.name}}"
+        self.logger.log("{{swc.name}} instantiated")
 
     # ------------------------------------------------------------------------------------------------
     # -------------------------------------INTERNAL FUNCTIONS----------------------------------------
@@ -48,28 +49,18 @@ class {{swc.name}}(Node):
         {% endif %}
         {% endfor %}
 
-        # 4. SIGNAL MONITORING STATE VIA KNOWLEDGE
-        self.RaPSignalStatus(component={{swc.name}},status=_status,accuracy=_accuracy)
-
-
-        # (5) LOGGING DEMO
-        {% for feature in swc.features %}
-        {% if feature.featureType == 'inport'%}
-        self.logger.log("["+self._name+"] - "+"Monitoring property: "+{{feature.name}}.name +" with values:"+({{feature.value}}).__str__())
-        {% endif %}
-        {% endfor %}
-
         # 4. return status of execution (fail = False, success = True)
         return _success
 
-    def _EnterInitializationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Enter initializationModeFcn not implemented")
+    def register_callbacks(self):
+        self.eventHandler.subscribe(eventName='event2', function=self.function1)
+        self.eventHandler.subscribe(eventName='event3', function=self.function2)
 
-    def _ExitInitializationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Exit initializationModeFcn not implemented")
+def main(args=None):
 
-    def _EnterConfigurationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Enter configurationModeFcn not implemented")
+    node = {{swc.name}}()
+    node.register_callbacks()
+    node.start()
 
-
-
+if __name__ == '__main__':
+    main()

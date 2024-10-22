@@ -16,6 +16,7 @@ class knowledge(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "knowledge"
+        self.logger.log("knowledge instantiated")
 
     # ------------------------------------------------------------------------------------------------
     # -------------------------------------INTERNAL FUNCTIONS----------------------------------------
@@ -34,22 +35,18 @@ class knowledge(Node):
 
         # 2. PUT KNOWLEDGE IN KNOWLEDGE BASE VIA KNOWLEGE MANAGEMENT
 
-        # 4. SIGNAL MONITORING STATE VIA KNOWLEDGE
-        self.RaPSignalStatus(component=knowledge,status=_status,accuracy=_accuracy)
-
-
-        # (5) LOGGING DEMO
-
         # 4. return status of execution (fail = False, success = True)
         return _success
 
-    def _EnterInitializationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Enter initializationModeFcn not implemented")
+    def register_callbacks(self):
+        self.eventHandler.subscribe(eventName='event2', function=self.function1)
+        self.eventHandler.subscribe(eventName='event3', function=self.function2)
 
-    def _ExitInitializationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Exit initializationModeFcn not implemented")
+def main(args=None):
 
-    def _EnterConfigurationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Enter configurationModeFcn not implemented")
+    node = knowledge()
+    node.register_callbacks()
+    node.start()
 
-
+if __name__ == '__main__':
+    main()

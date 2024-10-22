@@ -16,6 +16,7 @@ class monitor(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "monitor"
+        self.logger.log("monitor instantiated")
 
     # ------------------------------------------------------------------------------------------------
     # -------------------------------------INTERNAL FUNCTIONS----------------------------------------
@@ -41,25 +42,18 @@ class monitor(Node):
         knowledge._Waypoints= "SET VALUE"    # datatype: Float_32
         _success = self.knowledge.write(cls=knowledge)
 
-        # 4. SIGNAL MONITORING STATE VIA KNOWLEDGE
-        self.RaPSignalStatus(component=monitor,status=_status,accuracy=_accuracy)
-
-
-        # (5) LOGGING DEMO
-        self.logger.log("["+self._name+"] - "+"Monitoring property: "+weatherConditions.name +" with values:"+(1.0).__str__())
-        self.logger.log("["+self._name+"] - "+"Monitoring property: "+shipPose.name +" with values:"+(1.0).__str__())
-        self.logger.log("["+self._name+"] - "+"Monitoring property: "+shipAction.name +" with values:"+(1.0).__str__())
-
         # 4. return status of execution (fail = False, success = True)
         return _success
 
-    def _EnterInitializationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Enter initializationModeFcn not implemented")
+    def register_callbacks(self):
+        self.eventHandler.subscribe(eventName='event2', function=self.function1)
+        self.eventHandler.subscribe(eventName='event3', function=self.function2)
 
-    def _ExitInitializationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Exit initializationModeFcn not implemented")
+def main(args=None):
 
-    def _EnterConfigurationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Enter configurationModeFcn not implemented")
+    node = monitor()
+    node.register_callbacks()
+    node.start()
 
-
+if __name__ == '__main__':
+    main()

@@ -19,7 +19,7 @@ class monitor(Node):
         self.logger.log("TESTING THE LOGGER OF THE MQTT NODE")
 
         #read knowledge
-        weatherConditions, weatherConditions_window = self.knowledge.read("weatherConditions", queueSize=1)
+        weatherConditions = self.knowledge.read("weatherConditions", queueSize=1)
 
         #try to send a knowledge element
         knowledge = predictedPath()
@@ -30,10 +30,9 @@ class monitor(Node):
         #register incoming events and triggers
         self.eventHandler.send(eventName='event1')
 
-        #subscribe to an event
-        self.eventHandler.subscribe(eventName='event2',function=self.function1)
+    def register_callbacks(self):
+        self.eventHandler.subscribe(eventName='event2', function=self.function1)
         self.eventHandler.subscribe(eventName='event3', function=self.function2)
-        x=1
 
     def function1(self):
         print("Function 1 triggered from event2")
@@ -44,13 +43,8 @@ class monitor(Node):
 def main(args=None):
 
     node = monitor()
-
-    #rclpy.spin(node)
-
-    # Destroy the node explicitly
-    #node.destroy_node()
-    #rclpy.shutdown()
-
+    node.register_callbacks()
+    node.start()
 
 if __name__ == '__main__':
     main()

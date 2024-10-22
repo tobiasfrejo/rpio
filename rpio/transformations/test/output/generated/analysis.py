@@ -16,6 +16,7 @@ class analysis(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "analysis"
+        self.logger.log("analysis instantiated")
 
     # ------------------------------------------------------------------------------------------------
     # -------------------------------------INTERNAL FUNCTIONS----------------------------------------
@@ -38,23 +39,18 @@ class analysis(Node):
         knowledge._Anomaly= "SET VALUE"    # datatype: Boolean
         _success = self.knowledge.write(cls=knowledge)
 
-        # 4. SIGNAL MONITORING STATE VIA KNOWLEDGE
-        self.RaPSignalStatus(component=analysis,status=_status,accuracy=_accuracy)
-
-
-        # (5) LOGGING DEMO
-        self.logger.log("["+self._name+"] - "+"Monitoring property: "+pathEstimate.name +" with values:"+(1.0).__str__())
-
         # 4. return status of execution (fail = False, success = True)
         return _success
 
-    def _EnterInitializationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Enter initializationModeFcn not implemented")
+    def register_callbacks(self):
+        self.eventHandler.subscribe(eventName='event2', function=self.function1)
+        self.eventHandler.subscribe(eventName='event3', function=self.function2)
 
-    def _ExitInitializationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Exit initializationModeFcn not implemented")
+def main(args=None):
 
-    def _EnterConfigurationModeFcn(self):
-        if self._verbose: print("["+self._name+"] - "+"Enter configurationModeFcn not implemented")
+    node = analysis()
+    node.register_callbacks()
+    node.start()
 
-
+if __name__ == '__main__':
+    main()
