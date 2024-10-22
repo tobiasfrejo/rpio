@@ -94,7 +94,10 @@ def example():
     monitor.addFeature(_shipAction)
     monitor.addFeature(_pathEstimate)
 
-    shipPoseEstimation = thread(name="shipPoseEstimation",featureList=[_weatherConditions,_shipPose,_shipAction,_pathEstimate])
+    shipPoseEstimation = thread(name="shipPoseEstimation",featureList=[_weatherConditions,_shipPose,_shipAction,_pathEstimate],eventTrigger='newData')
+
+    monitor.addThread(shipPoseEstimation)
+
 
     #-ANALYSIS-
     analysis = process(name="analysis", description="analysis component")

@@ -18,48 +18,67 @@ class {{swc.name}}(Node):
         self._name = "{{swc.name}}"
         self.logger.log("{{swc.name}} instantiated")
 
-    # ------------------------------------------------------------------------------------------------
-    # -------------------------------------INTERNAL FUNCTIONS----------------------------------------
-    # ------------------------------------------------------------------------------------------------
-    def _SpinOnceFcn(self, args):
 
-        # 0. RESET STATUS AND ACCURACY
-        _success = True
-        _accuracy = 1.0
-        _status = "OK"
-
-        # 1. FETCH KNOWLEDGE FROM KNOWLEDGE BASE VIA KNOWLEGE MANAGEMENT
-        {% for feature in swc.features %}
+    {% for thread in swc.threads %}
+    # -----------------------------AUTO-GEN SKELETON FOR {{thread.name}}-----------------------------
+    def {{thread.name}}(self):
+        {% for feature in thread.features %}
         {% if feature.featureType == 'inport'%}
-        {{feature.name}},{{feature.name}}_window = self.knowledge.read("{{feature.name}}",queueSize=1)
+        {{feature.name}} = self.knowledge.read("{{feature.name}}",queueSize=1)
         {% endif %}
         {% endfor %}
 
-        # 2. PERFORM MONITORING VIA USER-SPECIFIC FUNTIONS OR SOFTWARE COMPONENTS (ORDERING!!!)
+        #TODO: ADD USER CODE FOR {{thread.name}}
 
 
-        # 2. PUT KNOWLEDGE IN KNOWLEDGE BASE VIA KNOWLEGE MANAGEMENT
-        {% for feature in swc.features %}
+        {% for feature in thread.features %}
         {% if feature.featureType == 'outport'%}
+        {% if 'data' in feature.type%}
         knowledge = {{feature.message.name}}()
         {% for data in feature.message.features %}
         knowledge._{{data.name}}= "SET VALUE"    # datatype: {{data.dataType}}
         {% endfor %}
         _success = self.knowledge.write(cls=knowledge)
         {% endif %}
+        {% endif %}
         {% endfor %}
 
-        # 4. return status of execution (fail = False, success = True)
-        return _success
+        {# {{ EVENTS TO BE SEND FROM OUTPUT EVENT OR EVENT DATA }} #}
+        {% for feature in thread.features %}
+        {% if feature.featureType == 'outport'%}
+        {% if 'event' in feature.type%}
+        self.eventHandler.send(eventName='{{feature.name}}')    # LINK <outport> {{feature.name}}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
 
+
+    {% endfor %}
+
+    {% if swc.threads|length >= 1 %}
     def register_callbacks(self):
-        self.eventHandler.subscribe(eventName='event2', function=self.function1)
-        self.eventHandler.subscribe(eventName='event3', function=self.function2)
+        {# {{ EVENT TRIGGERS ON THREADS }} #}
+        {% for thread in swc.threads %}
+        {% if thread.eventTrigger != None%}
+        self.eventHandler.subscribe(eventName='{{thread.eventTrigger}}', function=self.{{thread.name}})     # LINK <eventTrigger> {{thread.eventTrigger}}
+        {% endif %}
+        {# {{ EVENT TRIGGERS FROM INPORT EVENT OR EVENT DATA }} #}
+        {% for feature in thread.features %}
+        {% if feature.featureType == 'inport'%}
+        {% if 'event' in feature.type%}
+        self.eventHandler.subscribe(eventName='{{feature.name}}', function=self.{{thread.name}})        # LINK <inport> {{feature.name}}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    {% endif %}
 
 def main(args=None):
 
     node = {{swc.name}}()
+    {% if swc.threads|length >= 1 %}
     node.register_callbacks()
+    {% endif %}
     node.start()
 
 if __name__ == '__main__':

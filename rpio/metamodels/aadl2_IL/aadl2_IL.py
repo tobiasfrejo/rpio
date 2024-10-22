@@ -75,13 +75,18 @@ class system(namedObject):
 
 class process(namedObject):
 
-    def __init__(self, name='tbd',description='tbd',verbose=False,featureList = None):
+    def __init__(self, name='tbd',description='tbd',verbose=False,featureList = None,threadList=None):
         super().__init__(name=name, description=description, verbose=verbose)
 
         if featureList is not None:
             self._featureList = featureList
         else:
             self._featureList = []
+
+        if threadList is not None:
+            self._threadList = threadList
+        else:
+            self._threadList = []
 
     @property
     def features(self):
@@ -91,9 +96,17 @@ class process(namedObject):
         """Add a feature to the system """
         self._featureList.append(feature)
 
+    @property
+    def threads(self):
+        return self._threadList
+
+    def addThread(self, t):
+        """Add a thread to the system """
+        self._threadList.append(t)
+
 class thread(namedObject):
 
-    def __init__(self, name='tbd',description='tbd',verbose=False,featureList = None):
+    def __init__(self, name='tbd',description='tbd',verbose=False,featureList = None,eventTrigger=None):
         super().__init__(name=name, description=description, verbose=verbose)
 
         if featureList is not None:
@@ -101,9 +114,18 @@ class thread(namedObject):
         else:
             self._featureList = []
 
+        self._eventTrigger = eventTrigger
+
+    @property
+    def features(self):
+        return self._featureList
     def addFeature(self, feature):
         """Add a feature to the system """
         self._featureList.append(feature)
+
+    @property
+    def eventTrigger(self):
+        return self._eventTrigger
 
 class characteristic(namedObject):
 

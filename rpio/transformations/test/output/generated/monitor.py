@@ -18,36 +18,30 @@ class monitor(Node):
         self._name = "monitor"
         self.logger.log("monitor instantiated")
 
-    # ------------------------------------------------------------------------------------------------
-    # -------------------------------------INTERNAL FUNCTIONS----------------------------------------
-    # ------------------------------------------------------------------------------------------------
-    def _SpinOnceFcn(self, args):
 
-        # 0. RESET STATUS AND ACCURACY
-        _success = True
-        _accuracy = 1.0
-        _status = "OK"
+    # -----------------------------AUTO-GEN SKELETON FOR shipPoseEstimation-----------------------------
+    def shipPoseEstimation(self):
+        weatherConditions = self.knowledge.read("weatherConditions",queueSize=1)
+        shipPose = self.knowledge.read("shipPose",queueSize=1)
+        shipAction = self.knowledge.read("shipAction",queueSize=1)
 
-        # 1. FETCH KNOWLEDGE FROM KNOWLEDGE BASE VIA KNOWLEGE MANAGEMENT
-        weatherConditions,weatherConditions_window = self.knowledge.read("weatherConditions",queueSize=1)
-        shipPose,shipPose_window = self.knowledge.read("shipPose",queueSize=1)
-        shipAction,shipAction_window = self.knowledge.read("shipAction",queueSize=1)
-
-        # 2. PERFORM MONITORING VIA USER-SPECIFIC FUNTIONS OR SOFTWARE COMPONENTS (ORDERING!!!)
+        #TODO: ADD USER CODE FOR shipPoseEstimation
 
 
-        # 2. PUT KNOWLEDGE IN KNOWLEDGE BASE VIA KNOWLEGE MANAGEMENT
         knowledge = predictedPath()
         knowledge._Confidence= "SET VALUE"    # datatype: Float_64
         knowledge._Waypoints= "SET VALUE"    # datatype: Float_32
         _success = self.knowledge.write(cls=knowledge)
 
-        # 4. return status of execution (fail = False, success = True)
-        return _success
+        self.eventHandler.send(eventName='pathEstimate')    # LINK <outport> pathEstimate
+
+
 
     def register_callbacks(self):
-        self.eventHandler.subscribe(eventName='event2', function=self.function1)
-        self.eventHandler.subscribe(eventName='event3', function=self.function2)
+        self.eventHandler.subscribe(eventName='newData', function=self.shipPoseEstimation)     # LINK <eventTrigger> newData
+        self.eventHandler.subscribe(eventName='weatherConditions', function=self.shipPoseEstimation)        # LINK <inport> weatherConditions
+        self.eventHandler.subscribe(eventName='shipPose', function=self.shipPoseEstimation)        # LINK <inport> shipPose
+        self.eventHandler.subscribe(eventName='shipAction', function=self.shipPoseEstimation)        # LINK <inport> shipAction
 
 def main(args=None):
 
