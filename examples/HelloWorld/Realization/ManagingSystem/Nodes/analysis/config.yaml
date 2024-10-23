@@ -11,35 +11,35 @@ knowledgeIn:
   properties:
     - property:
         type: "data"
-        name: "pathEstimate"
-        class: "pathEstimate"
-        topic: "/pathEstimate"
+        name: "laserScan"
+        class: "laserScan"
+        topic: "/laserScan"
         QoS: 10
 
 knowledgeOut:
   properties:
     - property:
         type: "data"
-        name: "pathAnomaly"
-        class: "pathAnomaly"
-        topic: "/pathAnomaly"
+        name: "Anomaly"
+        class: "Anomaly"
+        topic: "/Anomaly"
         QoS: 10
 
 eventIn:
   properties:
     - property:
         type: "event"
-        name: "anomaly"
+        name: "laserScan"
         class: "-"
-        topic: "/anomaly"
+        topic: "/laserScan"
         QoS: 10
 
 eventOut:
   properties:
     - property:
         type: "event"
-        name: "pathAnomaly"
+        name: "Anomaly"
         class: "-"
-        topic: "/pathAnomaly"
+        topic: "/Anomaly"
         QoS: 10
 

@@ -1,3 +1,5 @@
+from array import array
+
 from rpio.metamodels.aadl2_IL.aadl2_IL import *
 
 
@@ -6,35 +8,25 @@ def HelloWorld():
     #-----------------------------------------------------------------------------------------------------------------------
     #--------------------------------------------- MESSAGES ----------------------------------------------------------------
     #-----------------------------------------------------------------------------------------------------------------------
-    # weatherConditions message
-    windDirection = data(name="windDirection",dataType="Float_64")
-    windSpeed = data(name="windSpeed",dataType="Float_64")
-    weatherConditions = message(name="weatherConditions",featureList=[windDirection,windSpeed])
 
-    # shipPose message
-    SurgeSpeed = data(name="SurgeSpeed",dataType="Float_64")
-    SwaySpeed = data(name="SwaySpeed",dataType="Float_64")
-    YawRate = data(name="YawRate",dataType="Float_64")
-    RollAngle = data(name="RollAngle",dataType="Float_64")
-    RollRate = data(name="RollRate",dataType="Float_64")
-    Heading = data(name="Heading",dataType="Float_64")
-    x = data(name="x",dataType="Float_64")
-    y = data(name="y",dataType="Float_64")
-    shipPose = message(name="shipPose",featureList=[SurgeSpeed,SwaySpeed,YawRate,RollAngle,RollRate,Heading,x,y])
 
-    # shipAction message
-    RudderAngle = data(name="RudderAngle",dataType="Float_64")
-    rpm = data(name="rpm",dataType="Float_32")
-    shipAction = message(name="shipAction",featureList=[windDirection,windSpeed])
+    #laserScan message
+    ranges = data(name='ranges', dataType="array")
+    angle_increment = data(name= 'angle_increment', dataType="Float_64")
 
-    # shipAction message
-    Confidence = data(name="Confidence",dataType="Float_64")
-    Waypoints = data(name="Waypoints",dataType="Float_32")
-    predictedPath = message(name="predictedPath",featureList=[Confidence,Waypoints])
+    laserScan = message(name="laserScan",featureList=[ranges,angle_increment])
+
+    # rotationAction message
+    omega = data(name="omega",dataType="Float64")
+    duration = data(name="duration",dataType="Float64")
+    direction = message(name="direction",featureList=[omega,duration])
 
     # anomaly message
     Anomaly = data(name="Anomaly",dataType="Boolean")
     AnomalyMessage = message(name="AnomalyMessage",featureList=[Anomaly])
+
+    newPlan = data(name="NewPlan",dataType="boolean")
+    newPlanMessage = message(name="NewPlanMessage",featureList=[newPlan])
 
     # legitimate message
     Legitimate = data(name="legitimate",dataType="Boolean")
@@ -43,40 +35,30 @@ def HelloWorld():
     #-----------------------------------------------------------------------------------------------------------------------
     #--------------------------------------- LOGICAL ARCHITECTURE ----------------------------------------------------------
     #-----------------------------------------------------------------------------------------------------------------------
-    adaptiveSystem = system(name="adaptiveSystem", description="Example adaptive system",messageList=[weatherConditions,shipPose,shipAction,predictedPath,AnomalyMessage,legitimateMessage])
+    adaptiveSystem = system(name="adaptiveSystem", description="Example adaptive system",messageList=[laserScan,direction,AnomalyMessage,newPlanMessage])
 
     #-A- --- managed system ---
     managedSystem = system(name="managedSystem", description="managed system part")
 
-    weatherConditions_OUT = outport(name="weatherConditions",type="event data", message=weatherConditions)
-    shipPose_OUT = outport(name="shipPose",type="event data", message=shipPose)
-    shipAction_OUT = outport(name="shipAction",type="event data", message=shipAction)
-    predictedPath_IN = inport(name="predictedPath",type="event data", message=predictedPath)
+    laserScan_OUT = outport(name="laserScan",type="event data", message= laserScan)
+    direction_IN = inport(name="direction",type="event data", message=direction)
 
-    managedSystem.addFeature(weatherConditions_OUT)
-    managedSystem.addFeature(shipPose_OUT)
-    managedSystem.addFeature(shipAction_OUT)
-    managedSystem.addFeature(predictedPath_IN)
+    managedSystem.addFeature(laserScan_OUT)
+    managedSystem.addFeature(direction_IN)
 
     #-B- --- managing system ---
 
     managingSystem = system(name="managingSystem", description="managing system part")
 
-    weatherConditions_IN = inport(name="weatherConditions",type="event data", message=weatherConditions)
-    shipPose_IN = inport(name="shipPose",type="event data", message=shipPose)
-    shipAction_IN = inport(name="shipAction",type="event data", message=shipAction)
-    predictedPath_OUT = outport(name="predictedPath",type="event data", message=predictedPath)
+    laserScan_IN = inport(name="laserScan",type="event data", message=laserScan)
+    direction_OUT = outport(name="direction",type="event data", message=direction)
 
-    managingSystem.addFeature(weatherConditions_IN)
-    managingSystem.addFeature(shipPose_IN)
-    managingSystem.addFeature(shipAction_IN)
-    managingSystem.addFeature(predictedPath_OUT)
+    managingSystem.addFeature(laserScan_IN)
+    managingSystem.addFeature(direction_OUT)
 
     # connections
-    c1 = connection(source=weatherConditions_OUT, destination=weatherConditions_IN)
-    c2 = connection(source=shipPose_OUT, destination=shipPose_IN)
-    c3 = connection(source=shipPose_OUT, destination=shipPose_IN)
-    c4 = connection(source=predictedPath_OUT, destination=predictedPath_IN)
+    c1 = connection(source=laserScan_OUT, destination=laserScan_IN)
+    c2 = connection(source=direction_OUT, destination=direction_IN)
 
 
     #---------------------COMPONENT LEVEL---------------------------
@@ -84,42 +66,35 @@ def HelloWorld():
     #-MONITOR-
     monitor = process(name="monitor", description="monitor component")
 
-    _weatherConditions = inport(name="weatherConditions",type="event data", message=weatherConditions)
-    _shipPose = inport(name="shipPose",type="event data", message=shipPose)
-    _shipAction = inport(name="shipAction",type="event data", message=shipAction)
-    _pathEstimate = outport(name="pathEstimate",type="event data", message=predictedPath)
+    _laserScan = inport(name="laserScan",type="event data", message=laserScan)
 
-    monitor.addFeature(_weatherConditions)
-    monitor.addFeature(_shipPose)
-    monitor.addFeature(_shipAction)
-    monitor.addFeature(_pathEstimate)
-
-    shipPoseEstimation = thread(name="shipPoseEstimation",featureList=[_weatherConditions,_shipPose,_shipAction,_pathEstimate],eventTrigger='newData')
-    monitor.addThread(shipPoseEstimation)
+    monitor.addFeature(_laserScan)
 
 
     #-ANALYSIS-
     analysis = process(name="analysis", description="analysis component")
 
-    _pathEstimate = inport(name="pathEstimate",type="data", message=predictedPath)
-    _pathAnomaly = outport(name="pathAnomaly",type="event data", message=AnomalyMessage)
+    _laserScan = inport(name="laserScan",type="data", message=laserScan)
+    _anomaly = outport(name="Anomaly",type="event data", message=AnomalyMessage)
 
-    analysis.addFeature(_pathEstimate)
-    analysis.addFeature(_pathAnomaly)
+    analysis.addFeature(_laserScan)
+    analysis.addFeature(_anomaly)
 
-    analyzePathPredictions = thread(name="analyzePathPredictions",featureList=[_pathEstimate,_pathAnomaly],eventTrigger='anomaly')
-    analysis.addThread(analyzePathPredictions)
+    analyzeScanData = thread(name="analyzeScanData",featureList=[_laserScan,_anomaly],eventTrigger='laserScan')
+    analysis.addThread(analyzeScanData)
 
 
     #-PLAN-
     plan = process(name="plan", description="plan component")
 
     #TODO: define input
-    _plan = outport(name="plan",type="event data", message=predictedPath)
+    _anomaly_detected = inport(name="Anomaly",type="event data", message=AnomalyMessage)
+    _plan = outport(name="plan",type="event data", message=newPlanMessage)
 
+    plan.addFeature(_anomaly_detected)
     plan.addFeature(_plan)
 
-    planner = thread(name="planner",featureList=[_plan])
+    planner = thread(name="planner",featureList=[_anomaly_detected, _plan])
     plan.addThread(planner)
 
     #-LEGITIMATE-
@@ -128,42 +103,42 @@ def HelloWorld():
     #-EXECUTE-
     execute = process(name="execute", description="execute component")
 
-    _plan = inport(name="plan",type="event data", message=predictedPath)
+    _directionPlan = inport(name="plan",type="event data", message=direction)
     _isLegit = inport(name="isLegit",type="event data", message=legitimateMessage)
-    _pathEstimate = outport(name="pathEstimate",type="event data", message=predictedPath)
+    _directions = outport(name="pathEstimate",type="event data", message=direction)
 
-    execute.addFeature(_plan)
+    execute.addFeature(_directionPlan)
     execute.addFeature(_isLegit)
-    execute.addFeature(_pathEstimate)
+    execute.addFeature(_directions)
 
-    executer = thread(name="executer",featureList=[_plan,_isLegit,_pathEstimate])
+    executer = thread(name="executer",featureList=[_plan,_isLegit,_directions])
     execute.addThread(executer)
 
-    #-KNOWLEDGE-
-    knowledge = process(name="knowledge", description="knowledge component")
+    # #-KNOWLEDGE-
+    # knowledge = process(name="knowledge", description="knowledge component")
+    #
+    # _weatherConditions = port(name="weatherConditions",type="event data", message=weatherConditions)
+    # _shipPose = port(name="shipPose",type="event data", message=shipPose)
+    # _shipAction = port(name="shipAction",type="event data", message=shipAction)
+    # _pathEstimate = port(name="pathEstimate",type="event data", message=predictedPath)
+    # _pathAnomaly = port(name="pathAnomaly",type="event data", message=AnomalyMessage)
+    # _plan = port(name="plan",type="event data", message=predictedPath)
+    # _isLegit = port(name="isLegit",type="event data", message=legitimateMessage)
 
-    _weatherConditions = port(name="weatherConditions",type="event data", message=weatherConditions)
-    _shipPose = port(name="shipPose",type="event data", message=shipPose)
-    _shipAction = port(name="shipAction",type="event data", message=shipAction)
-    _pathEstimate = port(name="pathEstimate",type="event data", message=predictedPath)
-    _pathAnomaly = port(name="pathAnomaly",type="event data", message=AnomalyMessage)
-    _plan = port(name="plan",type="event data", message=predictedPath)
-    _isLegit = port(name="isLegit",type="event data", message=legitimateMessage)
-
-    knowledge.addFeature(_weatherConditions)
-    knowledge.addFeature(_shipPose)
-    knowledge.addFeature(_shipAction)
-    knowledge.addFeature(_pathEstimate)
-    knowledge.addFeature(_pathAnomaly)
-    knowledge.addFeature(_plan)
-    knowledge.addFeature(_isLegit)
+    # knowledge.addFeature(_weatherConditions)
+    # knowledge.addFeature(_shipPose)
+    # knowledge.addFeature(_shipAction)
+    # knowledge.addFeature(_pathEstimate)
+    # knowledge.addFeature(_pathAnomaly)
+    # knowledge.addFeature(_plan)
+    # knowledge.addFeature(_isLegit)
 
     managingSystem.addProcess(monitor)
     managingSystem.addProcess(analysis)
     managingSystem.addProcess(plan)
     managingSystem.addProcess(legitimate)
     managingSystem.addProcess(execute)
-    managingSystem.addProcess(knowledge)
+    # managingSystem.addProcess(knowledge)
 
     #---------------------SYSTEM LEVEL---------------------------
     adaptiveSystem.addSystem(managingSystem)

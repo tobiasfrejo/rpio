@@ -7,7 +7,7 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
-from messages import * 
+from messages import *
 
 
 class analysis(Node):
@@ -19,23 +19,23 @@ class analysis(Node):
         self.logger.log("analysis instantiated")
 
 
-    # -----------------------------AUTO-GEN SKELETON FOR analyzePathPredictions-----------------------------
-    def analyzePathPredictions(self):
-        pathEstimate = self.knowledge.read("pathEstimate",queueSize=1)
+    # -----------------------------AUTO-GEN SKELETON FOR analyzeScanData-----------------------------
+    def analyzeScanData(self):
+        laserScan = self.knowledge.read("laserScan",queueSize=1)
 
-        #TODO: ADD USER CODE FOR analyzePathPredictions
+        #TODO: ADD USER CODE FOR analyzeScanData
 
 
         knowledge = AnomalyMessage()
         knowledge._Anomaly= "SET VALUE"    # datatype: Boolean
         _success = self.knowledge.write(cls=knowledge)
 
-        self.eventHandler.send(eventName='pathAnomaly')    # LINK <outport> pathAnomaly
+        self.eventHandler.send(eventName='Anomaly')    # LINK <outport> Anomaly
 
 
 
     def register_callbacks(self):
-        self.eventHandler.subscribe(eventName='anomaly', function=self.analyzePathPredictions)     # LINK <eventTrigger> anomaly
+        self.eventHandler.subscribe(eventName='laserScan', function=self.analyzeScanData)     # LINK <eventTrigger> laserScan
 
 def main(args=None):
 

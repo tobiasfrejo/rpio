@@ -7,7 +7,7 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
-from messages import * 
+from messages import *
 
 
 class execute(Node):
@@ -21,23 +21,25 @@ class execute(Node):
 
     # -----------------------------AUTO-GEN SKELETON FOR executer-----------------------------
     def executer(self):
-        plan = self.knowledge.read("plan",queueSize=1)
         isLegit = self.knowledge.read("isLegit",queueSize=1)
 
         #TODO: ADD USER CODE FOR executer
 
 
-        knowledge = predictedPath()
-        knowledge._Confidence= "SET VALUE"    # datatype: Float_64
-        knowledge._Waypoints= "SET VALUE"    # datatype: Float_32
+        knowledge = NewPlanMessage()
+        knowledge._NewPlan= "SET VALUE"    # datatype: boolean
+        _success = self.knowledge.write(cls=knowledge)
+        knowledge = direction()
+        knowledge._omega= "SET VALUE"    # datatype: Float64
+        knowledge._duration= "SET VALUE"    # datatype: Float64
         _success = self.knowledge.write(cls=knowledge)
 
+        self.eventHandler.send(eventName='plan')    # LINK <outport> plan
         self.eventHandler.send(eventName='pathEstimate')    # LINK <outport> pathEstimate
 
 
 
     def register_callbacks(self):
-        self.eventHandler.subscribe(eventName='plan', function=self.executer)        # LINK <inport> plan
         self.eventHandler.subscribe(eventName='isLegit', function=self.executer)        # LINK <inport> isLegit
 
 def main(args=None):

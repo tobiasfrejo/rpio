@@ -9,6 +9,12 @@ logger:
 
 knowledgeIn:
   properties:
+    - property:
+        type: "data"
+        name: "Anomaly"
+        class: "Anomaly"
+        topic: "/Anomaly"
+        QoS: 10
 
 knowledgeOut:
   properties:
@@ -21,6 +27,12 @@ knowledgeOut:
 
 eventIn:
   properties:
+    - property:
+        type: "event"
+        name: "Anomaly"
+        class: "-"
+        topic: "/Anomaly"
+        QoS: 10
 
 eventOut:
   properties:

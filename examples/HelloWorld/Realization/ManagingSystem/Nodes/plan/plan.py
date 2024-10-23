@@ -7,7 +7,7 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
-from messages import * 
+from messages import *
 
 
 class plan(Node):
@@ -21,13 +21,13 @@ class plan(Node):
 
     # -----------------------------AUTO-GEN SKELETON FOR planner-----------------------------
     def planner(self):
+        Anomaly = self.knowledge.read("Anomaly",queueSize=1)
 
         #TODO: ADD USER CODE FOR planner
 
 
-        knowledge = predictedPath()
-        knowledge._Confidence= "SET VALUE"    # datatype: Float_64
-        knowledge._Waypoints= "SET VALUE"    # datatype: Float_32
+        knowledge = NewPlanMessage()
+        knowledge._NewPlan= "SET VALUE"    # datatype: boolean
         _success = self.knowledge.write(cls=knowledge)
 
         self.eventHandler.send(eventName='plan')    # LINK <outport> plan
@@ -35,6 +35,7 @@ class plan(Node):
 
 
     def register_callbacks(self):
+        self.eventHandler.subscribe(eventName='Anomaly', function=self.planner)        # LINK <inport> Anomaly
 
 def main(args=None):
 
