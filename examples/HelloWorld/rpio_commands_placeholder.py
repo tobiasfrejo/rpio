@@ -10,8 +10,18 @@ from examples.HelloWorld.Design.HelloWorld_AADLIL import *
 # 2. GENERATE AADL INTERMEDIATE LANGUAGE FROM AADL (NOT IMPLEMENTED YET)
 
 # 2. LOAD THE AADL INTERMEDUATE LANGUAGE (MOCKUP)
-design = HelloWorldDesign()
+design = HelloWorld()
 
 # 3. GENERATE CUSTOM MESSAGES FROM AADL INTERMEDIATE LANGUAGE
+try:
+    message2code_py(system=design, path="Realization/ManagingSystem/Messages")
+    message2code_py(system=design, path="Realization/ManagedSystem/Messages")
+except:
+    print("Failed to generate the messages")
 
 # 4. GENERATE SWC CODE FROM AADL INTERMEDIATE LANGUAGE
+try:
+    swc2code_py(system=design.systems[0],path="Realization/ManagingSystem/Nodes")
+except:
+    print("Failed to generate the messages")
+
