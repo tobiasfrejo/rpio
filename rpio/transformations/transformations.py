@@ -21,11 +21,24 @@ def swc2code_py(system=None,path="output/generated"):
 
     # Load the template
     template = jinja_env.get_template('templates/swc_py.template')
+    templateConfig = jinja_env.get_template('templates/swc_config.template')
+
 
     # Extract all processes from AADL system model
     for process in system.processes:
-        with open(join(path, process.name+".py"), 'w') as f:
+
+        # 0. Generate folder for each AADL process
+        swcFolder = path + "/"+ process.name
+        if not exists(swcFolder):
+            mkdir(swcFolder)
+
+        # 1. Generate code from AADL processes
+        with open(join(swcFolder, process.name+".py"), 'w') as f:
             f.write(template.render(swc=process))
+
+        # 2. Generate config.yaml file from AADL processes
+        with open(join(swcFolder, "config.yaml"), 'w') as f:
+            f.write(templateConfig.render(swc=process))
 
 def message2code_py(system=None,path="output/generated/messages"):
 

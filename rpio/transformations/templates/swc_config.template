@@ -1,0 +1,80 @@
+logger:
+  endpoints:
+    - endpoint:
+        type: "logging"
+        name: "RemoteLog"
+        class: "LogMessage"
+        topic: "/RemoteLog"
+        QoS: 10
+
+knowledgeIn:
+  properties:
+  {% for feature in swc.features %}
+  {% if feature.featureType == 'inport'%}
+  {% if 'data' in feature.type%}
+    - property:
+        type: "data"
+        name: "{{feature.name}}"
+        class: "{{feature.name}}"
+        topic: "/{{feature.name}}"
+        QoS: 10
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+
+knowledgeOut:
+  properties:
+  {% for feature in swc.features %}
+  {% if feature.featureType == 'outport'%}
+  {% if 'data' in feature.type%}
+    - property:
+        type: "data"
+        name: "{{feature.name}}"
+        class: "{{feature.name}}"
+        topic: "/{{feature.name}}"
+        QoS: 10
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+
+eventIn:
+  properties:
+  {% for feature in swc.features %}
+  {% if feature.featureType == 'inport'%}
+  {% if 'event' in feature.type%}
+    - property:
+        type: "event"
+        name: "{{feature.name}}"
+        class: "-"
+        topic: "/{{feature.name}}"
+        QoS: 10
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+  {% for thread in swc.threads %}
+  {% if thread.eventTrigger != None%}
+    - property:
+        type: "event"
+        name: "{{thread.eventTrigger}}"
+        class: "-"
+        topic: "/{{thread.eventTrigger}}"
+        QoS: 10
+  {% endif %}
+  {% endfor %}
+
+eventOut:
+  properties:
+  {% for feature in swc.features %}
+  {% if feature.featureType == 'outport'%}
+  {% if 'event' in feature.type%}
+    - property:
+        type: "event"
+        name: "{{feature.name}}"
+        class: "-"
+        topic: "/{{feature.name}}"
+        QoS: 10
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+
+
