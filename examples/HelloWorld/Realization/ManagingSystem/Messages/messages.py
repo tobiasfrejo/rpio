@@ -1,7 +1,7 @@
-class laserScan(object):
+class LaserScan(object):
     def __init__(self):
 
-        self.name= "laserScan"
+        self.name= "LaserScan"
         self._ranges= None
         self._angle_increment= 0.0
 
@@ -27,10 +27,10 @@ class laserScan(object):
         self._angle_increment = cmp
 
 
-class direction(object):
+class Direction(object):
     def __init__(self):
 
-        self.name= "direction"
+        self.name= "Direction"
         self._omega= None
         self._duration= None
 
@@ -60,18 +60,18 @@ class AnomalyMessage(object):
     def __init__(self):
 
         self.name= "AnomalyMessage"
-        self._Anomaly= None
+        self._anomaly= None
 
 
     @property
-    def Anomaly(self):
-        """The Anomaly (read-only)."""
-        return self._Anomaly
+    def anomaly(self):
+        """The anomaly (read-only)."""
+        return self._anomaly
 
-    @Anomaly.setter
-    def Anomaly(self, cmp):
-        """The Anomaly (write)."""
-        self._Anomaly = cmp
+    @anomaly.setter
+    def anomaly(self, cmp):
+        """The anomaly (write)."""
+        self._anomaly = cmp
 
 
 class NewPlanMessage(object):

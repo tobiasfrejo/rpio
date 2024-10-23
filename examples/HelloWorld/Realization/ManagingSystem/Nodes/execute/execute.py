@@ -10,13 +10,13 @@ from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
 
 
-class execute(Node):
+class Execute(Node):
 
     def __init__(self, config='config.yaml',verbose=False):
         super().__init__(config=config,verbose=verbose)
 
-        self._name = "execute"
-        self.logger.log("execute instantiated")
+        self._name = "Execute"
+        self.logger.log("Execute instantiated")
 
 
     # -----------------------------AUTO-GEN SKELETON FOR executer-----------------------------
@@ -29,7 +29,7 @@ class execute(Node):
         knowledge = NewPlanMessage()
         knowledge._NewPlan= "SET VALUE"    # datatype: boolean
         _success = self.knowledge.write(cls=knowledge)
-        knowledge = direction()
+        knowledge = Direction()
         knowledge._omega= "SET VALUE"    # datatype: Float64
         knowledge._duration= "SET VALUE"    # datatype: Float64
         _success = self.knowledge.write(cls=knowledge)
@@ -44,7 +44,7 @@ class execute(Node):
 
 def main(args=None):
 
-    node = execute()
+    node = Execute()
     node.register_callbacks()
     node.start()
 

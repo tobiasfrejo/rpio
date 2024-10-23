@@ -10,13 +10,13 @@ from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
 
 
-class plan(Node):
+class Plan(Node):
 
     def __init__(self, config='config.yaml',verbose=False):
         super().__init__(config=config,verbose=verbose)
 
-        self._name = "plan"
-        self.logger.log("plan instantiated")
+        self._name = "Plan"
+        self.logger.log("Plan instantiated")
 
 
     # -----------------------------AUTO-GEN SKELETON FOR planner-----------------------------
@@ -39,7 +39,7 @@ class plan(Node):
 
 def main(args=None):
 
-    node = plan()
+    node = Plan()
     node.register_callbacks()
     node.start()
 

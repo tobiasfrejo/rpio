@@ -11,35 +11,35 @@ knowledgeIn:
   properties:
     - property:
         type: "data"
-        name: "laserScan"
-        class: "laserScan"
-        topic: "/laserScan"
+        name: "laser_scan"
+        class: "laser_scan"
+        topic: "/laser_scan"
         QoS: 10
 
 knowledgeOut:
   properties:
     - property:
         type: "data"
-        name: "Anomaly"
-        class: "Anomaly"
-        topic: "/Anomaly"
+        name: "anomaly"
+        class: "anomaly"
+        topic: "/anomaly"
         QoS: 10
 
 eventIn:
   properties:
     - property:
         type: "event"
-        name: "laserScan"
+        name: "laser_scan"
         class: "-"
-        topic: "/laserScan"
+        topic: "/laser_scan"
         QoS: 10
 
 eventOut:
   properties:
     - property:
         type: "event"
-        name: "Anomaly"
+        name: "anomaly"
         class: "-"
-        topic: "/Anomaly"
+        topic: "/anomaly"
         QoS: 10
 

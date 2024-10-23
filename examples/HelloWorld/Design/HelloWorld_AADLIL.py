@@ -14,33 +14,33 @@ def HelloWorld():
     ranges = data(name='ranges', dataType="array")
     angle_increment = data(name= 'angle_increment', dataType="Float_64")
 
-    laserScan = message(name="laserScan",featureList=[ranges,angle_increment])
+    laser_scan = message(name="LaserScan",featureList=[ranges,angle_increment])
 
     # rotationAction message
     omega = data(name="omega",dataType="Float64")
     duration = data(name="duration",dataType="Float64")
-    direction = message(name="direction",featureList=[omega,duration])
+    direction = message(name="Direction",featureList=[omega,duration])
 
     # anomaly message
-    Anomaly = data(name="Anomaly",dataType="Boolean")
-    AnomalyMessage = message(name="AnomalyMessage",featureList=[Anomaly])
+    anomaly = data(name="anomaly",dataType="Boolean")
+    anomaly_message = message(name="AnomalyMessage",featureList=[anomaly])
 
-    newPlan = data(name="NewPlan",dataType="boolean")
-    newPlanMessage = message(name="NewPlanMessage",featureList=[newPlan])
+    new_plan = data(name="NewPlan",dataType="boolean")
+    new_plan_message = message(name="NewPlanMessage",featureList=[new_plan])
 
     # legitimate message
-    Legitimate = data(name="legitimate",dataType="Boolean")
-    legitimateMessage = message(name="legitimateMessage",featureList=[Legitimate])
+    legitimate = data(name="legitimate",dataType="Boolean")
+    legitimate_message = message(name="LegitimateMessage",featureList=[legitimate])
 
     #-----------------------------------------------------------------------------------------------------------------------
     #--------------------------------------- LOGICAL ARCHITECTURE ----------------------------------------------------------
     #-----------------------------------------------------------------------------------------------------------------------
-    adaptiveSystem = system(name="adaptiveSystem", description="Example adaptive system",messageList=[laserScan,direction,AnomalyMessage,newPlanMessage])
+    adaptiveSystem = system(name="adaptiveSystem", description="Example adaptive system",messageList=[laser_scan,direction,anomaly_message,new_plan_message])
 
     #-A- --- managed system ---
     managedSystem = system(name="managedSystem", description="managed system part")
 
-    laserScan_OUT = outport(name="laserScan",type="event data", message= laserScan)
+    laserScan_OUT = outport(name="laser_scan",type="event data", message= laser_scan)
     direction_IN = inport(name="direction",type="event data", message=direction)
 
     managedSystem.addFeature(laserScan_OUT)
@@ -50,46 +50,49 @@ def HelloWorld():
 
     managingSystem = system(name="managingSystem", description="managing system part")
 
-    laserScan_IN = inport(name="laserScan",type="event data", message=laserScan)
+    laser_scan_IN = inport(name="laser_scan",type="event data", message=laser_scan)
     direction_OUT = outport(name="direction",type="event data", message=direction)
 
-    managingSystem.addFeature(laserScan_IN)
+    managingSystem.addFeature(laser_scan_IN)
     managingSystem.addFeature(direction_OUT)
 
     # connections
-    c1 = connection(source=laserScan_OUT, destination=laserScan_IN)
+    c1 = connection(source=laserScan_OUT, destination=laser_scan_IN)
     c2 = connection(source=direction_OUT, destination=direction_IN)
 
 
     #---------------------COMPONENT LEVEL---------------------------
 
     #-MONITOR-
-    monitor = process(name="monitor", description="monitor component")
+    monitor = process(name="Monitor", description="monitor component")
 
-    _laserScan = inport(name="laserScan",type="event data", message=laserScan)
+    _laserScan = inport(name="laser_scan",type="event data", message=laser_scan_IN)
+
 
     monitor.addFeature(_laserScan)
 
+    monitor_data = thread(name="monitor_data",featureList=[_laserScan],eventTrigger='/Scan')
+    monitor.addThread(monitor_data)
 
     #-ANALYSIS-
-    analysis = process(name="analysis", description="analysis component")
+    analysis = process(name="Analysis", description="analysis component")
 
-    _laserScan = inport(name="laserScan",type="data", message=laserScan)
-    _anomaly = outport(name="Anomaly",type="event data", message=AnomalyMessage)
+    _laserScan = inport(name="laser_scan",type="data", message=laser_scan)
+    _anomaly = outport(name="anomaly",type="event data", message=anomaly_message)
 
     analysis.addFeature(_laserScan)
     analysis.addFeature(_anomaly)
 
-    analyzeScanData = thread(name="analyzeScanData",featureList=[_laserScan,_anomaly],eventTrigger='laserScan')
-    analysis.addThread(analyzeScanData)
+    analyse_scan_data = thread(name="analyse_scan_data",featureList=[_laserScan,_anomaly],eventTrigger='laser_scan')
+    analysis.addThread(analyse_scan_data)
 
 
     #-PLAN-
-    plan = process(name="plan", description="plan component")
+    plan = process(name="Plan", description="plan component")
 
     #TODO: define input
-    _anomaly_detected = inport(name="Anomaly",type="event data", message=AnomalyMessage)
-    _plan = outport(name="plan",type="event data", message=newPlanMessage)
+    _anomaly_detected = inport(name="Anomaly",type="event data", message=anomaly_message)
+    _plan = outport(name="plan",type="event data", message=new_plan_message)
 
     plan.addFeature(_anomaly_detected)
     plan.addFeature(_plan)
@@ -98,13 +101,13 @@ def HelloWorld():
     plan.addThread(planner)
 
     #-LEGITIMATE-
-    legitimate = process(name="legitimate", description="legitimate component")
+    legitimate = process(name="Legitimate", description="legitimate component")
 
     #-EXECUTE-
-    execute = process(name="execute", description="execute component")
+    execute = process(name="Execute", description="execute component")
 
     _directionPlan = inport(name="plan",type="event data", message=direction)
-    _isLegit = inport(name="isLegit",type="event data", message=legitimateMessage)
+    _isLegit = inport(name="isLegit",type="event data", message=legitimate_message)
     _directions = outport(name="pathEstimate",type="event data", message=direction)
 
     execute.addFeature(_directionPlan)
