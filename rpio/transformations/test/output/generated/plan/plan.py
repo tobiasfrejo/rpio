@@ -19,11 +19,27 @@ class plan(Node):
         self.logger.log("plan instantiated")
 
 
+    # -----------------------------AUTO-GEN SKELETON FOR planner-----------------------------
+    def planner(self):
 
+        #TODO: ADD USER CODE FOR planner
+
+
+        knowledge = predictedPath()
+        knowledge._Confidence= "SET VALUE"    # datatype: Float_64
+        knowledge._Waypoints= "SET VALUE"    # datatype: Float_32
+        _success = self.knowledge.write(cls=knowledge)
+
+        self.eventHandler.send(eventName='plan')    # LINK <outport> plan
+
+
+
+    def register_callbacks(self):
 
 def main(args=None):
 
     node = plan()
+    node.register_callbacks()
     node.start()
 
 if __name__ == '__main__':

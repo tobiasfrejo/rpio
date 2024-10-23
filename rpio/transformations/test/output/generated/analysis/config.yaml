@@ -29,9 +29,9 @@ eventIn:
   properties:
     - property:
         type: "event"
-        name: "pathEstimate"
+        name: "anomaly"
         class: "-"
-        topic: "/pathEstimate"
+        topic: "/anomaly"
         QoS: 10
 
 eventOut:

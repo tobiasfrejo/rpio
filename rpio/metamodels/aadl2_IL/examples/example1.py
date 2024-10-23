@@ -95,21 +95,20 @@ def example():
     monitor.addFeature(_pathEstimate)
 
     shipPoseEstimation = thread(name="shipPoseEstimation",featureList=[_weatherConditions,_shipPose,_shipAction,_pathEstimate],eventTrigger='newData')
-
     monitor.addThread(shipPoseEstimation)
 
 
     #-ANALYSIS-
     analysis = process(name="analysis", description="analysis component")
 
-    _pathEstimate = inport(name="pathEstimate",type="event data", message=predictedPath)
+    _pathEstimate = inport(name="pathEstimate",type="data", message=predictedPath)
     _pathAnomaly = outport(name="pathAnomaly",type="event data", message=AnomalyMessage)
 
     analysis.addFeature(_pathEstimate)
     analysis.addFeature(_pathAnomaly)
 
-    analyzePathPredictions = thread(name="analyzePathPredictions",featureList=[_pathEstimate,_pathAnomaly])
-
+    analyzePathPredictions = thread(name="analyzePathPredictions",featureList=[_pathEstimate,_pathAnomaly],eventTrigger='anomaly')
+    analysis.addThread(analyzePathPredictions)
 
 
     #-PLAN-
@@ -121,6 +120,7 @@ def example():
     plan.addFeature(_plan)
 
     planner = thread(name="planner",featureList=[_plan])
+    plan.addThread(planner)
 
     #-LEGITIMATE-
     legitimate = process(name="legitimate", description="legitimate component")
@@ -137,6 +137,7 @@ def example():
     execute.addFeature(_pathEstimate)
 
     executer = thread(name="executer",featureList=[_plan,_isLegit,_pathEstimate])
+    execute.addThread(executer)
 
     #-KNOWLEDGE-
     knowledge = process(name="knowledge", description="knowledge component")
