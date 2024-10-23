@@ -33,6 +33,7 @@ class monitor(Node):
     def register_callbacks(self):
         self.eventHandler.subscribe(eventName='event2', function=self.function1)
         self.eventHandler.subscribe(eventName='event3', function=self.function2)
+        #self.register_event_callback(eventName='event3', function=self.function2)
 
     def function1(self):
         print("Function 1 triggered from event2")
