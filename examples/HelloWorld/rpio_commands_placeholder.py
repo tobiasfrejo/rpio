@@ -21,7 +21,7 @@ except:
 
 # 4. GENERATE SWC CODE FROM AADL INTERMEDIATE LANGUAGE
 try:
-    swc2code_py(system=design.systems[0],path="Realization/ManagingSystem/Nodes")
+    swc2code_py(system=design,path="Realization/ManagingSystem/Nodes")
 except:
     print("Failed to generate the messages")
 

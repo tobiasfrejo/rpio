@@ -7,7 +7,7 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
-from ..messages.messages import *
+from ...Messages.messages import *
 
 
 class analysis(Node):

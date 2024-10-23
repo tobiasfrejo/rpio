@@ -7,7 +7,7 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
-from ...Messages.messages import *
+from messages import * 
 
 
 class execute(Node):
