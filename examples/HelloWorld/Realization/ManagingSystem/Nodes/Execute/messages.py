@@ -92,3 +92,21 @@ class NewPlanMessage(object):
         self._NewPlan = cmp
 
 
+class new_data_message(object):
+    def __init__(self):
+
+        self.name= "new_data_message"
+        self._new_data= None
+
+
+    @property
+    def new_data(self):
+        """The new_data (read-only)."""
+        return self._new_data
+
+    @new_data.setter
+    def new_data(self, cmp):
+        """The new_data (write)."""
+        self._new_data = cmp
+
+

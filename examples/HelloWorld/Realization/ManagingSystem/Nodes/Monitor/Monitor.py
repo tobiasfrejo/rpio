@@ -10,36 +10,37 @@ from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
 
 
-class Plan(Node):
+class Monitor(Node):
 
     def __init__(self, config='config.yaml',verbose=True):
         super().__init__(config=config,verbose=verbose)
 
-        self._name = "Plan"
-        self.logger.log("Plan instantiated")
+        self._name = "Monitor"
+        self.logger.log("Monitor instantiated")
 
 
-    # -----------------------------AUTO-GEN SKELETON FOR planner-----------------------------
-    def planner(self):
-        Anomaly = self.knowledge.read("Anomaly",queueSize=1)
+    # -----------------------------AUTO-GEN SKELETON FOR monitor_data-----------------------------
+    def monitor_data(self,msg):
+        self.logger.log("monitor_data executing...")
 
-        #TODO: ADD USER CODE FOR planner
+        #TODO: ADD USER CODE FOR monitor_data
 
 
-        knowledge = NewPlanMessage()
-        knowledge._NewPlan= "SET VALUE"    # datatype: boolean
+        knowledge = LaserScan()
+        knowledge._ranges= "SET VALUE"    # datatype: array
+        knowledge._angle_increment= "SET VALUE"    # datatype: Float_64
         _success = self.knowledge.write(cls=knowledge)
 
-        self.eventHandler.send(eventName='plan')    # LINK <outport> plan
+        self.publish_event(eventName='new_data')    # LINK <outport> new_data
 
 
 
     def register_callbacks(self):
-        self.eventHandler.subscribe(eventName='Anomaly', function=self.planner)        # LINK <inport> Anomaly
+        self.register_event_callback(eventName='scan', function=self.monitor_data)        # LINK <inport> scan
 
 def main(args=None):
 
-    node = Plan()
+    node = Monitor()
     node.register_callbacks()
     node.start()
 

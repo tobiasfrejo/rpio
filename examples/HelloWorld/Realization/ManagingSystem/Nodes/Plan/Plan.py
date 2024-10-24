@@ -10,41 +10,37 @@ from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
 
 
-class Execute(Node):
+class Plan(Node):
 
     def __init__(self, config='config.yaml',verbose=True):
         super().__init__(config=config,verbose=verbose)
 
-        self._name = "Execute"
-        self.logger.log("Execute instantiated")
+        self._name = "Plan"
+        self.logger.log("Plan instantiated")
 
 
-    # -----------------------------AUTO-GEN SKELETON FOR executer-----------------------------
-    def executer(self):
-        isLegit = self.knowledge.read("isLegit",queueSize=1)
+    # -----------------------------AUTO-GEN SKELETON FOR planner-----------------------------
+    def planner(self,msg):
+        self.logger.log("planner executing...")
+        Anomaly = self.knowledge.read("Anomaly",queueSize=1)
 
-        #TODO: ADD USER CODE FOR executer
+        #TODO: ADD USER CODE FOR planner
 
 
         knowledge = NewPlanMessage()
         knowledge._NewPlan= "SET VALUE"    # datatype: boolean
         _success = self.knowledge.write(cls=knowledge)
-        knowledge = Direction()
-        knowledge._omega= "SET VALUE"    # datatype: Float64
-        knowledge._duration= "SET VALUE"    # datatype: Float64
-        _success = self.knowledge.write(cls=knowledge)
 
-        self.eventHandler.send(eventName='plan')    # LINK <outport> plan
-        self.eventHandler.send(eventName='pathEstimate')    # LINK <outport> pathEstimate
+        self.publish_event(eventName='plan')    # LINK <outport> plan
 
 
 
     def register_callbacks(self):
-        self.eventHandler.subscribe(eventName='isLegit', function=self.executer)        # LINK <inport> isLegit
+        self.register_event_callback(eventName='Anomaly', function=self.planner)        # LINK <inport> Anomaly
 
 def main(args=None):
 
-    node = Execute()
+    node = Plan()
     node.register_callbacks()
     node.start()
 

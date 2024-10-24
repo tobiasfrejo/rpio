@@ -18,21 +18,9 @@ knowledgeIn:
 
 knowledgeOut:
   properties:
-    - property:
-        type: "data"
-        name: "anomaly"
-        class: "anomaly"
-        topic: "/anomaly"
-        QoS: 10
 
 eventIn:
   properties:
-    - property:
-        type: "event"
-        name: "laser_scan"
-        class: "-"
-        topic: "/laser_scan"
-        QoS: 10
 
 eventOut:
   properties:

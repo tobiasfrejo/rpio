@@ -1,0 +1,27 @@
+logger:
+  endpoints:
+    - endpoint:
+        type: "logging"
+        name: "RemoteLog"
+        class: "LogMessage"
+        topic: "/RemoteLog"
+        QoS: 10
+
+knowledgeIn:
+  properties:
+
+knowledgeOut:
+  properties:
+
+eventIn:
+  properties:
+    - property:
+        type: "event"
+        name: "scan"
+        class: "-"
+        topic: "/scan"
+        QoS: 10
+
+eventOut:
+  properties:
+
