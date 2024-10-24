@@ -10,20 +10,20 @@ from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
 
 
-class monitor(Node):
+class Legitimate(Node):
 
-    def __init__(self, config='config.yaml',verbose=False):
+    def __init__(self, config='config.yaml',verbose=True):
         super().__init__(config=config,verbose=verbose)
 
-        self._name = "monitor"
-        self.logger.log("monitor instantiated")
+        self._name = "Legitimate"
+        self.logger.log("Legitimate instantiated")
 
 
 
 
 def main(args=None):
 
-    node = monitor()
+    node = Legitimate()
     node.start()
 
 if __name__ == '__main__':
