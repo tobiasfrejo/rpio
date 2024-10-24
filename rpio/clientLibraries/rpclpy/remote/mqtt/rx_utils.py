@@ -57,9 +57,12 @@ class Logger():
     def EnterConfigurationMode(self):
         with open(self._cfg, 'r') as file:
             cfg = yaml.safe_load(file)
-            for msg in cfg["logger"]["endpoints"]:
-                p = msg["endpoint"]
-                self._create_publisher(cls=p["class"], name=p["name"], topic=p["topic"],QoS=p["QoS"])
+            try:
+                for msg in cfg["logger"]["endpoints"]:
+                    p = msg["endpoint"]
+                    self._create_publisher(cls=p["class"], name=p["name"], topic=p["topic"],QoS=p["QoS"])
+            except:
+                if self._verbose:print("ERROR - No logging endpoint registered")
 
     def ExitConfigurationMode(self):
         if self._verbose:print("ExitConfigurationMode not implemented")
@@ -127,10 +130,13 @@ class Knowledge():
     def EnterConfigurationMode(self):
         with open(self._cfg, 'r') as file:
             cfg = yaml.safe_load(file)
-            for msg in cfg["knowledgeOut"]["properties"]:
-                p = msg["property"]
-                self._create_publisher(cls=p["class"], name=p["name"], topic=p["topic"],QoS=p["QoS"])
-            #TODO:configure the subscribers
+            try:
+                for msg in cfg["knowledgeOut"]["properties"]:
+                    p = msg["property"]
+                    self._create_publisher(cls=p["class"], name=p["name"], topic=p["topic"],QoS=p["QoS"])
+                #TODO:configure the subscribers
+            except:
+                if self._verbose:print("WARNING: No Knowledge Out properties found")
 
     def ExitConfigurationMode(self):
         if self._verbose:print("ExitConfigurationMode not implemented")
@@ -214,13 +220,19 @@ class EventHandler():
     def EnterConfigurationMode(self):
         with open(self._cfg, 'r') as file:
             cfg = yaml.safe_load(file)
-            for msg in cfg["eventOut"]["properties"]:
-                p = msg["property"]
-                self._create_publisher(cls=p["class"], name=p["name"], topic=p["topic"],QoS=p["QoS"])
+            try:
+                for msg in cfg["eventOut"]["properties"]:
+                    p = msg["property"]
+                    self._create_publisher(cls=p["class"], name=p["name"], topic=p["topic"],QoS=p["QoS"])
+            except:
+                if self._verbose: print("WARNING: No Event Out properties found")
 
-            for msg in cfg["eventIn"]["properties"]:
-                p = msg["property"]
-                self._create_subscription(cls=p["class"], name=p["name"], topic=p["topic"], QoS=p["QoS"])
+            try:
+                for msg in cfg["eventIn"]["properties"]:
+                    p = msg["property"]
+                    self._create_subscription(cls=p["class"], name=p["name"], topic=p["topic"], QoS=p["QoS"])
+            except:
+                if self._verbose: print("WARNING: No Event in properties found")
 
     def ExitConfigurationMode(self):
         if self._verbose:print("ExitConfigurationMode not implemented")
