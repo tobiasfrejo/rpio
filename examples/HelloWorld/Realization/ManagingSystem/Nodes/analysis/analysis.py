@@ -12,7 +12,7 @@ from messages import *
 
 class analysis(Node):
 
-    def __init__(self, config='config.yaml',verbose=False):
+    def __init__(self, config='config.yaml',verbose=True):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "analysis"
