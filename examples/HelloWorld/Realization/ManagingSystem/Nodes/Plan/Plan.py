@@ -16,12 +16,12 @@ class Plan(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "Plan"
-        self.logger.log("Plan instantiated")
+        self.logger.info("Plan instantiated")
 
 
     # -----------------------------AUTO-GEN SKELETON FOR planner-----------------------------
     def planner(self,msg):
-        self.logger.log("planner executing...")
+        self.logger.info("planner executing...")
         Anomaly = self.knowledge.read("Anomaly",queueSize=1)
 
         #TODO: ADD USER CODE FOR planner

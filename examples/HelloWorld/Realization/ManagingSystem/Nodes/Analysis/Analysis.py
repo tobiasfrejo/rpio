@@ -16,12 +16,12 @@ class Analysis(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "Analysis"
-        self.logger.log("Analysis instantiated")
+        self.logger.info("Analysis instantiated")
 
 
     # -----------------------------AUTO-GEN SKELETON FOR analyse_scan_data-----------------------------
     def analyse_scan_data(self,msg):
-        self.logger.log("analyse_scan_data executing...")
+        self.logger.info("analyse_scan_data executing...")
         laser_scan = self.knowledge.read("laser_scan",queueSize=1)
 
         #TODO: ADD USER CODE FOR analyse_scan_data

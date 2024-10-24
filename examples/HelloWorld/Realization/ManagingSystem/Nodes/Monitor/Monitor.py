@@ -16,12 +16,12 @@ class Monitor(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "Monitor"
-        self.logger.log("Monitor instantiated")
+        self.logger.info("Monitor instantiated")
 
 
     # -----------------------------AUTO-GEN SKELETON FOR monitor_data-----------------------------
     def monitor_data(self,msg):
-        self.logger.log("monitor_data executing...")
+        self.logger.info("monitor_data executing...")
 
         #TODO: ADD USER CODE FOR monitor_data
 

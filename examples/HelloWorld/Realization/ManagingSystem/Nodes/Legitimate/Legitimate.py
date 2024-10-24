@@ -16,7 +16,7 @@ class Legitimate(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "Legitimate"
-        self.logger.log("Legitimate instantiated")
+        self.logger.info("Legitimate instantiated")
 
 
 

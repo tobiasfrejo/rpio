@@ -16,13 +16,13 @@ class {{swc.name}}(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "{{swc.name}}"
-        self.logger.log("{{swc.name}} instantiated")
+        self.logger.info("{{swc.name}} instantiated")
 
 
     {% for thread in swc.threads %}
     # -----------------------------AUTO-GEN SKELETON FOR {{thread.name}}-----------------------------
     def {{thread.name}}(self,msg):
-        self.logger.log("{{thread.name}} executing...")
+        self.logger.info("{{thread.name}} executing...")
         {% for feature in thread.features %}
         {% if feature.featureType == 'inport'%}
         {% if 'data' in feature.type%}

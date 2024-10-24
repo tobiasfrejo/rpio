@@ -16,12 +16,12 @@ class Execute(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "Execute"
-        self.logger.log("Execute instantiated")
+        self.logger.info("Execute instantiated")
 
 
     # -----------------------------AUTO-GEN SKELETON FOR executer-----------------------------
     def executer(self,msg):
-        self.logger.log("executer executing...")
+        self.logger.info("executer executing...")
         isLegit = self.knowledge.read("isLegit",queueSize=1)
 
         #TODO: ADD USER CODE FOR executer
