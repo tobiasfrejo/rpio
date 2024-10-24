@@ -31,7 +31,7 @@ eventIn:
         type: "event"
         name: "Anomaly"
         class: "-"
-        topic: "/Anomaly"
+        topic: "event/Anomaly"
         QoS: 10
 
 eventOut:

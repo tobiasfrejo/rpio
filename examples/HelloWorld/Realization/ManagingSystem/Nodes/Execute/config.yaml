@@ -37,13 +37,13 @@ eventIn:
         type: "event"
         name: "plan"
         class: "-"
-        topic: "/plan"
+        topic: "event/plan"
         QoS: 10
     - property:
         type: "event"
         name: "isLegit"
         class: "-"
-        topic: "/isLegit"
+        topic: "event/isLegit"
         QoS: 10
 
 eventOut:

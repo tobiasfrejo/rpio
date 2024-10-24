@@ -46,7 +46,7 @@ eventIn:
         type: "event"
         name: "{{feature.name}}"
         class: "-"
-        topic: "/{{feature.name}}"
+        topic: "event/{{feature.name}}"
         QoS: 10
   {% endif %}
   {% endif %}
@@ -57,7 +57,7 @@ eventIn:
         type: "event"
         name: "{{thread.eventTrigger}}"
         class: "-"
-        topic: "/{{thread.eventTrigger}}"
+        topic: "event/{{thread.eventTrigger}}"
         QoS: 10
   {% endif %}
   {% endfor %}

@@ -20,22 +20,20 @@ class Analysis(Node):
 
 
     # -----------------------------AUTO-GEN SKELETON FOR analyse_scan_data-----------------------------
-    def analyse_scan_data(self):
+    def analyse_scan_data(self,msg):
+        self.logger.log("analyse_scan_data executing...")
         laser_scan = self.knowledge.read("laser_scan",queueSize=1)
 
         #TODO: ADD USER CODE FOR analyse_scan_data
 
 
-        knowledge = AnomalyMessage()
-        knowledge._anomaly= "SET VALUE"    # datatype: Boolean
-        _success = self.knowledge.write(cls=knowledge)
 
-        self.eventHandler.send(eventName='anomaly')    # LINK <outport> anomaly
+        self.publish_event(eventName='anomaly')    # LINK <outport> anomaly
 
 
 
     def register_callbacks(self):
-        self.eventHandler.subscribe(eventName='laser_scan', function=self.analyse_scan_data)     # LINK <eventTrigger> laser_scan
+        self.register_event_callback(eventName='new_data', function=self.analyse_scan_data)        # LINK <inport> new_data
 
 def main(args=None):
 

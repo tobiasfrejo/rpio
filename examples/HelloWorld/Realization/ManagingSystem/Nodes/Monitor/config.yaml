@@ -19,7 +19,7 @@ eventIn:
         type: "event"
         name: "scan"
         class: "-"
-        topic: "/scan"
+        topic: "event/scan"
         QoS: 10
 
 eventOut:
