@@ -8,45 +8,23 @@
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
-import time
 
-class Monitor(Node):
+
+class monitor(Node):
 
     def __init__(self, config='config.yaml',verbose=False):
-        super().__init__(config)
+        super().__init__(config=config,verbose=verbose)
 
-        self._name = "Monitor"
-        self.logger.info("Monitor instantiated")
-
-
-    # -----------------------------AUTO-GEN SKELETON FOR monitor_data-----------------------------
-    def monitor_data(self, payload):
-        laser_scan = self.knowledge.read("laser_scan",queueSize=1)
-
-        #TODO: ADD USER CODE FOR monitor_data
+        self._name = "monitor"
+        self.logger.log("monitor instantiated")
 
 
 
-
-
-
-    def register_callbacks(self):
-        self.event_handler.subscribe('/Scan', self.monitor_data)     # LINK <eventTrigger> /Scan
-        self.event_handler.subscribe('laser_scan', self.monitor_data)        # LINK <inport> laser_scan
 
 def main(args=None):
 
-    node = Monitor("config.yaml")
-
-    node.register_callbacks()
+    node = monitor()
     node.start()
 
 if __name__ == '__main__':
     main()
-    try:
-
-        print("Script is running. Press Ctrl+C to stop.")
-        while True:
-            time.sleep(1)  # Sleep to avoid busy-waiting
-    except KeyboardInterrupt:
-        print("\nKeyboard interruption detected. Exiting...")

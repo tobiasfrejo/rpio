@@ -21,7 +21,7 @@ class {{swc.name}}(Node):
 
     {% for thread in swc.threads %}
     # -----------------------------AUTO-GEN SKELETON FOR {{thread.name}}-----------------------------
-    def {{thread.name}}(self):
+    def {{thread.name}}(self,msg):
         {% for feature in thread.features %}
         {% if feature.featureType == 'inport'%}
         {{feature.name}} = self.knowledge.read("{{feature.name}}",queueSize=1)
@@ -47,7 +47,7 @@ class {{swc.name}}(Node):
         {% for feature in thread.features %}
         {% if feature.featureType == 'outport'%}
         {% if 'event' in feature.type%}
-        self.eventHandler.send(eventName='{{feature.name}}')    # LINK <outport> {{feature.name}}
+        self.publish_event(eventName='{{feature.name}}')    # LINK <outport> {{feature.name}}
         {% endif %}
         {% endif %}
         {% endfor %}
@@ -60,13 +60,13 @@ class {{swc.name}}(Node):
         {# {{ EVENT TRIGGERS ON THREADS }} #}
         {% for thread in swc.threads %}
         {% if thread.eventTrigger != None%}
-        self.eventHandler.subscribe(eventName='{{thread.eventTrigger}}', function=self.{{thread.name}})     # LINK <eventTrigger> {{thread.eventTrigger}}
+        self.register_event_callback(eventName='{{thread.eventTrigger}}', function=self.{{thread.name}})     # LINK <eventTrigger> {{thread.eventTrigger}}
         {% endif %}
         {# {{ EVENT TRIGGERS FROM INPORT EVENT OR EVENT DATA }} #}
         {% for feature in thread.features %}
         {% if feature.featureType == 'inport'%}
         {% if 'event' in feature.type%}
-        self.eventHandler.subscribe(eventName='{{feature.name}}', function=self.{{thread.name}})        # LINK <inport> {{feature.name}}
+        self.register_event_callback(eventName='{{feature.name}}', function=self.{{thread.name}})        # LINK <inport> {{feature.name}}
         {% endif %}
         {% endif %}
         {% endfor %}
