@@ -118,7 +118,6 @@ class Plan(Node):
 
     # -----------------------------AUTO-GEN SKELETON FOR planner-----------------------------
     def planner(self,msg):
-        # anomaly = self.knowledge.read("anomaly",queueSize=1)
         _NewPlanMessage = NewPlanMessage()
         _Direction = Direction()
 
@@ -166,7 +165,7 @@ class Plan(Node):
 
         if new_plan:
             self.event_handler.send("new_plan")
-            self.knowledge.write("direction", json.dumps({'commands': directions, 'period': 8}))
+            self.knowledge.write("directions", json.dumps({'commands': directions, 'period': 8}))
             self.logger.info(f"Stored planned action: {directions}")
         #<!-- cc_code_planner END--!>
 
@@ -175,6 +174,7 @@ class Plan(Node):
 
     def register_callbacks(self):
         self.register_event_callback(event_key='anomaly', callback=self.planner)     # LINK <eventTrigger> anomaly
+        # self.register_event_callback(event_key='anomaly', callback=self.planner)        # LINK <inport> anomaly
 
 def main(args=None):
 
