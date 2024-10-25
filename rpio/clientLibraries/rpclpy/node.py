@@ -8,7 +8,6 @@ class Node:
         self.config = self.load_config(config)
         self.logger = self.initialize_logger()
         self.knowledge = self.initialize_knowledge()  # Initialize knowledge within the component
-        
         self.event_handler = self.initialize_event_handler()  # Initialize Event manager
         
         
@@ -73,27 +72,7 @@ class Node:
         else:
             self.logger.warning("Event manager is not set for Event publishing.")
 
-    def publish_mqtt(self, topic, message):
-        """Publish message using the Event manager."""
-        if self.event_handler:
-            self.event_handler.publish_mqtt(topic, message)
-        else:
-            self.logger.warning("Event manager is not set for MQTT publishing.")
 
-    def publish_ros2(self, topic, message):
-        """Publish message using the Event manager."""
-        if self.event_handler:
-            self.event_handler.publish_ros2(topic, message)
-        else:
-            self.logger.warning("Event manager is not set for ROS2 publishing.")
-
-    def publish_redis(self, topic, message):
-        """Publish message using the Event manager."""
-        if self.event_handler:
-            self.event_handler.publish_redis(topic, message)
-        else:
-            self.logger.warning("Event manager is not set for MQTT publishing.")
-            
     def register_event_callback(self, event_key, callback):
         """Register a callback for Event manager events (MQTT or Redis)."""
         if self.event_handler:

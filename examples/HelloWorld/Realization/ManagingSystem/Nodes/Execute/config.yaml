@@ -54,10 +54,10 @@ mqtt_broker: "localhost"
 mqtt_port: 1883
 
 mqtt_subscribe_topics:
-  - "/Scan"
+  - "new_plan"
 
 mqtt_publish_topics:
-  - "monitor/event"
+  - "/spin_config"
 
 redis_host: "localhost"
 redis_port: 6379

@@ -18,6 +18,7 @@ class EventHandler:
         self.event_callbacks = {}  # Store callbacks for MQTT, Redis
 
         # MQTT and Redis topics/keys from config
+        
         self.mqtt_subscribe_topics = self.config.get("mqtt_subscribe_topics", [])
         self.mqtt_publish_topics = self.config.get("mqtt_publish_topics", [])
         self.redis_keys = self.config.get("redis_keys", [])

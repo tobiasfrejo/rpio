@@ -10,7 +10,8 @@ from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
 import time
 #<!-- cc_include START--!>
-# user includes here
+import json
+import pickle
 #<!-- cc_include END--!>
 
 #<!-- cc_code START--!>
@@ -31,18 +32,16 @@ class Execute(Node):
 
     # -----------------------------AUTO-GEN SKELETON FOR executer-----------------------------
     def executer(self,msg):
-        new_plan = self.knowledge.read("new_plan",queueSize=1)
         isLegit = self.knowledge.read("isLegit",queueSize=1)
-        directions = self.knowledge.read("directions",queueSize=1)
+        directions = self.knowledge.read("direction",queueSize=1)
 
         #<!-- cc_code_executer START--!>
+        self.event_handler.send('/spin_config', json.dumps(directions))
 
         # user code here for executer
 
-
+        # self.publish_event(event_key='spin_config')  # LINK <outport> spin_config
         #<!-- cc_code_executer END--!>
-
-        self.publish_event(event_key='spin_config')    # LINK <outport> spin_config
 
     def register_callbacks(self):
         self.register_event_callback(event_key='new_plan', callback=self.executer)        # LINK <inport> new_plan
