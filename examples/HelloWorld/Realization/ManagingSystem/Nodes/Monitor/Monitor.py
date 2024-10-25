@@ -33,7 +33,8 @@ class Monitor(Node):
         laser_scan = self.knowledge.read("laser_scan",queueSize=1)
 
         #<!-- cc_code_monitor_data START--!>
-        # user code here for monitor_data
+        self.knowledge.write("laser_scan", msg)
+        self.logger.info(f"new data arrived: {msg}")
         #<!-- cc_code_monitor_data END--!>
 
 

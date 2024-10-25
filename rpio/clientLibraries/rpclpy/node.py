@@ -66,10 +66,10 @@ class Node:
         if self.event_handler:
             self.event_handler.shutdown()
 
-    def publish_event(self, event_name, message = True):
+    def publish_event(self, event_key, message = True):
         """Publish Event using the Event manager."""
         if self.event_handler:
-            self.event_handler.send(event_name, message)
+            self.event_handler.send(event_key, message)
         else:
             self.logger.warning("Event manager is not set for Event publishing.")
 
