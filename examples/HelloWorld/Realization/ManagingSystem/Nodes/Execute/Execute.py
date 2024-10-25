@@ -40,7 +40,7 @@ class Execute(Node):
 
 
     def register_callbacks(self):
-        self.register_event_callback(eventName='isLegit', function=self.executer)        # LINK <inport> isLegit
+        self.register_event_callback(event_key='isLegit', callback=self.executer)        # LINK <inport> isLegit
 
 def main(args=None):
 

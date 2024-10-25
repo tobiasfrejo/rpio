@@ -60,13 +60,13 @@ class {{swc.name}}(Node):
         {# {{ EVENT TRIGGERS ON THREADS }} #}
         {% for thread in swc.threads %}
         {% if thread.eventTrigger != None%}
-        self.register_event_callback(eventName='{{thread.eventTrigger}}', function=self.{{thread.name}})     # LINK <eventTrigger> {{thread.eventTrigger}}
+        self.register_event_callback(event_key='{{thread.eventTrigger}}', callback=self.{{thread.name}})     # LINK <eventTrigger> {{thread.eventTrigger}}
         {% endif %}
         {# {{ EVENT TRIGGERS FROM INPORT EVENT OR EVENT DATA }} #}
         {% for feature in thread.features %}
         {% if feature.featureType == 'inport'%}
         {% if 'event' in feature.type%}
-        self.register_event_callback(eventName='{{feature.name}}', function=self.{{thread.name}})        # LINK <inport> {{feature.name}}
+        self.register_event_callback(event_key='{{feature.name}}', callback=self.{{thread.name}})        # LINK <inport> {{feature.name}}
         {% endif %}
         {% endif %}
         {% endfor %}

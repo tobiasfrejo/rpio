@@ -31,8 +31,8 @@ class Monitor(Node):
 
 
     def register_callbacks(self):
-        self.register_event_callback(eventName='/Scan', function=self.monitor_data)     # LINK <eventTrigger> /Scan
-        self.register_event_callback(eventName='laser_scan', function=self.monitor_data)        # LINK <inport> laser_scan
+        self.register_event_callback(event_key='/Scan', callback=self.monitor_data)     # LINK <eventTrigger> /Scan
+        self.register_event_callback(event_key='laser_scan', callback=self.monitor_data)        # LINK <inport> laser_scan
 
 def main(args=None):
 

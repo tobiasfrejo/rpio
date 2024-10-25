@@ -35,7 +35,7 @@ class Analysis(Node):
 
 
     def register_callbacks(self):
-        self.register_event_callback(eventName='laser_scan', function=self.analyse_scan_data)     # LINK <eventTrigger> laser_scan
+        self.register_event_callback(event_key='laser_scan', callback=self.analyse_scan_data)     # LINK <eventTrigger> laser_scan
 
 def main(args=None):
 

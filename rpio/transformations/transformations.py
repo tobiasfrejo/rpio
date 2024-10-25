@@ -7,7 +7,7 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from os import mkdir
-from os.path import exists, dirname, join
+from os.path import exists, dirname, join, isfile
 import jinja2
 
 #-----------------------------------------------------------------------------------
@@ -80,26 +80,30 @@ def swc2code_py(system=None,path="output/generated"):
     for process in managingSystem.processes:
 
         # 0. Generate folder for each AADL process
-        swcFolder = path + "/"+ process.name
+        swcFolder = path + "/" + process.name
         if not exists(swcFolder):
             mkdir(swcFolder)
 
-        # 1. Generate code from AADL processes
+        #1. Check if SWC file exists
+        swcExists = isfile(join(swcFolder, process.name+".py"))
+        print(swcExists)
+
+        # 2. Generate code from AADL processes
         with open(join(swcFolder, process.name+".py"), 'w') as f:
             f.write(template.render(swc=process))
 
-        # 2. Generate config.yaml file from AADL processes
+        # 3. Generate config.yaml file from AADL processes
         with open(join(swcFolder, "config.yaml"), 'w') as f:
             f.write(templateConfig.render(swc=process))
 
-        # 3. Generate messages for standalone components
+        # 4. Generate messages for standalone components
         with open(join(swcFolder, "messages.py"), 'w') as f:
             f.write(templateMessages.render(messages=system.messages))
 
-        # 4. Add requirements.txt
+        # 5. Add requirements.txt
         _AddRequirementsFile(path=swcFolder)
 
-        # 5. Add Docker file
+        # 6. Add Docker file
         _AddDockerFile(cmpName=process.name, path=swcFolder)
 
 

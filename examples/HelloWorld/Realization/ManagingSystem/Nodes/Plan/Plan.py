@@ -35,7 +35,7 @@ class Plan(Node):
 
 
     def register_callbacks(self):
-        self.register_event_callback(eventName='Anomaly', function=self.planner)        # LINK <inport> Anomaly
+        self.register_event_callback(event_key='Anomaly', callback=self.planner)        # LINK <inport> Anomaly
 
 def main(args=None):
 
