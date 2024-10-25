@@ -11,7 +11,7 @@ def HelloWorld():
 
 
     #laserScan message
-    ranges = data(name='ranges', dataType="Float_64")
+    ranges = data(name='ranges', dataType="Array")
     angle_increment = data(name= 'angle_increment', dataType="Float_64")
 
     laser_scan = message(name="LaserScan",featureList=[ranges,angle_increment])

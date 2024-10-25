@@ -2,7 +2,7 @@ class LaserScan(object):
     def __init__(self):
 
         self.name= "LaserScan"
-        self._ranges= 0.0
+        self._ranges= []
         self._angle_increment= 0.0
 
 
