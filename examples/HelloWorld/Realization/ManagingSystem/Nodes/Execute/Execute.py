@@ -6,6 +6,8 @@
 # * RAP R&D concepts can not be copied and/or distributed without the express
 # * permission of Bert Van Acker
 # **********************************************************************************
+import json
+
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
 import time
@@ -42,7 +44,7 @@ class Execute(Node):
 
         #<!-- cc_code_executer END--!>
 
-        self.publish_event(event_key='spin_config')    # LINK <outport> spin_config
+        self.publish_event(event_key='spin_config',message=json.dump(directions))    # LINK <outport> spin_config
 
     def register_callbacks(self):
         self.register_event_callback(event_key='new_plan', callback=self.executer)        # LINK <inport> new_plan

@@ -23,7 +23,7 @@ def replaceCustomCode(text,tag,replacement):
 def run_command(command):
     try:
         # result = subprocess.run(command[0][0], shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        process = Popen(command, shell=True)
+        process = Popen(command[0], shell=True, cwd=command[1])
         stdout, stderr = process.communicate()
         print(process.stdout)
     except subprocess.CalledProcessError as e:
@@ -49,7 +49,7 @@ def execute_commands(commands):
 def extractCommands(launchDescription):
     commands = []
     for component in launchDescription.components:
-        commands.append(component.cmd)
+        commands.append([component.cmd, component.path])
     return commands
 
 
@@ -70,7 +70,7 @@ class Component:
         self.name = name
         self.path = path
         if formalism == 'python':
-            self.cmd = ['python', path+'/'+name+'.py']
+            self.cmd= ['python', name+'.py']
         if formalism == 'c++':
             self.cmd = [path+'/'+name+'.exe']
 

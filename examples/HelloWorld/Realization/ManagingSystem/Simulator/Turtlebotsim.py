@@ -3,7 +3,6 @@ import threading
 import json
 import numpy as np
 import paho.mqtt.client as mqtt
-from paho.mqtt.enums import CallbackAPIVersion
 import tkinter as tk
 from tkinter import messagebox
 import random
@@ -16,7 +15,7 @@ POSE_TOPIC = "/pose"
 SCAN_TOPIC = "/Scan"
 SPIN_CONFIG_TOPIC = "/spin_config"
 
-client = mqtt.Client(CallbackAPIVersion.VERSION2)
+client = mqtt.Client()
 client.connect(MQTT_BROKER)
 
 # TurtleBotSim class
