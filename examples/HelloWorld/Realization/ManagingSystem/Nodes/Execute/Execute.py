@@ -31,18 +31,20 @@ class Execute(Node):
 
     # -----------------------------AUTO-GEN SKELETON FOR executer-----------------------------
     def executer(self,msg):
-        new_plan = self.knowledge.read("new_plan",queueSize=1)
         isLegit = self.knowledge.read("isLegit",queueSize=1)
         directions = self.knowledge.read("directions",queueSize=1)
+        _Direction = Direction()
 
         #<!-- cc_code_executer START--!>
 
         # user code here for executer
 
+        _Direction._omega= "SET VALUE"    # datatype: Float_64
+        _Direction._duration= "SET VALUE"    # datatype: Float_64
 
         #<!-- cc_code_executer END--!>
 
-        self.publish_event(event_key='spin_config')    # LINK <outport> spin_config
+        self.publish_event(event_key='spin_config',message=_Direction)    # LINK <outport> spin_config
 
     def register_callbacks(self):
         self.register_event_callback(event_key='new_plan', callback=self.executer)        # LINK <inport> new_plan

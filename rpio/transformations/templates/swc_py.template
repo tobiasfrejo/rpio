@@ -81,8 +81,8 @@ class {{swc.name}}(Node):
         {% endif %}
         {% endfor %}
     {% endfor %}
-    {% if swc.threads|length >= 1 %}
 
+    {% if swc.threads|length >= 1 %}
     def register_callbacks(self):
         {# {{ EVENT TRIGGERS ON THREADS }} #}
         {% for thread in swc.threads %}
