@@ -16,6 +16,8 @@ class {{message.name}}(object):
         self._{{data.name}}= 0.0
         {% elif data.dataType == 'Float_32' or data.dataType == 'Float_64' %}
         self._{{data.name}}= 0.0
+        {% elif data.dataType == 'Array' %}
+        self._{{data.name}}= []
         {% else %}
         self._{{data.name}}= None
         {% endif %}

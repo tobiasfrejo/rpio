@@ -37,7 +37,7 @@ class Monitor(Node):
 
         # user code here for monitor_data
 
-        _LaserScan._ranges= "SET VALUE"    # datatype: Float_64
+        _LaserScan._ranges= "SET VALUE"    # datatype: Array
         _LaserScan._angle_increment= "SET VALUE"    # datatype: Float_64
 
         #<!-- cc_code_monitor_data END--!>

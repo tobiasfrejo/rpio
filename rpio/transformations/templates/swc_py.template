@@ -34,12 +34,14 @@ class {{swc.name}}(Node):
     def {{thread.name}}(self,msg):
         {% for feature in thread.features %}
         {% if feature.featureType == 'inport'%}
+        {% if 'data' in feature.type %}
         {{feature.name}} = self.knowledge.read("{{feature.name}}",queueSize=1)
+        {% endif %}
         {% endif %}
         {% endfor %}
         {% for feature in thread.features %}
         {% if feature.featureType == 'outport'%}
-        {% if 'data' in feature.type%}
+        {% if 'data' in feature.type %}
         _{{feature.message.name}} = {{feature.message.name}}()
         {% endif %}
         {% endif %}
@@ -51,7 +53,7 @@ class {{swc.name}}(Node):
 
         {% for feature in thread.features %}
         {% if feature.featureType == 'outport'%}
-        {% if 'data' in feature.type%}
+        {% if 'data' in feature.type %}
         {% for data in feature.message.features %}
         _{{feature.message.name}}._{{data.name}}= "SET VALUE"    # datatype: {{data.dataType}}
         {% endfor %}
@@ -63,7 +65,7 @@ class {{swc.name}}(Node):
 
         {% for feature in thread.features %}
         {% if feature.featureType == 'outport'%}
-        {% if 'data' in feature.type%}
+        {% if 'event' not in feature.type%}
         _success = self.knowledge.write(cls=_{{feature.message.name}})
         {% endif %}
         {% endif %}
@@ -71,14 +73,16 @@ class {{swc.name}}(Node):
         {# {{ EVENTS TO BE SEND FROM OUTPUT EVENT OR EVENT DATA }} #}
         {% for feature in thread.features %}
         {% if feature.featureType == 'outport'%}
-        {% if 'event' in feature.type%}
+        {% if 'data event' in feature.type%}
+        self.publish_event(event_key='{{feature.name}}',message=_{{feature.message.name}})    # LINK <outport> {{feature.name}}
+        {% elif 'event' in feature.type%}
         self.publish_event(event_key='{{feature.name}}')    # LINK <outport> {{feature.name}}
         {% endif %}
         {% endif %}
         {% endfor %}
     {% endfor %}
-    {% if swc.threads|length >= 1 %}
 
+    {% if swc.threads|length >= 1 %}
     def register_callbacks(self):
         {# {{ EVENT TRIGGERS ON THREADS }} #}
         {% for thread in swc.threads %}
