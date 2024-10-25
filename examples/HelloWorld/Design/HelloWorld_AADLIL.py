@@ -69,21 +69,21 @@ def HelloWorld():
     #-MONITOR-
     monitor = process(name="Monitor", description="monitor component")
 
-    _laserScan = inport(name="laser_scan",type="event data", message=laser_scan_IN)
-    _new_data_out = outport(name="new_data",type="event data" , message=new_data_message)
+    _laserScan = inport(name="laser_scan",type="data", message=laser_scan_IN)
+    _new_data_out = outport(name="new_data",type="event" , message=new_data_message)
 
 
     monitor.addFeature(_laserScan)
     monitor.addFeature(_new_data_out)
 
-    monitor_data = thread(name="monitor_data",featureList=[_laserScan, _new_data_out],eventTrigger='/Scan')
+    monitor_data = thread(name="monitor_data",featureList=[_laserScan, _new_data_out],eventTrigger='Scan')
     monitor.addThread(monitor_data)
 
     #-ANALYSIS-
     analysis = process(name="Analysis", description="analysis component")
 
     _laserScan_in = inport(name="laser_scan",type="data", message=laser_scan)
-    _anomaly_out = outport(name="anomaly",type="event data", message=anomaly_message)
+    _anomaly_out = outport(name="anomaly",type="event", message=anomaly_message)
 
     analysis.addFeature(_laserScan_in)
     analysis.addFeature(_anomaly_out)
@@ -96,13 +96,15 @@ def HelloWorld():
     plan = process(name="Plan", description="plan component")
 
     #TODO: define input
-    _anomaly_in = inport(name="anomaly",type="event data", message=anomaly_message)
-    _plan_out = outport(name="new_plan",type="event data", message=new_plan_message)
+    _anomaly_in = inport(name="anomaly",type="event", message=anomaly_message)
+    _plan_out = outport(name="new_plan",type="data", message=new_plan_message)
+    _diraction_out = outport(name="direction",type="data", message=direction)
 
     plan.addFeature(_anomaly_in)
     plan.addFeature(_plan_out)
+    plan.addFeature(_diraction_out)
 
-    planner = thread(name="planner",featureList=[_anomaly_in, _plan_out],eventTrigger='anomaly')
+    planner = thread(name="planner",featureList=[_anomaly_in, _plan_out, _diraction_out],eventTrigger='anomaly')
     plan.addThread(planner)
 
     #-LEGITIMATE-
@@ -111,10 +113,10 @@ def HelloWorld():
     #-EXECUTE-
     execute = process(name="Execute", description="execute component")
 
-    _new_plan_in = inport(name="new_plan",type="event data", message=direction)
+    _new_plan_in = inport(name="new_plan",type="event", message=direction)
     _isLegit = inport(name="isLegit",type="event data", message=legitimate_message)
     _directions = inport(name="directions",type="data", message=direction)
-    _directions_out = outport(name="/spin_config",type="event data", message=direction)
+    _directions_out = outport(name="spin_config",type="event", message=direction)
 
     execute.addFeature(_new_plan_in)
     execute.addFeature(_isLegit)
