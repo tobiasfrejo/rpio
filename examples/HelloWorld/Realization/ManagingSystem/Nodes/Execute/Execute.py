@@ -22,32 +22,31 @@ class Execute(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "Execute"
-        self.logger.log("Execute instantiated")
+        self.logger.info("Execute instantiated")
+
+        #<!-- cc_init START--!>
+        # user includes here
+        #<!-- cc_init END--!>
 
     # -----------------------------AUTO-GEN SKELETON FOR executer-----------------------------
     def executer(self,msg):
+        new_plan = self.knowledge.read("new_plan",queueSize=1)
         isLegit = self.knowledge.read("isLegit",queueSize=1)
+        directions = self.knowledge.read("directions",queueSize=1)
 
         #<!-- cc_code_executer START--!>
         # user code here for executer
         #<!-- cc_code_executer END--!>
 
-        knowledge = NewPlanMessage()
-        knowledge._NewPlan= "SET VALUE"    # datatype: boolean
-        _success = self.knowledge.write(cls=knowledge)
-        knowledge = Direction()
-        knowledge._omega= "SET VALUE"    # datatype: Float64
-        knowledge._duration= "SET VALUE"    # datatype: Float64
-        _success = self.knowledge.write(cls=knowledge)
 
-        self.publish_event(eventName='plan')    # LINK <outport> plan
-        self.publish_event(eventName='pathEstimate')    # LINK <outport> pathEstimate
+        self.publish_event(event_key='spin_config')    # LINK <outport> spin_config
     def register_callbacks(self):
+        self.register_event_callback(event_key='new_plan', callback=self.executer)        # LINK <inport> new_plan
         self.register_event_callback(event_key='isLegit', callback=self.executer)        # LINK <inport> isLegit
 
 def main(args=None):
 
-    node = Execute()
+    node = Execute(config='config.yaml')
     node.register_callbacks()
     node.start()
 

@@ -94,6 +94,7 @@ def swc2code_py(system=None,path="output/generated"):
                 content = swcFile.read()
                 cc_include = getCustomCode(text=content,tag="include")
                 cc_code = getCustomCode(text=content, tag="code")
+                cc_init = getCustomCode(text=content, tag="init")
                 cc_thread_code = []
                 for thread in process.threads:
                     _cc_code = getCustomCode(text=content, tag="code_"+thread.name)
@@ -109,6 +110,7 @@ def swc2code_py(system=None,path="output/generated"):
                 content = swcFile.read()
                 content = replaceCustomCode(content,tag="include",replacement=cc_include)
                 content = replaceCustomCode(content, tag="code", replacement=cc_code)
+                content = replaceCustomCode(content, tag="init", replacement=cc_init)
                 for i in range(0,len(process.threads),1):
                     content = replaceCustomCode(content, tag="code_"+process.threads[i].name, replacement=cc_thread_code[i])
 

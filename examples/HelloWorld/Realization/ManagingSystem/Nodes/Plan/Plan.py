@@ -22,27 +22,35 @@ class Plan(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "Plan"
-        self.logger.log("Plan instantiated")
+        self.logger.info("Plan instantiated")
+
+        #<!-- cc_init START--!>
+        # user includes here
+        #<!-- cc_init END--!>
 
     # -----------------------------AUTO-GEN SKELETON FOR planner-----------------------------
     def planner(self,msg):
-        Anomaly = self.knowledge.read("Anomaly",queueSize=1)
+        anomaly = self.knowledge.read("anomaly",queueSize=1)
 
         #<!-- cc_code_planner START--!>
         # user code here for planner
         #<!-- cc_code_planner END--!>
 
         knowledge = NewPlanMessage()
-        knowledge._NewPlan= "SET VALUE"    # datatype: boolean
+        knowledge._NewPlan= "SET VALUE"    # datatype: Boolean
+        _success = self.knowledge.write(cls=knowledge)
+        knowledge = Direction()
+        knowledge._omega= "SET VALUE"    # datatype: Float_64
+        knowledge._duration= "SET VALUE"    # datatype: Float_64
         _success = self.knowledge.write(cls=knowledge)
 
-        self.publish_event(eventName='plan')    # LINK <outport> plan
     def register_callbacks(self):
-        self.register_event_callback(event_key='Anomaly', callback=self.planner)        # LINK <inport> Anomaly
+        self.register_event_callback(event_key='anomaly', callback=self.planner)     # LINK <eventTrigger> anomaly
+        self.register_event_callback(event_key='anomaly', callback=self.planner)        # LINK <inport> anomaly
 
 def main(args=None):
 
-    node = Plan()
+    node = Plan(config='config.yaml')
     node.register_callbacks()
     node.start()
 

@@ -23,5 +23,5 @@ except:
 try:
     swc2code_py(system=design,path="Realization/ManagingSystem/Nodes")
 except:
-    print("Failed to generate the messages")
+    print("Failed to generate the software components")
 

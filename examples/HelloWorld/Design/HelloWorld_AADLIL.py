@@ -11,14 +11,14 @@ def HelloWorld():
 
 
     #laserScan message
-    ranges = data(name='ranges', dataType="array")
+    ranges = data(name='ranges', dataType="Float_64")
     angle_increment = data(name= 'angle_increment', dataType="Float_64")
 
     laser_scan = message(name="LaserScan",featureList=[ranges,angle_increment])
 
     # rotationAction message
-    omega = data(name="omega",dataType="Float64")
-    duration = data(name="duration",dataType="Float64")
+    omega = data(name="omega",dataType="Float_64")
+    duration = data(name="duration",dataType="Float_64")
     direction = message(name="Direction",featureList=[omega,duration])
 
     # new_data message
@@ -28,7 +28,7 @@ def HelloWorld():
     anomaly = data(name="anomaly",dataType="Boolean")
     anomaly_message = message(name="AnomalyMessage",featureList=[anomaly])
 
-    new_plan = data(name="NewPlan",dataType="boolean")
+    new_plan = data(name="NewPlan",dataType="Boolean")
     new_plan_message = message(name="NewPlanMessage",featureList=[new_plan])
 
     # legitimate message

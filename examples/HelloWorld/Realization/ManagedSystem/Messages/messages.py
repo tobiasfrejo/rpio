@@ -2,7 +2,7 @@ class LaserScan(object):
     def __init__(self):
 
         self.name= "LaserScan"
-        self._ranges= None
+        self._ranges= 0.0
         self._angle_increment= 0.0
 
 
@@ -31,8 +31,8 @@ class Direction(object):
     def __init__(self):
 
         self.name= "Direction"
-        self._omega= None
-        self._duration= None
+        self._omega= 0.0
+        self._duration= 0.0
 
 
     @property

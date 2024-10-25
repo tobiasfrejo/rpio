@@ -22,12 +22,16 @@ class Legitimate(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "Legitimate"
-        self.logger.log("Legitimate instantiated")
+        self.logger.info("Legitimate instantiated")
+
+        #<!-- cc_init START--!>
+        # user includes here
+        #<!-- cc_init END--!>
 
 
 def main(args=None):
 
-    node = Legitimate()
+    node = Legitimate(config='config.yaml')
     node.start()
 
 if __name__ == '__main__':

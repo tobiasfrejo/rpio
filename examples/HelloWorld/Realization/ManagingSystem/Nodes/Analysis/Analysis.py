@@ -22,7 +22,11 @@ class Analysis(Node):
         super().__init__(config=config,verbose=verbose)
 
         self._name = "Analysis"
-        self.logger.log("Analysis instantiated")
+        self.logger.info("Analysis instantiated")
+
+        #<!-- cc_init START--!>
+        # user includes here
+        #<!-- cc_init END--!>
 
     # -----------------------------AUTO-GEN SKELETON FOR analyse_scan_data-----------------------------
     def analyse_scan_data(self,msg):
@@ -32,17 +36,14 @@ class Analysis(Node):
         # user code here for analyse_scan_data
         #<!-- cc_code_analyse_scan_data END--!>
 
-        knowledge = AnomalyMessage()
-        knowledge._anomaly= "SET VALUE"    # datatype: Boolean
-        _success = self.knowledge.write(cls=knowledge)
 
-        self.publish_event(eventName='anomaly')    # LINK <outport> anomaly
+        self.publish_event(event_key='anomaly')    # LINK <outport> anomaly
     def register_callbacks(self):
-        self.register_event_callback(event_key='laser_scan', callback=self.analyse_scan_data)     # LINK <eventTrigger> laser_scan
+        self.register_event_callback(event_key='new_data', callback=self.analyse_scan_data)     # LINK <eventTrigger> new_data
 
 def main(args=None):
 
-    node = Analysis()
+    node = Analysis(config='config.yaml')
     node.register_callbacks()
     node.start()
 

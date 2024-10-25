@@ -11,33 +11,27 @@ knowledgeIn:
   properties:
     - property:
         type: "data"
-        name: "plan"
-        class: "plan"
-        topic: "/plan"
-        QoS: 10
-    - property:
-        type: "data"
         name: "isLegit"
         class: "isLegit"
         topic: "/isLegit"
         QoS: 10
+    - property:
+        type: "data"
+        name: "directions"
+        class: "directions"
+        topic: "/directions"
+        QoS: 10
 
 knowledgeOut:
   properties:
-    - property:
-        type: "data"
-        name: "pathEstimate"
-        class: "pathEstimate"
-        topic: "/pathEstimate"
-        QoS: 10
 
 eventIn:
   properties:
     - property:
         type: "event"
-        name: "plan"
+        name: "new_plan"
         class: "-"
-        topic: "/plan"
+        topic: "/new_plan"
         QoS: 10
     - property:
         type: "event"
@@ -50,8 +44,8 @@ eventOut:
   properties:
     - property:
         type: "event"
-        name: "pathEstimate"
+        name: "spin_config"
         class: "-"
-        topic: "/pathEstimate"
+        topic: "/spin_config"
         QoS: 10
 

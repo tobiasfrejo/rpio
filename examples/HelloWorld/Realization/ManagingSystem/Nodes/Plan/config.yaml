@@ -9,37 +9,37 @@ logger:
 
 knowledgeIn:
   properties:
-    - property:
-        type: "data"
-        name: "Anomaly"
-        class: "Anomaly"
-        topic: "/Anomaly"
-        QoS: 10
 
 knowledgeOut:
   properties:
     - property:
         type: "data"
-        name: "plan"
-        class: "plan"
-        topic: "/plan"
+        name: "new_plan"
+        class: "new_plan"
+        topic: "/new_plan"
+        QoS: 10
+    - property:
+        type: "data"
+        name: "direction"
+        class: "direction"
+        topic: "/direction"
         QoS: 10
 
 eventIn:
   properties:
     - property:
         type: "event"
-        name: "Anomaly"
+        name: "anomaly"
         class: "-"
-        topic: "/Anomaly"
+        topic: "/anomaly"
+        QoS: 10
+    - property:
+        type: "event"
+        name: "anomaly"
+        class: "-"
+        topic: "/anomaly"
         QoS: 10
 
 eventOut:
   properties:
-    - property:
-        type: "event"
-        name: "plan"
-        class: "-"
-        topic: "/plan"
-        QoS: 10
 

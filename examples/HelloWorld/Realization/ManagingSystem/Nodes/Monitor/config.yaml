@@ -23,17 +23,17 @@ eventIn:
   properties:
     - property:
         type: "event"
-        name: "laser_scan"
+        name: "Scan"
         class: "-"
-        topic: "/laser_scan"
-        QoS: 10
-    - property:
-        type: "event"
-        name: "/Scan"
-        class: "-"
-        topic: "//Scan"
+        topic: "/Scan"
         QoS: 10
 
 eventOut:
   properties:
+    - property:
+        type: "event"
+        name: "new_data"
+        class: "-"
+        topic: "/new_data"
+        QoS: 10
 
