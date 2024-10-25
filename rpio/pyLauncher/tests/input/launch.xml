@@ -1,0 +1,4 @@
+<launch>
+    <node name="Monitor" path="C:/Users/Bert/PycharmProjects/rpio/examples/HelloWorld/Realization/ManagingSystem/Nodes/Monitor"/>
+    <node name="Analysis" path="C:/Users/Bert/PycharmProjects/rpio/examples/HelloWorld/Realization/ManagingSystem/Nodes/Analysis"/>
+</launch>
