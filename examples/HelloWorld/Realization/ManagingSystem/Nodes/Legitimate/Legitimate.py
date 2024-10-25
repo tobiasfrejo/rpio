@@ -8,7 +8,13 @@
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
+#<!-- cc_include START--!>
+# user includes here
+#<!-- cc_include END--!>
 
+#<!-- cc_code START--!>
+# user code here
+#<!-- cc_code END--!>
 
 class Legitimate(Node):
 
@@ -17,8 +23,6 @@ class Legitimate(Node):
 
         self._name = "Legitimate"
         self.logger.log("Legitimate instantiated")
-
-
 
 
 def main(args=None):

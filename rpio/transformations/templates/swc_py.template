@@ -8,7 +8,13 @@
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
+#<!-- cc_include START--!>
+# user includes here
+#<!-- cc_include END--!>
 
+#<!-- cc_code START--!>
+# user code here
+#<!-- cc_code END--!>
 
 class {{swc.name}}(Node):
 
@@ -17,7 +23,6 @@ class {{swc.name}}(Node):
 
         self._name = "{{swc.name}}"
         self.logger.log("{{swc.name}} instantiated")
-
 
     {% for thread in swc.threads %}
     # -----------------------------AUTO-GEN SKELETON FOR {{thread.name}}-----------------------------
@@ -28,8 +33,9 @@ class {{swc.name}}(Node):
         {% endif %}
         {% endfor %}
 
-        #TODO: ADD USER CODE FOR {{thread.name}}
-
+        #<!-- cc_code_{{thread.name}} START--!>
+        # user code here for {{thread.name}}
+        #<!-- cc_code_{{thread.name}} END--!>
 
         {% for feature in thread.features %}
         {% if feature.featureType == 'outport'%}
@@ -51,10 +57,7 @@ class {{swc.name}}(Node):
         {% endif %}
         {% endif %}
         {% endfor %}
-
-
     {% endfor %}
-
     {% if swc.threads|length >= 1 %}
     def register_callbacks(self):
         {# {{ EVENT TRIGGERS ON THREADS }} #}

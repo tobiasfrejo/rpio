@@ -8,7 +8,13 @@
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
+#<!-- cc_include START--!>
+# user includes here
+#<!-- cc_include END--!>
 
+#<!-- cc_code START--!>
+# user code here
+#<!-- cc_code END--!>
 
 class Analysis(Node):
 
@@ -18,22 +24,19 @@ class Analysis(Node):
         self._name = "Analysis"
         self.logger.log("Analysis instantiated")
 
-
     # -----------------------------AUTO-GEN SKELETON FOR analyse_scan_data-----------------------------
     def analyse_scan_data(self,msg):
         laser_scan = self.knowledge.read("laser_scan",queueSize=1)
 
-        #TODO: ADD USER CODE FOR analyse_scan_data
-
+        #<!-- cc_code_analyse_scan_data START--!>
+        # user code here for analyse_scan_data
+        #<!-- cc_code_analyse_scan_data END--!>
 
         knowledge = AnomalyMessage()
         knowledge._anomaly= "SET VALUE"    # datatype: Boolean
         _success = self.knowledge.write(cls=knowledge)
 
         self.publish_event(eventName='anomaly')    # LINK <outport> anomaly
-
-
-
     def register_callbacks(self):
         self.register_event_callback(event_key='laser_scan', callback=self.analyse_scan_data)     # LINK <eventTrigger> laser_scan
 

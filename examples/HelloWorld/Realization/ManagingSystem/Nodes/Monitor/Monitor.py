@@ -8,7 +8,16 @@
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
+#<!-- cc_include START--!>
+# user includes here
+import time
+#<!-- cc_include END--!>
 
+#<!-- cc_code START--!>
+# user code here
+def funcX():
+    return "Hello World!"
+#<!-- cc_code END--!>
 
 class Monitor(Node):
 
@@ -18,16 +27,13 @@ class Monitor(Node):
         self._name = "Monitor"
         self.logger.log("Monitor instantiated")
 
-
     # -----------------------------AUTO-GEN SKELETON FOR monitor_data-----------------------------
     def monitor_data(self,msg):
         laser_scan = self.knowledge.read("laser_scan",queueSize=1)
 
-        #TODO: ADD USER CODE FOR monitor_data
-
-
-
-
+        #<!-- cc_code_monitor_data START--!>
+        print(funcX())
+        #<!-- cc_code_monitor_data END--!>
 
 
     def register_callbacks(self):

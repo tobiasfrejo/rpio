@@ -8,7 +8,13 @@
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
+#<!-- cc_include START--!>
+# user includes here
+#<!-- cc_include END--!>
 
+#<!-- cc_code START--!>
+# user code here
+#<!-- cc_code END--!>
 
 class Plan(Node):
 
@@ -18,22 +24,19 @@ class Plan(Node):
         self._name = "Plan"
         self.logger.log("Plan instantiated")
 
-
     # -----------------------------AUTO-GEN SKELETON FOR planner-----------------------------
     def planner(self,msg):
         Anomaly = self.knowledge.read("Anomaly",queueSize=1)
 
-        #TODO: ADD USER CODE FOR planner
-
+        #<!-- cc_code_planner START--!>
+        # user code here for planner
+        #<!-- cc_code_planner END--!>
 
         knowledge = NewPlanMessage()
         knowledge._NewPlan= "SET VALUE"    # datatype: boolean
         _success = self.knowledge.write(cls=knowledge)
 
         self.publish_event(eventName='plan')    # LINK <outport> plan
-
-
-
     def register_callbacks(self):
         self.register_event_callback(event_key='Anomaly', callback=self.planner)        # LINK <inport> Anomaly
 

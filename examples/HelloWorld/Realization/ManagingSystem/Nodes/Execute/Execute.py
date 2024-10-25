@@ -8,7 +8,13 @@
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
+#<!-- cc_include START--!>
+# user includes here
+#<!-- cc_include END--!>
 
+#<!-- cc_code START--!>
+# user code here
+#<!-- cc_code END--!>
 
 class Execute(Node):
 
@@ -18,13 +24,13 @@ class Execute(Node):
         self._name = "Execute"
         self.logger.log("Execute instantiated")
 
-
     # -----------------------------AUTO-GEN SKELETON FOR executer-----------------------------
     def executer(self,msg):
         isLegit = self.knowledge.read("isLegit",queueSize=1)
 
-        #TODO: ADD USER CODE FOR executer
-
+        #<!-- cc_code_executer START--!>
+        # user code here for executer
+        #<!-- cc_code_executer END--!>
 
         knowledge = NewPlanMessage()
         knowledge._NewPlan= "SET VALUE"    # datatype: boolean
@@ -36,9 +42,6 @@ class Execute(Node):
 
         self.publish_event(eventName='plan')    # LINK <outport> plan
         self.publish_event(eventName='pathEstimate')    # LINK <outport> pathEstimate
-
-
-
     def register_callbacks(self):
         self.register_event_callback(event_key='isLegit', callback=self.executer)        # LINK <inport> isLegit
 
