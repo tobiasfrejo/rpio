@@ -8,6 +8,7 @@
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
+import time
 #<!-- cc_include START--!>
 # user includes here
 #<!-- cc_include END--!>
@@ -33,11 +34,14 @@ class Analysis(Node):
         laser_scan = self.knowledge.read("laser_scan",queueSize=1)
 
         #<!-- cc_code_analyse_scan_data START--!>
+
         # user code here for analyse_scan_data
+
+
         #<!-- cc_code_analyse_scan_data END--!>
 
-
         self.publish_event(event_key='anomaly')    # LINK <outport> anomaly
+
     def register_callbacks(self):
         self.register_event_callback(event_key='new_data', callback=self.analyse_scan_data)     # LINK <eventTrigger> new_data
 
@@ -49,3 +53,8 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+    try:
+       while True:
+           time.sleep(1)
+    except:
+       exit()

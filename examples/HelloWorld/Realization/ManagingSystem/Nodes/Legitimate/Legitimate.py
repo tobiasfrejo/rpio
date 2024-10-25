@@ -8,6 +8,7 @@
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
+import time
 #<!-- cc_include START--!>
 # user includes here
 #<!-- cc_include END--!>
@@ -36,3 +37,8 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+    try:
+       while True:
+           time.sleep(1)
+    except:
+       exit()

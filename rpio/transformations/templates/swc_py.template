@@ -8,6 +8,7 @@
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
+import time
 #<!-- cc_include START--!>
 # user includes here
 #<!-- cc_include END--!>
@@ -36,23 +37,37 @@ class {{swc.name}}(Node):
         {{feature.name}} = self.knowledge.read("{{feature.name}}",queueSize=1)
         {% endif %}
         {% endfor %}
+        {% for feature in thread.features %}
+        {% if feature.featureType == 'outport'%}
+        {% if 'data' in feature.type%}
+        _{{feature.message.name}} = {{feature.message.name}}()
+        {% endif %}
+        {% endif %}
+        {% endfor %}
 
         #<!-- cc_code_{{thread.name}} START--!>
+
         # user code here for {{thread.name}}
+
+        {% for feature in thread.features %}
+        {% if feature.featureType == 'outport'%}
+        {% if 'data' in feature.type%}
+        {% for data in feature.message.features %}
+        _{{feature.message.name}}._{{data.name}}= "SET VALUE"    # datatype: {{data.dataType}}
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
         #<!-- cc_code_{{thread.name}} END--!>
 
         {% for feature in thread.features %}
         {% if feature.featureType == 'outport'%}
         {% if 'data' in feature.type%}
-        knowledge = {{feature.message.name}}()
-        {% for data in feature.message.features %}
-        knowledge._{{data.name}}= "SET VALUE"    # datatype: {{data.dataType}}
-        {% endfor %}
-        _success = self.knowledge.write(cls=knowledge)
+        _success = self.knowledge.write(cls=_{{feature.message.name}})
         {% endif %}
         {% endif %}
         {% endfor %}
-
         {# {{ EVENTS TO BE SEND FROM OUTPUT EVENT OR EVENT DATA }} #}
         {% for feature in thread.features %}
         {% if feature.featureType == 'outport'%}
@@ -63,6 +78,7 @@ class {{swc.name}}(Node):
         {% endfor %}
     {% endfor %}
     {% if swc.threads|length >= 1 %}
+
     def register_callbacks(self):
         {# {{ EVENT TRIGGERS ON THREADS }} #}
         {% for thread in swc.threads %}
@@ -90,3 +106,8 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+    try:
+       while True:
+           time.sleep(1)
+    except:
+       exit()

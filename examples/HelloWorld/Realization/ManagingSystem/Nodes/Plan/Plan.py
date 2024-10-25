@@ -8,6 +8,7 @@
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
 from messages import *
+import time
 #<!-- cc_include START--!>
 # user includes here
 #<!-- cc_include END--!>
@@ -31,18 +32,21 @@ class Plan(Node):
     # -----------------------------AUTO-GEN SKELETON FOR planner-----------------------------
     def planner(self,msg):
         anomaly = self.knowledge.read("anomaly",queueSize=1)
+        _NewPlanMessage = NewPlanMessage()
+        _Direction = Direction()
 
         #<!-- cc_code_planner START--!>
+
         # user code here for planner
+
+        _NewPlanMessage._NewPlan= "SET VALUE"    # datatype: Boolean
+        _Direction._omega= "SET VALUE"    # datatype: Float_64
+        _Direction._duration= "SET VALUE"    # datatype: Float_64
+
         #<!-- cc_code_planner END--!>
 
-        knowledge = NewPlanMessage()
-        knowledge._NewPlan= "SET VALUE"    # datatype: Boolean
-        _success = self.knowledge.write(cls=knowledge)
-        knowledge = Direction()
-        knowledge._omega= "SET VALUE"    # datatype: Float_64
-        knowledge._duration= "SET VALUE"    # datatype: Float_64
-        _success = self.knowledge.write(cls=knowledge)
+        _success = self.knowledge.write(cls=_NewPlanMessage)
+        _success = self.knowledge.write(cls=_Direction)
 
     def register_callbacks(self):
         self.register_event_callback(event_key='anomaly', callback=self.planner)     # LINK <eventTrigger> anomaly
@@ -56,3 +60,8 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+    try:
+       while True:
+           time.sleep(1)
+    except:
+       exit()

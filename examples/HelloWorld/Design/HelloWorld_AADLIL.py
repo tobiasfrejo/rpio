@@ -43,25 +43,25 @@ def HelloWorld():
     #-A- --- managed system ---
     managedSystem = system(name="managedSystem", description="managed system part")
 
-    laserScan_OUT = outport(name="laser_scan",type="event data", message= laser_scan)
-    direction_IN = inport(name="direction",type="event data", message=direction)
+    _laserScan_OUT = outport(name="laser_scan",type="event data", message= laser_scan)
+    _direction_IN = inport(name="direction",type="event data", message=direction)
 
-    managedSystem.addFeature(laserScan_OUT)
-    managedSystem.addFeature(direction_IN)
+    managedSystem.addFeature(_laserScan_OUT)
+    managedSystem.addFeature(_direction_IN)
 
     #-B- --- managing system ---
 
     managingSystem = system(name="managingSystem", description="managing system part")
 
-    laser_scan_IN = inport(name="laser_scan",type="event data", message=laser_scan)
-    direction_OUT = outport(name="direction",type="event data", message=direction)
+    _laser_scan_IN = inport(name="laser_scan",type="event data", message=laser_scan)
+    _direction_OUT = outport(name="direction",type="event data", message=direction)
 
-    managingSystem.addFeature(laser_scan_IN)
-    managingSystem.addFeature(direction_OUT)
+    managingSystem.addFeature(_laser_scan_IN)
+    managingSystem.addFeature(_direction_OUT)
 
     # connections
-    c1 = connection(source=laserScan_OUT, destination=laser_scan_IN)
-    c2 = connection(source=direction_OUT, destination=direction_IN)
+    c1 = connection(source=_laserScan_OUT, destination=_laser_scan_IN)
+    c2 = connection(source=_direction_OUT, destination=_direction_IN)
 
 
     #---------------------COMPONENT LEVEL---------------------------
@@ -69,7 +69,7 @@ def HelloWorld():
     #-MONITOR-
     monitor = process(name="Monitor", description="monitor component")
 
-    _laserScan = inport(name="laser_scan",type="data", message=laser_scan_IN)
+    _laserScan = outport(name="laser_scan",type="data", message=laser_scan)
     _new_data_out = outport(name="new_data",type="event" , message=new_data_message)
 
 
