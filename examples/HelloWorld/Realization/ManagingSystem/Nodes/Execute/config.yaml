@@ -24,6 +24,12 @@ knowledgeIn:
 
 knowledgeOut:
   properties:
+    - property:
+        type: "data"
+        name: "spin_config"
+        class: "spin_config"
+        topic: "/spin_config"
+        QoS: 10
 
 eventIn:
   properties:

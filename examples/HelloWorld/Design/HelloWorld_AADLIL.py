@@ -116,7 +116,7 @@ def HelloWorld():
     _new_plan_in = inport(name="new_plan",type="event", message=direction)
     _isLegit = inport(name="isLegit",type="event data", message=legitimate_message)
     _directions = inport(name="directions",type="data", message=direction)
-    _directions_out = outport(name="spin_config",type="event", message=direction)
+    _directions_out = outport(name="spin_config",type="data event", message=direction)
 
     execute.addFeature(_new_plan_in)
     execute.addFeature(_isLegit)

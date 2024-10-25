@@ -31,7 +31,6 @@ class Plan(Node):
 
     # -----------------------------AUTO-GEN SKELETON FOR planner-----------------------------
     def planner(self,msg):
-        anomaly = self.knowledge.read("anomaly",queueSize=1)
         _NewPlanMessage = NewPlanMessage()
         _Direction = Direction()
 
