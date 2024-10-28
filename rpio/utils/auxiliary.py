@@ -1,6 +1,8 @@
 import re
 import threading
 import os
+import io
+import zipfile
 from subprocess import Popen, CREATE_NEW_CONSOLE
 import subprocess
 import xml.etree.ElementTree as ET
@@ -93,3 +95,24 @@ def parse_launch_xml(file,formalism="python"):
             path = node_elem.get('path')
             components.append(Component(name, path,formalism))
         return Launch(components)
+
+
+#----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------FILE HANDLING FUNCTIONS----------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------
+def decompress_folder(data, output_path):
+    # Decompress the byte stream into the output folder
+    with zipfile.ZipFile(io.BytesIO(data), 'r') as zip_file:
+        zip_file.extractall(output_path)
+    print(f"Folder decompressed to '{output_path}'.")
+
+def compress_folder(folder_path):
+    # Compress the folder into a byte stream
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+        for root, _, files in os.walk(folder_path):
+            for file in files:
+                file_path = os.path.join(root, file)
+                zip_file.write(file_path, os.path.relpath(file_path, folder_path))
+    zip_buffer.seek(0)
+    return zip_buffer.read()
