@@ -14,5 +14,6 @@ Contents
 .. toctree::
 
    Home <self>
+   test
    transformations
    pylauncher
