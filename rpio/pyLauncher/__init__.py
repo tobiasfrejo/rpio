@@ -1,1 +1,1 @@
-from pyLauncher import launch
+from pyLauncher import *
