@@ -62,6 +62,18 @@ def _AddDockerFile(file="Dockerfile",cmpName="", path=None):
 #--------------------------------TRANSFORMATIONS------------------------------------
 #-----------------------------------------------------------------------------------
 def swc2code_py(system=None,path="output/generated"):
+    """Function to generate python code from the system modeled within the AADL Intermediate Language
+
+    :param [system]: [Adaptive system model within aadlil], defaults to [None]
+    :type [system]: [system (aadlil)](, optional)
+
+    :param [path]: [Adaptive system model within aadlil], defaults to ["output/generated/messages"]
+    :type [path]: [string](, optional)
+    ...
+    :return: [Functions returns nothing]
+    :rtype: [None]
+    """
+
 
     if not exists(path):
         mkdir(path)
@@ -139,6 +151,18 @@ def swc2code_py(system=None,path="output/generated"):
 
 
 def message2code_py(system=None,path="output/generated/messages"):
+    """Function to generate python code from messages modeled within the AADL Intermediate Language
+
+    :param [system]: [Adaptive system model within aadlil], defaults to [None]
+    :type [system]: [system (aadlil)](, optional)
+
+    :param [path]: [Adaptive system model within aadlil], defaults to ["output/generated/messages"]
+    :type [path]: [string](, optional)
+
+    ...
+    :return: [Functions returns nothing]
+    :rtype: [None]
+    """
 
     if not exists(path):
         mkdir(path)
