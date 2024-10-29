@@ -1,5 +1,5 @@
 Transformations
 ===
 
-.. automodule:: transformations
+.. automodule:: rpio.transformations.transformations
   :members:
