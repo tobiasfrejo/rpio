@@ -1,4 +1,4 @@
-import pyLauncher
+import rpio.pyLauncher
 
 def launch(launchFile='launch.xml'):
     """Function to launch one or more python software component using a launch description file
@@ -9,4 +9,4 @@ def launch(launchFile='launch.xml'):
     :return: [Functions returns nothing]
     :rtype: [None]
     """
-    pyLauncher.launch(launchFile)
+    rpio.pyLauncher.launch(launchFile)
