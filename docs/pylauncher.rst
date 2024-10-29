@@ -1,5 +1,5 @@
 PyLauncher
 ====
 
-
-.. automethod:: rpio.pyLauncher.pyLauncher::launch
+.. automodule:: rpio.pyLauncher.pyLauncher
+    :members:
