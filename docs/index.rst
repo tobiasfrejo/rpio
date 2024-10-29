@@ -13,6 +13,6 @@ Contents
 .. toctree::
 
    Home <self>
-   test
+   api
    transformations
    pylauncher
