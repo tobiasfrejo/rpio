@@ -1,4 +1,8 @@
 TEST
 ====
 
-this is a test file
+.. toctree::
+   :maxdepth:2
+   :caption:Contents:
+
+    modules

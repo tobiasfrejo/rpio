@@ -13,6 +13,7 @@ Contents
 .. toctree::
 
    Home <self>
+   test
    api
    rpio.tranformations
    rpio.pyLauncher
