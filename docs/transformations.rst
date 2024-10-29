@@ -1,5 +1,8 @@
 Transformations
 ===============
 
-.. automodule:: rpio.transformations.transformations
-  :members:
+
+.. autosummary::
+   :toctree: generated
+
+   rpio.transformations.transformations
