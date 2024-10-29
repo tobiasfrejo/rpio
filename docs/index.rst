@@ -14,4 +14,5 @@ Contents
 .. toctree::
 
    Home <self>
+   transformations
    api
