@@ -14,5 +14,5 @@ Contents
 
    Home <self>
    api
-   transformations
-   pylauncher
+   rpio.tranformations
+   rpio.pyLauncher
