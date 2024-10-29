@@ -1,4 +1,4 @@
-API
+Transformations
 ===
 
 .. automodule:: transformations
