@@ -1,19 +1,19 @@
-Welcome to robosapiensIO framework!
-===================================
+.. RoboSAPIENS IO Project documentation master file, created by
+   sphinx-quickstart on Tue Oct 29 22:52:46 2024.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
-This repository provides a flexible software architecture framework for building self-adaptive, trustworthy robotic applications using the RoboSapiens Adaptive Platform. It includes modular building blocks for runtime adaptation, trustworthiness monitoring, and knowledge management, enabling the seamless deployment of adaptive systems in diverse environments. The platform supports both resource-constrained and high-performance computing setups, facilitating reliable, automated responses to changing operational conditions.
+RoboSAPIENS IO Project documentation
+====================================
 
-.. note::
+Add your content using ``reStructuredText`` syntax. See the
+`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
+documentation for details.
 
-   Project under development.
-
-Contents
---------
 
 .. toctree::
+   :maxdepth: 2
+   :caption: Contents:
 
-   Home <self>
-   test
-   api
-   rpio.tranformations
-   rpio.pyLauncher
+   modules
+
