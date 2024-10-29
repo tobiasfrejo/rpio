@@ -15,3 +15,4 @@ Contents
 
    Home <self>
    transformations
+   pylauncher
