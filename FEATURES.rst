@@ -1,4 +1,4 @@
-.. |ok| image:: ../../docs/assets/ok.png
+.. |ok| image:: https://robosapiensio.readthedocs.io/en/latest/assets/ok.png
    :height: 2ex
 .. |nok| image:: ../../docs/assets/nok.png
    :height: 2.5ex
