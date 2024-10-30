@@ -5,11 +5,11 @@ Validation matrix
 
 .. _validation_matrix:
 
-.. |ok| image:: assets/ok.png
+.. |ok| image:: ../../docs/assets/ok.png
    :height: 2ex
-.. |nok| image:: assets/_nok.png
+.. |nok| image:: ../../docs/assets/_nok.png
    :height: 2ex
-.. |uk| image:: assets/thinking.png
+.. |uk| image:: ../../docs/assets/thinking.png
    :height: 2ex
 
 +-----------------+-------------------------+-------------------------+-------------+------------+
