@@ -24,3 +24,8 @@ robosapiensIO Preview
 ~~~~~~~~~~~~~~~~~~
 
 * Birth! First alpha release, published on pypi
+
+0.2.0 (2024-10-30)
+~~~~~~~~~~~~~~~~~~
+
+* Updated the setup.py to include the used modules

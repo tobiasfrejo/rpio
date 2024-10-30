@@ -8,7 +8,7 @@
 # *************************************************************************
 
 import platform
-from setuptools import setup
+from setuptools import setup, find_packages
 
 from rpio import (
     __author__,
@@ -32,7 +32,7 @@ setup(
     license=__license__,
     #install_requires=__install_requires__,
     python_requires=">=3.10",
-    #packages=find_packages(include=["rpio", "rpio.*"]),
+    packages=find_packages(include=["rpio", "rpio.*"]),
     entry_points={
         "console_scripts": [
             "rpio = rpio.__main__:main",
