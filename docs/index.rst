@@ -39,3 +39,4 @@ Miscellaneous
 
     features/history
     features/supported-features
+    gettingStarted/tutorials/validation
