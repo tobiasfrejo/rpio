@@ -8,7 +8,7 @@
 # *************************************************************************
 
 import platform
-from setuptools import find_packages, setup
+from setuptools import setup
 
 from rpio import (
     __author__,
@@ -21,15 +21,11 @@ from rpio import (
 )
 
 #--- insert platform dependent setup ---
-#e.g., if platform.system() == "Darwin" and "arm" in platform.machine().lower():
-
-
-
 setup(
     name=__title__,
     version=__version__,
     description=__description__,
-    long_description=open("README.rst").read(),
+    long_description=open("README.md").read(),
     author=__author__,
     author_email=__email__,
     url=__url__,
@@ -44,19 +40,15 @@ setup(
         ]
     },
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
-        "Environment :: Console",
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
     ],
     keywords=[
-        "DEVOPS",
-        "FMI",
-        "PLC",
-        "XiL",
+        "Robotics",
+        "Trustworthiness",
+        "self-adaptive",
         "Model-based",
-        "V&V automation",
     ],
 )

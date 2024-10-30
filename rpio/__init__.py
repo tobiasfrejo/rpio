@@ -7,17 +7,17 @@
 # * permission of Bert Van Acker
 # *************************************************************************
 
-VERSION = (0, 0, "1-beta")
+VERSION = (0, 1, "0")
 __version__ = ".".join([str(s) for s in VERSION])
 
-__title__ = "rpio"
+__title__ = "robosapiensio"
 __description__ = (
-    "HybridIO - your gateway to DEVOPS for mechatronic systems."
+    "robosapiensIO - your gateway to trustworthy self-adaptive robotics."
 )
-__url__ = "https://todo.org"
+__url__ = "https://rpio.readthedocs.io/en/latest/index.html"
 
-__author__ = "Bert Van Acker (B.MKR)"
-__email__ = "bva.bmkr@gmail.com"
+__author__ = "Sahar Nasimi Nezhad & Bert Van Acker"
+__email__ = "bert.vanacker@uantwerpen.be"
 
-__license__ = "Closed-source"
-__copyright__ = "Copyright 2023"
+__license__ = "Apache License 2.0"
+__copyright__ = "Copyright 2024"
