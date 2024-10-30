@@ -28,4 +28,4 @@ Level,Group,Feature,hello world,More examples coming soon
 ,,r/w event,|ok|,
 ,,r/w historical data,|nok|,
 ,,signal status,|nok|,
-**Used rpio version**,,,**v0.1**,
+**Used rpio version**,,,**v0.1.0**,
