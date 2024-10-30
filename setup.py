@@ -33,6 +33,8 @@ setup(
     #install_requires=__install_requires__,
     python_requires=">=3.10",
     packages=find_packages(include=["rpio", "rpio.*"]),
+    install_requires = [
+        line.strip() for line in open('requirements.txt')],
     entry_points={
         "console_scripts": [
             "rpio = rpio.__main__:main",
