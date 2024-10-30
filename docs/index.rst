@@ -5,7 +5,7 @@
 
 RoboSAPIENS IO Project documentation
 ====================================
-.. image:: ../docs/assets/banner.png
+.. image:: ../assets/banner.png
   :width: 800
   :alt: banner
 
