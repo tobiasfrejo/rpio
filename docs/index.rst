@@ -35,7 +35,7 @@ Miscellaneous
 -------------
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
     features/history
     features/supported-features

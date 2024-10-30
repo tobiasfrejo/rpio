@@ -1,11 +1,15 @@
+
+
 Validation matrix
 ==================
 
-.. |ok| image:: ../../assets/ok.png
+.. _validation_matrix:
+
+.. |ok| image:: assets/ok.png
    :height: 2ex
-.. |nok| image:: ../../assets/_nok.png
+.. |nok| image:: assets/_nok.png
    :height: 2ex
-.. |uk| image:: ../../assets/thinking.png
+.. |uk| image:: assets/thinking.png
    :height: 2ex
 
 +-----------------+-------------------------+-------------------------+-------------+------------+
