@@ -1,8 +1,8 @@
-.. |ok| image:: /assets/ok.png
+.. |ok| image:: assets/ok.png
    :height: 2ex
-.. |nok| image:: /assets/nok.png
+.. |nok| image:: assets/nok.png
    :height: 2.5ex
-.. |uk| image:: /assets/thinking.png
+.. |uk| image:: assets/thinking.png
    :height: 2.5ex
 
 +-----------------+-------------------------+-------------------------+-------------+------------+
