@@ -23,11 +23,10 @@ This repository provides a flexible software architecture framework for building
 ---
 In the table below, the features of the rpio framework are specified:
 
-```{include} FEATURES.md
+```{include} FEATURES.rst
 ```
 
 ### Release descriptions
 
 ```{include} HISTORY.md
 ```
-    
