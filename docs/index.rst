@@ -5,7 +5,7 @@
 
 RoboSAPIENS IO documentation
 ====================================
-.. image:: /assets/banner.png
+.. image:: https://robosapiensio.readthedocs.io/en/latest/_images/banner.png
   :width: 800
   :alt: banner
 
