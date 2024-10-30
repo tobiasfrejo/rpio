@@ -4,8 +4,8 @@
    contain the root `toctree` directive.
 
 RoboSAPIENS IO documentation
-====================================
-.. image:: https://robosapiensio.readthedocs.io/en/latest/_images/banner.png
+============================
+.. image:: ../docs/assets/banner.png
   :width: 800
   :alt: banner
 
