@@ -7,8 +7,10 @@ Official
 Examples
 ~~~~~~~~~
 
-.. note::
-   No examples available now
+.. toctree::
+    :maxdepth: 1
+
+    helloworldExamples/helloworld/index
 
 
 Tutorials
@@ -16,6 +18,12 @@ Tutorials
 
 .. note::
    No tutorials available now
+
+Validation matrix
+~~~~~~~~~~~~~~~~~~
+
+The official examples are used to validate features of the robosapiensIO toolkit.
+Please check the :doc:`validation matrix<validation>`.
 
 
 Community
