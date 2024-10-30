@@ -13,8 +13,7 @@ robosapiensIO 1
 1.0.0 (2024-??-??)
 ~~~~~~~~~~~~~~~~~~
 
-* todo
-
+* add main release notes
 
 robosapiensIO Preview
 ---------------------
