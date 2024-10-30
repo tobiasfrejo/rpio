@@ -23,42 +23,11 @@ This repository provides a flexible software architecture framework for building
 ---
 In the table below, the features of the rpio framework are specified:
 
-| Level               | Group                       |         Feature         | Pre-release | v0.1 |
-|---------------------|-----------------------------|:-----------------------:|:-----------:|:----:|
-| **Architecture**    | **Knowledge manager**       |       _r/w data_        |      ✔      |      |
-|                     |                             |       _r/w event_       |      ✔      |      |
-|                     |                             |  _r/w historical data_  |      ❌      |      |
-|                     |                             |      _persistency_      |      ✔      |      |
-|                     | **Communcation manager**    |      MQTT support       |      ✔      |      |
-|                     |                             |      Redis support      |      ✔      |      |
-|                     |                             |    RabbitMQ support     |      ❌      |      |
-|                     |                             |     Modbus support      |      ❌      |      |
-|                     | **Trustworthiness manager** |                         |      ❌      |      |
-|                     |                             |                         |             |      |
-|                     | **Trustworthiness checker** | component ET monitoring |      ✔      |      |
-|                     |                             |       stl support       |      ❌      |      |
-| **rpio**            | **Transformations**         |      _aadl2aadlIl_      |      ❌      |      | 
-|                     |                             |       _aadl2swc_        |      ✔      |      |
-|                     |                             |     _aadl2message_      |      ✔      |      |
-|                     |                             |      upload image       |      ❌      |      |
-|                     | **PyLauncher**              |   launch  python swc    |      ✔      |      |
-|                     | **Command line interface**  |  _run transformations_  |     🤔      |      |
-|                     |                             |       _run code_        |     🤔      |      |
-|                     |                             |      _deploy code_      |     🤔      |      |
-|                     | **Remote agent**            |       remote cmds       |     🤔      |      |
-|                     |                             |       remote ping       |     🤔      |      |
-|                     |                             |           OTA           |     🤔      |      |
-|                     | **Remote manager**          |   remote device cmds    |      🤔       |      |
-|                     |                             |   remote device ping    |       🤔      |      |
-|                     |                             |    remote device OTA    |       🤔      |      |
-| **ClientLibraries** | **rpclpy**                  |       _r/w data_        |      ✔      |      |
-|                     |                             |       _r/w event_       |      ✔      |      |
-|                     |                             |  _r/w historical data_  |      ✔      |      |
-|                     |                             |     _signal status_     |      ❌      |      |
+```{include} FEATURES.md
+```
 
 ### Release descriptions
 
-**Pre-release:**
-- Initial version of the rpio framework
-- Initial version of the client library for python (rpclpy)
+```{include} HISTORY.md
+```
     
