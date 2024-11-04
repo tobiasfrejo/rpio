@@ -147,9 +147,6 @@ def swc2code_py(system=None,path="output/generated"):
         if not swcExists:
             _AddDockerFile(cmpName=process.name, path=swcFolder)
 
-
-
-
 def message2code_py(system=None,path="output/generated/messages"):
     """Function to generate python code from messages modeled within the AADL Intermediate Language
 

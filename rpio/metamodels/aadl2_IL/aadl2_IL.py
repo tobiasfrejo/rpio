@@ -6,6 +6,8 @@
 # * RAP R&D concepts can not be copied and/or distributed without the express
 # * permission of Bert Van Acker
 # **********************************************************************************
+import json
+
 class namedObject(object):
 
     def __init__(self, name='tbd', description='tbd', verbose=False):
@@ -23,54 +25,7 @@ class namedObject(object):
         """The description property (read-only)."""
         return self._description
 
-class system(namedObject):
 
-    def __init__(self,name='tbd', description='tbd', verbose=False,systemList = None,processList = None,featureList=None,messageList=None):
-        super().__init__(name=name,description = description,verbose=verbose)
-
-        if featureList is not None:
-            self._featureList = featureList
-        else:
-            self._featureList = []
-        if systemList is not None:
-            self._systemList = systemList
-        else:
-            self._systemList = []
-        if processList is not None:
-            self._processList = processList
-        else:
-            self._processList = []
-        if messageList is not None:
-            self._messageList = messageList
-        else:
-            self._messageList = []
-
-    def addProcess(self,process):
-        """Add a process to the process list """
-        self._processList.append(process)
-
-    @property
-    def processes(self):
-        return self._processList
-
-    @property
-    def systems(self):
-        return self._systemList
-    def addSystem(self,system):
-        """Add a system to the system list """
-        self._systemList.append(system)
-
-    def addFeature(self,feature):
-        """Add a feature to the system """
-        self._featureList.append(feature)
-
-    def addMessage(self,message):
-        """Add a process to the process list """
-        self._messageList.append(message)
-
-    @property
-    def messages(self):
-        return self._messageList
 
 
 class process(namedObject):
@@ -348,4 +303,132 @@ class bus(namedObject):
         self._connectionList.append(p)
 
 
+class system(namedObject):
 
+    def __init__(self,name='tbd', description='tbd', verbose=False,systemList = None,processList = None,featureList=None,messageList=None,JSONDescriptor=None):
+        super().__init__(name=name,description = description,verbose=verbose)
+
+        if featureList is not None:
+            self._featureList = featureList
+        else:
+            self._featureList = []
+        if systemList is not None:
+            self._systemList = systemList
+        else:
+            self._systemList = []
+        if processList is not None:
+            self._processList = processList
+        else:
+            self._processList = []
+        if messageList is not None:
+            self._messageList = messageList
+        else:
+            self._messageList = []
+
+        if JSONDescriptor is not None:
+            self.json2object(JSONDescriptor=JSONDescriptor)
+
+    def addProcess(self,process):
+        """Add a process to the process list """
+        self._processList.append(process)
+
+    @property
+    def processes(self):
+        return self._processList
+
+    @property
+    def systems(self):
+        return self._systemList
+    def addSystem(self,system):
+        """Add a system to the system list """
+        self._systemList.append(system)
+
+    def addFeature(self,feature):
+        """Add a feature to the system """
+        self._featureList.append(feature)
+
+    def addMessage(self,message):
+        """Add a process to the process list """
+        self._messageList.append(message)
+
+    @property
+    def messages(self):
+        return self._messageList
+    @messages.setter
+    def messages(self,d):
+        self._messageList = d
+
+    def object2json(self,fileName):
+        """
+               Function to generate a json file
+        """
+        data = json.dumps(self, default=lambda o: o.__dict__, indent=4)
+        with open(fileName, 'w', encoding='utf-8') as f:
+            f.write(data)
+
+    def json2object(self, JSONDescriptor='system.json'):
+        """
+             Function to generate an AADLIL system from a JSON file
+
+             :param string JSONDescriptor: absolute path to the json file for the AADLIL system
+
+        """
+        # --interpret JSON file--
+        with open(JSONDescriptor, "r") as read_file:
+            jsonObject = json.load(read_file)
+        # --setup object--
+        self._name = jsonObject['_name']
+        self._description = jsonObject['_description']
+        # -- load messages --
+        for m in jsonObject['_messageList']:
+            features = []
+            for d in m['_featureList']:
+                tempD = data(name=d['_name'], dataType=d['_dataType'])
+                features.append(tempD)
+            tempMessage = message(name=m['_name'], featureList=features)
+            self.addMessage(tempMessage)
+        # -- load systems and containing processes --
+        for s in jsonObject['_systemList']:
+            tempS=system(name=s['_name'], description=s['_description'])
+            for p in s['_processList']:
+                tempP=process(name=p['_name'], description=p['_description'])
+                features = []
+                for f in p['_featureList']:
+                    _m = None
+                    for m in self.messages:
+                        if f['_message'] is not None:
+                            if m.name == f['_message']['_name']:
+                                _m = m
+                    if f['_featureType'] == 'inport':
+                        tempF = inport(name=f['_name'], type=f['_type'], message=_m)
+                    elif f['_featureType'] == 'outport':
+                        tempF = outport(name=f['_name'], type=f['_type'], message=_m)
+                    else:
+                        tempF = ''
+                    tempP.addFeature(tempF)
+                threads = []
+                for t in p['_threadList']:
+                    Tfeatures = []
+                    for f in t['_featureList']:
+                        _m = None
+                        for m in self.messages:
+                            if f['_message'] is not None:
+                                if m.name == f['_message']['_name']:
+                                    _m = m
+                        if f['_featureType'] == 'inport':
+                            tempF = inport(name=f['_name'], type=f['_type'], message=_m)
+                        elif f['_featureType'] == 'outport':
+                            tempF = outport(name=f['_name'], type=f['_type'], message=_m)
+                        else:
+                            tempF = ''
+                        Tfeatures.append(tempF)
+                    tempT = thread(name=t["_name"],featureList=Tfeatures,eventTrigger=t["_eventTrigger"])
+                    tempP.addThread(tempT)
+                tempS.addProcess(tempP)
+            self.addSystem(tempS)
+
+    def __eq__(self, other):
+        if not isinstance(other, system):
+            # don't attempt to compare against unrelated types
+            return NotImplemented
+        return self.__dict__ == other.__dict__
