@@ -16,8 +16,10 @@ Examples
 Tutorials
 ~~~~~~~~~
 
-.. note::
-   No tutorials available now
+.. toctree::
+    :maxdepth: 1
+
+    basics/redis_docker
 
 Validation matrix
 ~~~~~~~~~~~~~~~~~~

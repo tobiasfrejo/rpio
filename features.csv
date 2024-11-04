@@ -1,4 +1,4 @@
-Level,Group,Feature,v0.2.0,v1.0
+Level,Group,Feature,v0.3.0,v1.0
 **Architecture**,**Knowledge manager**,r/w data,|ok|,
 ,,r/w event,|ok|,
 ,,r/w historical data,|nok|,
@@ -7,7 +7,6 @@ Level,Group,Feature,v0.2.0,v1.0
 ,,Redis support,|ok|,
 ,,RabbitMQ support,|nok|,
 ,,ROS support,|nok|,
-,,,,
 ,**Trustworthiness**,ET monitoring,|ok|,
 ,,STL support,|nok|,
 **rpio**,**Transformations**,roboArch2aadl,|nok|,
