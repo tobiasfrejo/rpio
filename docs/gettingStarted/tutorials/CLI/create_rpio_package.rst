@@ -33,23 +33,23 @@ Tasks
 
    .. tabs::
 
-   .. group-tab:: Linux
+       .. group-tab:: Linux
 
-      .. code-block:: bash
+          .. code-block:: bash
 
-        rpio package --create -n "newPackage" --verbose
+            rpio package --create -n "newPackage" --verbose
 
-   .. group-tab:: macOS
+       .. group-tab:: macOS
 
-      .. code-block:: console
+          .. code-block:: console
 
-        rpio package --create -n "newPackage" --verbose
+            rpio package --create -n "newPackage" --verbose
 
-   .. group-tab:: Windows
+       .. group-tab:: Windows
 
-      .. code-block:: console
+          .. code-block:: console
 
-        rpio package --create -n "newPackage" --verbose
+            rpio package --create -n "newPackage" --verbose
 
 Here's what each argument in the command does:
 
@@ -63,26 +63,26 @@ Here's what each argument in the command does:
 
    .. tabs::
 
-   .. group-tab:: Linux
+       .. group-tab:: Linux
 
-      .. code-block:: bash
+          .. code-block:: bash
 
-        cd newPackage
-        ls
+            cd newPackage
+            ls
 
-   .. group-tab:: macOS
+       .. group-tab:: macOS
 
-      .. code-block:: console
+          .. code-block:: console
 
-        cd newPackage
-        ls
+            cd newPackage
+            ls
 
-   .. group-tab:: Windows
+       .. group-tab:: Windows
 
-      .. code-block:: console
+          .. code-block:: console
 
-        cd newPackage
-        ls
+            cd newPackage
+            ls
 
 3. **Check the newly created robosapiensIO package**
 
@@ -90,23 +90,23 @@ Here's what each argument in the command does:
 
    .. tabs::
 
-   .. group-tab:: Linux
+       .. group-tab:: Linux
 
-      .. code-block:: bash
+          .. code-block:: bash
 
-        rpio package --check
+            rpio package --check
 
-   .. group-tab:: macOS
+       .. group-tab:: macOS
 
-      .. code-block:: console
+          .. code-block:: console
 
-        rpio package --check
+            rpio package --check
 
-   .. group-tab:: Windows
+       .. group-tab:: Windows
 
-      .. code-block:: console
+          .. code-block:: console
 
-        rpio package --check
+            rpio package --check
 
 Here's what each argument in the command does:
 
