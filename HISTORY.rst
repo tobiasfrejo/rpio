@@ -29,3 +29,15 @@ robosapiensIO Preview
 ~~~~~~~~~~~~~~~~~~
 
 * Updated the setup.py to include the used modules
+
+0.3.0 (2024-11-1)
+~~~~~~~~~~~~~~~~~~
+
+* First working pypi package.
+
+0.3.1 (2024-10-30)
+~~~~~~~~~~~~~~~~~~
+
+* added basic AADL parser
+* added basic CLI tool
+* added workflow to release CLI tool for easy use

@@ -20,6 +20,8 @@ Level,Group,Feature,hello world,More examples coming soon
 ,,build,|nok|,
 ,,deploy,|nok|,
 ,,run,|nok|,
+,,create rpio package,|nok|,
+,,Check rpio package,|nok|,
 ,**Remote agent**,remote commands,|nok|,
 ,,remote status,|nok|,
 ,,Over the Air Update (OTA),|nok|,
