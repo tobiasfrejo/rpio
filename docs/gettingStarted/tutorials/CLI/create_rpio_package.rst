@@ -31,25 +31,9 @@ Tasks
 
    Open a terminal in the folder you want to create the new robosapiensIO application package, with name 'newPackage,' and run the following command:
 
-   .. tabs::
+   .. code-block:: bash
 
-       .. group-tab:: Linux
-
-          .. code-block:: bash
-
-            rpio package --create -n "newPackage" --verbose
-
-       .. group-tab:: macOS
-
-          .. code-block:: console
-
-            rpio package --create -n "newPackage" --verbose
-
-       .. group-tab:: Windows
-
-          .. code-block:: console
-
-            rpio package --create -n "newPackage" --verbose
+        rpio package --create -n "newPackage" --verbose
 
 Here's what each argument in the command does:
 
@@ -61,52 +45,20 @@ Here's what each argument in the command does:
 
    Navigate to the directory where the ``test`` package was created and check its structure to confirm that all necessary files and folders have been set up correctly:
 
-   .. tabs::
+    .. code-block:: bash
 
-       .. group-tab:: Linux
+        cd newPackage
+        ls
 
-          .. code-block:: bash
-
-            cd newPackage
-            ls
-
-       .. group-tab:: macOS
-
-          .. code-block:: console
-
-            cd newPackage
-            ls
-
-       .. group-tab:: Windows
-
-          .. code-block:: console
-
-            cd newPackage
-            ls
 
 3. **Check the newly created robosapiensIO package**
 
    You can check that the newly created package is a valid robosapiensIO package, run:
 
-   .. tabs::
+   .. code-block:: bash
 
-       .. group-tab:: Linux
+     rpio package --check
 
-          .. code-block:: bash
-
-            rpio package --check
-
-       .. group-tab:: macOS
-
-          .. code-block:: console
-
-            rpio package --check
-
-       .. group-tab:: Windows
-
-          .. code-block:: console
-
-            rpio package --check
 
 Here's what each argument in the command does:
 
