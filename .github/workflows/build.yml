@@ -16,3 +16,9 @@ jobs:
           requirements: 'requirements.txt'
           upload_exe_with_name: 'rpio-windows'
           options: --onefile, --name "rpio"
+      - name: upload artifact to release
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist
+          asset_name: rpio-windows

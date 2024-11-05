@@ -41,3 +41,8 @@ robosapiensIO Preview
 * added basic AADL parser
 * added basic CLI tool
 * added workflow to release CLI tool for easy use
+
+0.3.2 (2024-10-30)
+~~~~~~~~~~~~~~~~~~
+
+* workflow added to release the CLI for windows
