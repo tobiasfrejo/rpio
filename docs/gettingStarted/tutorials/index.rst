@@ -17,9 +17,10 @@ Tutorials
 ~~~~~~~~~
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
-    basics/redis_docker
+    basics/Beginner-basics
+    CLI/Beginner-CLI-Tools
 
 Validation matrix
 ~~~~~~~~~~~~~~~~~~
