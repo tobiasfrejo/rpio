@@ -1,4 +1,4 @@
-Level,Group,Feature,v0.3.0,v0.3.1,v0.3.2,v1.0
+Level,Group,Feature,v0.3.0,v0.3.1,v0.3.4,v1.0
 **Architecture**,**Knowledge manager**,r/w data,|ok|,|ok|,|ok|,
 ,,r/w event,|ok|,|ok|,|ok|,
 ,,r/w historical data,|nok|,|nok|,|nok|,

@@ -30,7 +30,7 @@ robosapiensIO Preview
 
 * Updated the setup.py to include the used modules
 
-0.3.0 (2024-11-1)
+0.3.0 (2024-10-30)
 ~~~~~~~~~~~~~~~~~~
 
 * First working pypi package.
@@ -46,3 +46,13 @@ robosapiensIO Preview
 ~~~~~~~~~~~~~~~~~~
 
 * workflow added to release the CLI for windows
+
+0.3.3 (2024-11-5)
+~~~~~~~~~~~~~~~~~~
+
+* workflow added to release the CLI for windows
+
+0.3.4 (2024-11-5)
+~~~~~~~~~~~~~~~~~~
+
+* workflow added to release the CLI for windows as release asset

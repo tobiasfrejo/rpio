@@ -1,7 +1,7 @@
 Installation Methods
 --------------------
 
-Please *choose ONE of* the following methods:
+The robosapiensIO can either be installed as standalone command line tool or integrate in your (existing) python project.
 
 .. toctree::
     :maxdepth: 2

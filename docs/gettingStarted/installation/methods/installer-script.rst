@@ -1,46 +1,27 @@
 .. _installation_installer_script:
 
-Installer Script
-------------------------------
-
-.. warning::
-    This installation method is under construction
-
+robosapiensIO CLI
+------------------
 
 .. contents::
     :local:
 
-Super-Quick (macOS / Linux)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fetching the rpio CLI
+~~~~~~~~~~~~~~~~~~~~~~~
 
-To install or upgrade robosapiensIO paste that at a *Terminal* prompt:
+Fetching the rpio CLI tool can be done by manually downloading `link <https://github.com/BertVanAcker/rpio/releases/latest/download/rpio.exe>`_ or by using ``curl``:
 
-Using ``curl``
 
-.. code-block:: bash
-
-    TODO
-
-or using ``wget``
 
 .. code-block:: bash
 
-    TODO
+    curl -o rpio.exe https://github.com/BertVanAcker/rpio/releases/latest/download/rpio.exe
 
 
-Local Download (macOS / Linux / Windows)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Install Shell Commands
+~~~~~~~~~~~~~~~~~~~~~~~
 
-To install or upgrade robosapiensIO, download (save as...) ...
-Then run the following:
+Please read one of these instructions   `How do I set or change the PATH system variable? <https://www.google.com.ua/search?q=how+do+i+set+or+change+the+path+system+variable>`_
 
-.. code-block:: bash
+You need to edit the system environment variable called ``Path`` and append ``C:\path\to\folder`` where rpio.exe is located.
 
-    TODO
-
-
-On *Windows OS* it may look like this:
-
-.. code-block:: bash
-
-   TODO

@@ -5,7 +5,7 @@ Installation
 
 .. warning::
 
-    Different installation methods are under construction to install the robosapiensIO toolkit.
+    Different installation methods are under construction to install the robosapiensIO toolkit (python integration and rpio CLI).
 
 
 .. toctree::
