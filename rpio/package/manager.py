@@ -101,12 +101,18 @@ class PackageManager(object):
                 self.standalonePath = path
                 try:
                     self._populatePackage(name=name, standalone=standalone)
+                    if self._verbose: print("DEBUG: " + self._packageName + " package created...")
                 except:
                     raise Exception("ERROR: "+self._packageName+" package could not be created!")
 
-                if self._verbose: print("DEBUG: " + self._packageName + " package created...")
             else:
-                if self._verbose: print("DEBUG: directory is not provided for standalone creation, no " + self._packageName + " package created!")
+                self.standalonePath = os.getcwd()
+                try:
+                    self._populatePackage(name=name, standalone=standalone)
+                    if self._verbose: print("DEBUG: " + self._packageName + " package created...")
+                except:
+                    raise Exception("ERROR: "+self._packageName+" package could not be created!")
+
 
     def check(self,path=None):
         """Check rpIO package.
@@ -151,8 +157,8 @@ class PackageManager(object):
             # generate in standalone package instead of in current directory
             Path(self.standalonePath+"/"+self._packageName).mkdir(parents=True, exist_ok=True)
             prefix = self.standalonePath+"/"+self._packageName+'/'
-            self._addFile(file="robosapiensIO.ini",name=self._packageName, path=self._directory + "/" + prefix)
-            logfilepath = self._directory + "/" + prefix+"/Resources"
+            self._addFile(file="robosapiensIO.ini",name=self._packageName, path=prefix)
+            logfilepath = prefix+"/Resources"
         else:
             prefix=""
             self._addFile(file="robosapiensIO.ini",name=self._packageName)
@@ -190,6 +196,16 @@ class PackageManager(object):
         # add system log file
         self._addFile(file="sys.log", path=logfilepath)
 
+        # add run, build and deploy actions (placeholders) for managing system
+        self._addFile(file="run.py", path=prefix +"Realization/ManagingSystem/Actions/")
+        self._addFile(file="build.py", path=prefix + "Realization/ManagingSystem/Actions/")
+        self._addFile(file="deploy.py", path=prefix + "Realization/ManagingSystem/Actions/")
+
+        # add run, build and deploy actions (placeholders) for managed system
+        self._addFile(file="run.py", path=prefix + "Realization/ManagedSystem/Actions/")
+        self._addFile(file="build.py", path=prefix + "Realization/ManagedSystem/Actions/")
+        self._addFile(file="deploy.py", path=prefix + "Realization/ManagedSystem/Actions/")
+
     def _mkdir_custom(self, folder="empty", file='readme.md'):
         """CUSTOM mkdir function to initialize git-pushable directories"""
         #create directory
@@ -221,7 +237,14 @@ class PackageManager(object):
             f.write('description = " Add project description"\n')
 
 
+        if "run.py" in file:
+            f.write("print('WARNING: Run action not implemented yet!')")
 
+        if "build.py" in file:
+            f.write("print('WARNING: Build action not implemented yet!')")
+
+        if "deploy.py" in file:
+            f.write("print('WARNING: Deploy action not implemented yet!')")
 
         # --- close file ---
         f.close()

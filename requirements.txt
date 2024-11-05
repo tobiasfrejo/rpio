@@ -29,7 +29,7 @@ pefile==2023.2.7
 pillow==11.0.0
 portion==2.6.0
 Pygments==2.18.0
-pyinstaller==6.7.0
+pyinstaller==6.11.0
 pyinstaller-hooks-contrib==2024.6
 pyparsing==3.2.0
 python-dateutil==2.9.0.post0

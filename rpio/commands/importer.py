@@ -27,7 +27,7 @@ def importCmds():
 @click.option('--RAADL', default='default.raadl', help='Input RAADL models.')
 def importer(verbose):
     """Import standalone RoboSAPIENS Adaptive Platform application package."""
-    if verbose:print("Importing the standalone RoboSAPIENS Adaptive Platform application package")
+    if verbose:print("Importing the standalone robosapiensIO application package")
 
 
 

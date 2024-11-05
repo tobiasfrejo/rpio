@@ -20,4 +20,4 @@ def versionCmds():
 def version():
     """Display the current version."""
     version = __version__
-    click.echo(version)
+    click.echo("rpio v"+version)

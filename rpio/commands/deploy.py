@@ -26,17 +26,17 @@ def deployCmds():
 @click.option('--verbose','-v', is_flag=True,default=False,help='Enable debug information.')
 def deploy(verbose):
     """Deploying standalone RoboSAPIENS Adaptive Platform application package on target."""
-    if verbose:print("Deploying the standalone RoboSAPIENS Adaptive Platform application on given target")
+    if verbose:print("Deploy command under construction")
 
     _directory = os.getcwd()
-    runFile = "05_Actions/deploy.py"
+    runFile = "Realization/ManagingSystem/Actions/deploy.py"
     arguments = ""
     if verbose:print(runFile)
 
     try:
         subprocess.run(['py.exe',runFile, arguments])
     except:
-        print("FAIL - deploying standalone RoboSAPIENS Adaptive Platform application failed")
+        print("FAIL - deploying standalone robosapiensIO application failed")
 
 
 

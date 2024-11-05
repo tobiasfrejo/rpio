@@ -26,17 +26,17 @@ def buildCmds():
 @click.option('--verbose','-v', is_flag=True,default=False,help='Enable debug information.')
 def build(verbose):
     """Build standalone RoboSAPIENS Adaptive Platform application package."""
-    if verbose:print("Building the standalone RoboSAPIENS Adaptive Platform application for given target")
+    if verbose:print("Build command under construction")
 
     _directory = os.getcwd()
-    runFile = "05_Actions/build.py"
+    runFile = "Realization/ManagingSystem/Actions/build.py"
     arguments = ""
     if verbose:print(runFile)
 
     try:
         subprocess.run(['py.exe',runFile, arguments])
     except:
-        print("FAIL - building standalone RoboSAPIENS Adaptive Platform application failed")
+        print("FAIL - building standalone robosapiensIO application failed")
 
 
 
