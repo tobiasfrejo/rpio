@@ -16,8 +16,9 @@ from rpio.commands.run import runCmds
 from rpio.commands.build import buildCmds
 from rpio.commands.package import packageCmds
 from rpio.commands.deploy import deployCmds
+from rpio.commands.transformations import transformationCmds
 
-cli=click.CommandCollection(sources=[versionCmds,packageCmds,runCmds,buildCmds,deployCmds],help="robosapiensIO command line tool")
+cli=click.CommandCollection(sources=[versionCmds,packageCmds,transformationCmds,runCmds,buildCmds,deployCmds],help="robosapiensIO command line tool")
 
 
 if __name__ == '__main__':
