@@ -28,16 +28,16 @@ def transformationCmds():
 
 @transformationCmds.command()
 @click.option('--verbose','-v', is_flag=True,default=False,help='Enable debug information.')
-@click.option('--roboArch2AADL', is_flag=True,default=False,help='Perform the roboArch2AADL transformation.')
-@click.option('--AADL2AADLIL', is_flag=True,default=False,help='Perform the AADL2AADLIL transformation.')
-@click.option('--AADLIL2CODE', is_flag=True,default=False,help='Perform the AADLIL2CODE transformation.')
-def transformation(verbose,roboArch2AADL,AADL2AADLIL,AADLIL2CODE):
+@click.option('--roboarch2aadl', is_flag=True,default=False,help='Perform the roboArch2AADL transformation.')
+@click.option('--aadl2aadlil', is_flag=True,default=False,help='Perform the AADL2AADLIL transformation.')
+@click.option('--aadlil2code', is_flag=True,default=False,help='Perform the AADLIL2CODE transformation.')
+def transformation(verbose,roboarch2aadl,aadl2aadlil,aadlil2code):
     """Performing one of the model-to-model or model-to-code transformations."""
 
-    if roboArch2AADL:
+    if roboarch2aadl:
         if verbose:print("WARNING: RoboArch2AADL transformation is not implemented yet.")
 
-    if AADL2AADLIL:
+    if aadl2aadlil:
         if verbose: print("WARNING: AADL2AADLIL transformation is under development.")
 
         # 1. Setup the AADL parser
@@ -62,7 +62,7 @@ def transformation(verbose,roboArch2AADL,AADL2AADLIL,AADLIL2CODE):
             if verbose:print("ERROR: AADLIL model could not be generated.")
 
 
-    if AADLIL2CODE:
+    if aadlil2code:
         if verbose: print("WARNING: AADL2AADLIL transformation is under development.")
 
         # 1. LOAD THE AADL INTERMEDUATE LANGUAGE
