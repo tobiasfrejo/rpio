@@ -7,9 +7,13 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.parsers.parsers import *
+from rpio.transformations.transformations import robochart2aadlmessages
 
 
 # 1. Setup the robochart parser
 parser = robochart_parser(MAPLEK='input/MAPLE-K.rct',Monitor='input/Monitor.rct',Analysis='input/Analysis.rct',Plan='input/Plan.rct',Legitimate='input/Legitimate.rct',Execute='input/Execute.rct',Knowledge='input/Knowledge.rct')
+
+# 2. Generate AADL models
+x = robochart2aadlmessages(maplek=parser.maplek_model,path='output/')
 
 x=1

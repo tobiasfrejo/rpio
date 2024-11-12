@@ -56,3 +56,9 @@ robosapiensIO Preview
 ~~~~~~~~~~~~~~~~~~
 
 * workflow added to release the CLI for windows as release asset
+
+0.3.5 (2024-11-12)
+~~~~~~~~~~~~~~~~~~
+
+* added AADL to AADLIL parser
+* added robochart parser
