@@ -5,3 +5,4 @@ Beginner: CLI tools
    :maxdepth: 1
 
    create_rpio_package
+   transformations

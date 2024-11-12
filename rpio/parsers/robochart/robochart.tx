@@ -193,7 +193,7 @@ Value:
 ;
 
 Operator:
-    AssignmentOperator | BooleanOperator
+    AssignmentOperator | BooleanOperator | UnknownOperator
 ;
 
 BooleanOperator:
@@ -204,6 +204,9 @@ AssignmentOperator:
     '=' | '!'
 ;
 
+UnknownOperator:
+    '?'
+;
 
 
 Use:

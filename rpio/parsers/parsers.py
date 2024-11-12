@@ -6,10 +6,11 @@
 # * RAP R&D concepts can not be copied and/or distributed without the express
 # * permission of Bert Van Acker
 # **********************************************************************************
-
+import os
 import re
 import sys
 from rpio.metamodels.aadl2_IL.aadl2_IL import *
+from textx import metamodel_from_file
 
 class AADL_parser:
     """This is a parser that parses muliple AADL files and puts them into the AADL intermediate language.
@@ -185,3 +186,98 @@ class AADL_parser:
         return self.messages
 
 
+class robochart_parser:
+    """This is a parser that parses muliple robochart files, as input for the AADL code generator.
+
+        :param [MAPLEK]: [Path to the MAPLE-K roboChart model], defaults to [None]
+        :type [MAPLEK]: [string](, optional)
+
+        :param [Monitor]: [Path to the Monitor roboChart model], defaults to [None]
+        :type [Monitor]: [string](, optional)
+
+        :param [Analysis]: [Path to the Analysis roboChart model], defaults to [None]
+        :type [Analysis]: [string](, optional)
+
+        :param [Plan]: [Path to the Plan roboChart model], defaults to [None]
+        :type [Plan]: [string](, optional)
+
+        :param [Legitimate]: [Path to the Legitimate roboChart model], defaults to [None]
+        :type [Legitimate]: [string](, optional)
+
+        :param [Execute]: [Path to the Execute roboChart model], defaults to [None]
+        :type [Execute]: [string](, optional)
+
+        :param [Knowledge]: [Path to the Knowledge roboChart model], defaults to [None]
+        :type [Knowledge]: [string](, optional)
+
+        """
+    def __init__(self, MAPLEK,Monitor,Analysis,Plan,Legitimate,Execute,Knowledge):
+        """Constructor method
+        """
+        currentDir = os.path.dirname(os.path.abspath(__file__))
+        metamodelPath = os.path.join(currentDir, 'robochart/robochart.tx')
+        self.robochart_meta = metamodel_from_file(metamodelPath)
+
+        self.maplek_model = None
+        self.monitor_model = None
+        self.analysis_model = None
+        self.plan_model = None
+        self.legitimate_model = None
+        self.execute_model = None
+        self.knowledge_model = None
+
+        # Read the MAPLE-K robochart model
+        try:
+            self.maplek_model = self.robochart_meta.model_from_file(MAPLEK)
+        except FileNotFoundError:
+            self.maplek_model = None
+            print(f"Error: File '{MAPLEK}' not found.")
+            sys.exit(1)
+
+        # Read the Monitor robochart model
+        try:
+            self.monitor_model = self.robochart_meta.model_from_file(Monitor)
+        except FileNotFoundError:
+            self.monitor_model = None
+            print(f"Error: File '{Monitor}' not found.")
+            sys.exit(1)
+
+        # Read the Analysis robochart model
+        try:
+            self.analysis_model = self.robochart_meta.model_from_file(Analysis)
+        except FileNotFoundError:
+            self.analysis_model = None
+            print(f"Error: File '{Analysis}' not found.")
+            sys.exit(1)
+
+        # Read the Plan robochart model
+        try:
+            self.plan_model = self.robochart_meta.model_from_file(Plan)
+        except FileNotFoundError:
+            self.plan_model = None
+            print(f"Error: File '{Plan}' not found.")
+            sys.exit(1)
+
+        # Read the Legitimate robochart model
+        try:
+            self.legitimate_model = self.robochart_meta.model_from_file(Legitimate)
+        except FileNotFoundError:
+            self.legitimate_model = None
+            print(f"Error: File '{Legitimate}' not found.")
+            sys.exit(1)
+
+        # Read the Execute robochart model
+        try:
+            self.execute_model = self.robochart_meta.model_from_file(Execute)
+        except FileNotFoundError:
+            self.execute_model = None
+            print(f"Error: File '{Execute}' not found.")
+            sys.exit(1)
+
+        # Read the Knowledge robochart model
+        try:
+            self.knowledge_model = self.robochart_meta.model_from_file(Knowledge)
+        except FileNotFoundError:
+            self.knowledge_model = None
+            print(f"Error: File '{Knowledge}' not found.")
+            sys.exit(1)
