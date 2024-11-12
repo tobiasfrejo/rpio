@@ -1,2 +1,2 @@
-recursive-include rpio/transformations/templates *
-recursive-include rpio/parsers/robochart *
+include rpio/transformations/templates/*.template
+include rpio/parsers/robochart/*.tx
