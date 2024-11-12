@@ -1,6 +1,4 @@
-from array import array
-
-from rpio.metamodels.aadl2_IL.aadl2_IL import *
+from rpio.metamodels.aadl2_IL import *
 
 
 

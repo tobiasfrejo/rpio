@@ -13,10 +13,9 @@
 # limitations under the License.
 
 import click
-import os
 from rpio.transformations.transformations import *
 from rpio.parsers.parsers import *
-from rpio.metamodels.aadl2_IL.aadl2_IL import *
+from rpio.metamodels.aadl2_IL import *
 
 
 

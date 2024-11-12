@@ -62,3 +62,8 @@ robosapiensIO Preview
 
 * added AADL to AADLIL parser
 * added robochart parser
+
+0.3.6 (2024-11-12)
+~~~~~~~~~~~~~~~~~~
+
+* AADLIL metamodel package added

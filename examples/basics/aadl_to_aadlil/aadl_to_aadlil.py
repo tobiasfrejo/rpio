@@ -7,10 +7,7 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.parsers.parsers import *
-from rpio.metamodels.aadl2_IL.aadl2_IL import *
-import json
-from types import SimpleNamespace
-
+from rpio.metamodels.aadl2_IL import *
 
 # 1. Setup the AADL parser
 parser = AADL_parser(logicalArchitecture='input/logicalArchitecture.aadl',physicalArchitecture='input/physicalArchitecture',messages='input/messages.aadl')

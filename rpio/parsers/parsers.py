@@ -9,7 +9,7 @@
 import os
 import re
 import sys
-from rpio.metamodels.aadl2_IL.aadl2_IL import *
+from rpio.metamodels.aadl2_IL import *
 from textx import metamodel_from_file
 
 class AADL_parser:
