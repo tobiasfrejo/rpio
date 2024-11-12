@@ -34,6 +34,7 @@ setup(
     python_requires=">=3.10",
     packages=find_packages(include=["rpio", "rpio.*"]),
     package_data={'rpio': ['transformations/templates/*.template']},  # directory which contains the jinja templates
+    include_package_data=True,
     install_requires = [
         line.strip() for line in open('requirements.txt')],
     entry_points={
