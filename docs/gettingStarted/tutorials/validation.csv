@@ -15,7 +15,7 @@ Level,Group,Feature,hello world,More examples coming soon
 ,,aadl_il2messages,|ok|,
 ,,aadl_il2actions,|nok|,
 ,,aadl_il2workflows,|nok|,
-,**PyLauncher**,launch python swc,|ok|,
+,**PyLauncher**,launch python swc,|nok|,
 ,**Command Line Interface (CLI)**,run transformations,|nok|,
 ,,build,|nok|,
 ,,deploy,|nok|,
