@@ -7,7 +7,7 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
-from messages import *
+from .messages import *
 import time
 #<!-- cc_include START--!>
 from fractions import Fraction
@@ -169,12 +169,12 @@ class Plan(Node):
             self.logger.info(f"Stored planned action: {directions}")
         #<!-- cc_code_planner END--!>
 
-        # _success = self.knowledge.write(cls=_NewPlanMessage)
-        # _success = self.knowledge.write(cls=_Direction)
+        _success = self.knowledge.write(cls=_NewPlanMessage)
+        _success = self.knowledge.write(cls=_Direction)
 
     def register_callbacks(self):
         self.register_event_callback(event_key='anomaly', callback=self.planner)     # LINK <eventTrigger> anomaly
-        # self.register_event_callback(event_key='anomaly', callback=self.planner)        # LINK <inport> anomaly
+        self.register_event_callback(event_key='anomaly', callback=self.planner)        # LINK <inport> anomaly
 
 def main(args=None):
 

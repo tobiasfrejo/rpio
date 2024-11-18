@@ -45,7 +45,7 @@ mqtt_subscribe_topics:
   - "/Scan"
 
 mqtt_publish_topics:
-  - "new_data"
+  - "monitor/event"
 
 redis_host: "localhost"
 redis_port: 6379

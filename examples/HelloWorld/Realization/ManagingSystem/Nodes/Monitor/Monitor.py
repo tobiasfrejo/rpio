@@ -7,7 +7,7 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
-from messages import *
+from .messages import *
 import time
 #<!-- cc_include START--!>
 # user includes here
@@ -42,12 +42,11 @@ class Monitor(Node):
 
         #<!-- cc_code_monitor_data END--!>
 
-        # _success = self.knowledge.write(cls=_LaserScan)
-        self.knowledge.write("laser_scan",msg)
+        _success = self.knowledge.write(cls=_LaserScan)
         self.publish_event(event_key='new_data')    # LINK <outport> new_data
 
     def register_callbacks(self):
-        self.register_event_callback(event_key='/Scan', callback=self.monitor_data)     # LINK <eventTrigger> Scan
+        self.register_event_callback(event_key='Scan', callback=self.monitor_data)     # LINK <eventTrigger> Scan
 
 def main(args=None):
 

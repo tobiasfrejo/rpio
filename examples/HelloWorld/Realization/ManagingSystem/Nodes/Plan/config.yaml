@@ -48,10 +48,10 @@ mqtt_broker: "localhost"
 mqtt_port: 1883
 
 mqtt_subscribe_topics:
-  - "anomaly"
+  - "/Scan"
 
 mqtt_publish_topics:
-  - "new_plan"
+  - "monitor/event"
 
 redis_host: "localhost"
 redis_port: 6379

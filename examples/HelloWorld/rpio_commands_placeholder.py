@@ -1,4 +1,4 @@
-from rpio.transformations.transformations import swc2code_py,message2code_py
+from rpio.transformations.transformations import swc2code_py,message2code_py, swc2launch
 from examples.HelloWorld.Design.HelloWorld_AADLIL import *
 
 #-------------------------------------------------------------------------------------------------------
@@ -25,3 +25,9 @@ try:
 except:
     print("Failed to generate the software components")
 
+# 5. GENERATE SWC LAUNCH FILES FOR THE IDENTIFIED PROCESSOR BINDINGS
+try:
+    swc2launch(system=design.systems[0],path="Realization/ManagingSystem/Platform")
+    swc2launch(system=design.systems[1], path="Realization/ManagedSystem/Platform")
+except:
+    print("Failed to generate the software component launch files")

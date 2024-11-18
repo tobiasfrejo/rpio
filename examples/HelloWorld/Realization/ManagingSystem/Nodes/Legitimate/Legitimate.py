@@ -7,7 +7,7 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
-from messages import *
+from .messages import *
 import time
 #<!-- cc_include START--!>
 # user includes here
@@ -28,6 +28,7 @@ class Legitimate(Node):
         #<!-- cc_init START--!>
         # user includes here
         #<!-- cc_init END--!>
+
 
 
 def main(args=None):

@@ -162,7 +162,8 @@ def HelloWorld():
     # XEON PROCESSOR CONNTECTION
     MIPSCapacity = characteristic(name="MIPSCapacity",value=1000.0,dataType="MIPS")
     I1 = port(name="I1",type="event data")
-    laptop_xeon = processor(name="laptop-xeon",propertyList=[MIPSCapacity],featureList=[I1])
+    laptop_xeon1 = processor(name="xeon1",propertyList=[MIPSCapacity],featureList=[I1])
+    #laptop_xeon2 = processor(name="xeon2", propertyList=[MIPSCapacity], featureList=[I1])
 
 
     # XEON PROCESSOR CONNTECTION
@@ -184,13 +185,14 @@ def HelloWorld():
     #--------------------------------------- MAPPING ARCHITECTURE ----------------------------------------------------------
     #-----------------------------------------------------------------------------------------------------------------------
 
-    laptop_xeon.addProcessorBinding(process=monitor)
-    laptop_xeon.addProcessorBinding(process=analysis)
-    laptop_xeon.addProcessorBinding(process=plan)
-    laptop_xeon.addProcessorBinding(process=legitimate)
-    laptop_xeon.addProcessorBinding(process=execute)
+    laptop_xeon1.addProcessorBinding(process=monitor)
+    laptop_xeon1.addProcessorBinding(process=analysis)
+    laptop_xeon1.addProcessorBinding(process=plan)
+    laptop_xeon1.addProcessorBinding(process=legitimate)
+    laptop_xeon1.addProcessorBinding(process=execute)
 
-    managingSystem.addProcessor(laptop_xeon)
+    managingSystem.addProcessor(laptop_xeon1)
+    #managingSystem.addProcessor(laptop_xeon2)
     managedSystem.addProcessor(RPI)
 
     # -----------------------------------------------------------------------------------------------------------------------
@@ -212,6 +214,6 @@ def HelloWorld():
     return adaptiveSystem
 
 HelloWorldDesign=HelloWorld()
-x=1
+
 
 
