@@ -162,7 +162,7 @@ def HelloWorld():
     # XEON PROCESSOR CONNTECTION
     MIPSCapacity = characteristic(name="MIPSCapacity",value=1000.0,dataType="MIPS")
     I1 = port(name="I1",type="event data")
-    XeonSolo = processor(name="Xeon",propertyList=[MIPSCapacity],featureList=[I1])
+    laptop_xeon = processor(name="laptop-xeon",propertyList=[MIPSCapacity],featureList=[I1])
 
 
     # XEON PROCESSOR CONNTECTION
@@ -180,13 +180,38 @@ def HelloWorld():
     interface.addConnection(I1)
     interface.addConnection(I2)
 
-    return adaptiveSystem
-
-
     #-----------------------------------------------------------------------------------------------------------------------
     #--------------------------------------- MAPPING ARCHITECTURE ----------------------------------------------------------
     #-----------------------------------------------------------------------------------------------------------------------
 
+    laptop_xeon.addProcessorBinding(process=monitor)
+    laptop_xeon.addProcessorBinding(process=analysis)
+    laptop_xeon.addProcessorBinding(process=plan)
+    laptop_xeon.addProcessorBinding(process=legitimate)
+    laptop_xeon.addProcessorBinding(process=execute)
+
+    managingSystem.addProcessor(laptop_xeon)
+    managedSystem.addProcessor(RPI)
+
+    # -----------------------------------------------------------------------------------------------------------------------
+    # --------------------------------------- NODE IMPLEMENTATION ----------------------------------------------------------
+    # -----------------------------------------------------------------------------------------------------------------------
+    monitor.formalism = "python"
+    analysis.formalism = "python"
+    plan.formalism = "python"
+    legitimate.formalism = "python"
+    execute.formalism = "python"
+
+    monitor.containerization = False
+    analysis.containerization = False
+    plan.containerization = False
+    legitimate.containerization = False
+    execute.containerization = False
+
+
+    return adaptiveSystem
+
 HelloWorldDesign=HelloWorld()
+x=1
 
 

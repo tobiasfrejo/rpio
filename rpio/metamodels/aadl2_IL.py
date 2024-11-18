@@ -30,7 +30,7 @@ class namedObject(object):
 
 class process(namedObject):
 
-    def __init__(self, name='tbd',description='tbd',verbose=False,featureList = None,threadList=None):
+    def __init__(self, name='tbd',description='tbd',verbose=False,featureList = None,threadList=None,formalism="python",containerization=False):
         super().__init__(name=name, description=description, verbose=verbose)
 
         if featureList is not None:
@@ -42,6 +42,9 @@ class process(namedObject):
             self._threadList = threadList
         else:
             self._threadList = []
+
+        self._formalism = formalism
+        self._containerization = containerization
 
     @property
     def features(self):
@@ -58,6 +61,22 @@ class process(namedObject):
     def addThread(self, t):
         """Add a thread to the system """
         self._threadList.append(t)
+
+    @property
+    def formalism(self):
+        return self._formalism
+
+    @formalism.setter
+    def formalism(self,f):
+        self._formalism = f
+
+    @property
+    def containerization(self):
+        return self._containerization
+
+    @containerization.setter
+    def containerization(self,c):
+        self._containerization = c
 
 class thread(namedObject):
 
@@ -248,7 +267,7 @@ class data(feature):
 
 class processor(namedObject):
 
-    def __init__(self,name='tbd', description='tbd', verbose=False,featureList = None,propertyList = None):
+    def __init__(self,name='tbd', description='tbd', verbose=False,featureList = None,propertyList = None, bindingList=None):
         super().__init__(name=name,description = description,verbose=verbose)
 
         if featureList is not None:
@@ -259,6 +278,11 @@ class processor(namedObject):
             self._propertyList = propertyList
         else:
             self._propertyList = []
+        if bindingList is not None:
+            self._bindingList = bindingList
+        else:
+            self._bindingList = []
+
 
     def addFeature(self, feature):
         """Add a feature to the system """
@@ -267,6 +291,15 @@ class processor(namedObject):
     def addProperty(self, p):
         """Add a property to the system """
         self._propertyList.append(p)
+
+    def addProcessorBinding(self,process):
+        """Add a processor binding to the processor """
+        self._bindingList.append(process)
+
+    @property
+    def processorBinding(self):
+        return self._bindingList
+
 
 class memory(namedObject):
 
@@ -305,7 +338,7 @@ class bus(namedObject):
 
 class system(namedObject):
 
-    def __init__(self,name='tbd', description='tbd', verbose=False,systemList = None,processList = None,featureList=None,messageList=None,JSONDescriptor=None):
+    def __init__(self,name='tbd', description='tbd', verbose=False,systemList = None,processList = None,featureList=None,messageList=None,processorList=None,JSONDescriptor=None):
         super().__init__(name=name,description = description,verbose=verbose)
 
         if featureList is not None:
@@ -324,6 +357,11 @@ class system(namedObject):
             self._messageList = messageList
         else:
             self._messageList = []
+        if processorList is not None:
+            self._processorList = processorList
+        else:
+            self._processorList = []
+
 
         if JSONDescriptor is not None:
             self.json2object(JSONDescriptor=JSONDescriptor)
@@ -357,6 +395,14 @@ class system(namedObject):
     @messages.setter
     def messages(self,d):
         self._messageList = d
+
+    def addProcessor(self,processor):
+        """Add a processor to the system list """
+        self._processorList.append(processor)
+
+    @property
+    def processors(self):
+        return self._processorList
 
     def object2json(self,fileName):
         """
