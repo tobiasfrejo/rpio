@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import click
+from rpio.utils.auxiliary import *
 
 
 @click.group()
@@ -30,6 +31,22 @@ def platform(verbose,check,set,force):
 
     if check:
         if verbose:print("WARNING: platform check is not implemented yet.")
+
+        # CHECK REDIS IS RUNNING
+        REDIS_CHECK = check_redis(config=None)
+        if REDIS_CHECK:
+            print("INFO: REDIS connection check is successful.")
+        else:
+            print("ERROR: REDIS connection failed. Please check if the platform is connected to the host running the Redis")
+            exit()
+
+        #CHECK MQTT IS RUNNING
+        MQTT_CHECK = check_mqtt(config=None)
+        if MQTT_CHECK:
+            print("INFO: MQTT connection check is successful.")
+        else:
+            print("ERROR: MQTT connection failed. Please check if the platform is connected to the host running the MQTT broker")
+            exit()
 
     if set:
         if verbose: print("WARNING: platform setup is not implemented yet.")

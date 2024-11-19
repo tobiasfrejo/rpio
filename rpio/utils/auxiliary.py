@@ -6,6 +6,10 @@ import zipfile
 from subprocess import Popen, CREATE_NEW_CONSOLE
 import subprocess
 import xml.etree.ElementTree as ET
+import paho.mqtt.client as mqtt
+import yaml
+import redis
+
 
 def getCustomCode(text,tag):
     pattern = r"#<!-- cc_"+tag+" START--!>(.*?)#<!-- cc_"+tag+" END--!>"
@@ -296,3 +300,71 @@ def get_docker_version():
         return version
     except (subprocess.CalledProcessError, FileNotFoundError):
         return False
+
+
+#----------------------------------------------------------------------------------------------------------------------
+#----------------------------------------------ENVIRONMENT CHECKS------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------
+def check_redis(host="localhost", port=6379, db=0, timeout=30,config=None):
+    """
+    Check if Redis is running and reachable
+
+    :return: True if Redis is running and reachable, False otherwise
+        """
+
+    try:
+        if config is None:
+            print(
+                'WARNING: configuration file not provided, checking Redis with default values (broker="localhost", port=6379, db=0)')
+        else:
+            with open(config, 'r') as file:
+                configuration = yaml.safe_load(file)
+                host = configuration['redis_host']
+                port = configuration['redis_port']
+
+        # Establish a connection with the specified timeout
+        client = redis.Redis(host=host, port=port, db=db, socket_timeout=timeout)
+
+        # Ping the server to test connectivity
+        if client.ping():
+            return True  # Redis is reachable
+    except redis.exceptions.ConnectionError:
+        pass  # Connection failed
+
+    return False  # Redis is not reachable
+
+def check_mqtt(broker="localhost", port=1883, timeout=30,config=None):
+    """
+    Check if MQTT is running and reachable
+
+    :return: True if MQTT broker is running and reachable, False otherwise
+        """
+
+    def on_connect(client, userdata, flags, rc):
+        # If rc (return code) is 0, connection was successful
+        client.reachable = (rc == 0)
+        client.disconnect()
+
+    client = mqtt.Client()
+    client.reachable = False  # Initial assumption: not reachable
+    client.on_connect = on_connect
+
+    #resolve the config file for checking the MQTT config
+    if config is None:
+        print('WARNING: configuration file not provided, checking MQTT with default values (broker="localhost", port=1833)')
+    else:
+        with open(config, 'r') as file:
+            configuration=yaml.safe_load(file)
+            broker = configuration['mqtt_broker']
+            port = configuration['mqtt_port']
+
+    # Attempt to connect with specified timeout
+    try:
+        client.connect(broker, port, timeout)
+        client.loop_start()  # Start the loop to process callbacks
+        client.loop(timeout)  # Wait for connection
+        client.loop_stop()  # Stop the loop
+    except Exception as e:
+        print(f"Could not connect to MQTT broker: {e}")
+
+    return client.reachable
