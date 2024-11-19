@@ -1,5 +1,7 @@
 from rpio.transformations.transformations import swc2code_py,message2code_py, swc2launch
 from examples.HelloWorld.Design.HelloWorld_AADLIL import *
+from rpio.utils.auxiliary import *
+from rpio.pyLauncher.pyLauncher import launch
 
 #-------------------------------------------------------------------------------------------------------
 # !! THESE COMMANDS NORMALLY ARE CALLED FROM THE RPIO CLI, FOR TESTING PURPOSE, A PYTHON FILE IS USED !!
@@ -31,3 +33,17 @@ try:
     swc2launch(system=design.systems[1], path="Realization/ManagedSystem/Platform")
 except:
     print("Failed to generate the software component launch files")
+
+
+
+
+# x. SETTING UP THE VIRTUAL ENVIRONMENT FOR APPLICATION DEPLOYMENT
+#create_virtual_environment(venv_name='rpiovenv')
+#launchDescription = parse_launch_xml("Realization/ManagingSystem/Platform/xeon1/launch.xml")
+#for component in launchDescription.components:
+#    install_requirements(venv_name='rpiovenv', requirements_file=component.path + "/requirements.txt")
+#activate_virtual_environment(venv_name='rpiovenv')
+
+# y. LAUNCHING THE ADAPTIVE APPLICATION FOR A GIVEN PLATFORM
+launch('Realization/ManagingSystem/Platform/xeon1/launch.xml')
+

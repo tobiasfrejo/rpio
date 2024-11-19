@@ -15,7 +15,7 @@
 import click
 import os
 import subprocess
-
+from rpio.pyLauncher.pyLauncher import launch
 
 @click.group()
 @click.pass_context
@@ -24,19 +24,28 @@ def runCmds():
 
 @runCmds.command()
 @click.option('--verbose','-v', is_flag=True,default=False,help='Enable debug information.')
-def run(verbose):
+@click.option('--platform','-p', default='none', help='Specify on which platform you want to run the adaptive application, based on the AADL deployment.')
+def run(verbose,platform):
     """Run standalone RoboSAPIENS Adaptive Platform application package."""
     if verbose:print("Run command under construction...")
 
-    _directory = os.getcwd()
-    runFile = "Realization/ManagingSystem/Actions/run.py"
-    arguments = ""
-    if verbose:print(runFile)
+    if platform is None:
+        if verbose:print("Executing the run.py action (Realization/ManagingSystem/Actions/run.py)")
+        _directory = os.getcwd()
+        runFile = "Realization/ManagingSystem/Actions/run.py"
+        arguments = ""
+        if verbose:print(runFile)
 
-    try:
-        subprocess.run(['py.exe',runFile, arguments])
-    except:
-        print("FAIL - Running standalone robosapiensIO application failed")
+        try:
+            subprocess.run(['py.exe',runFile, arguments])
+        except:
+            print("FAIL - Running standalone robosapiensIO application failed")
+    else:
+        if verbose:print("Executing the adaptive application using the provided launch file for platform {}".format(platform))
+        try:
+            launch('Realization/ManagingSystem/Platform/'+platform+'/launch.xml')
+        except:
+            print("FAIL - Launching the standalone robosapiensIO application failed")
 
 
 
