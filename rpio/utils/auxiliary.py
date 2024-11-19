@@ -116,3 +116,183 @@ def compress_folder(folder_path):
                 zip_file.write(file_path, os.path.relpath(file_path, folder_path))
     zip_buffer.seek(0)
     return zip_buffer.read()
+
+
+#----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------PYTHON ENVIRONMENT SETUP---------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------
+def get_activate_script_path(venv_name):
+    """
+    Returns the path to the activate script based on the operating system.
+    """
+    return os.path.join(venv_name, "Scripts", "activate.bat") if os.name == "nt" else os.path.join(venv_name, "bin", "activate")
+
+
+def get_pip_path(venv_name):
+    """
+    Returns the path to the pip executable based on the operating system.
+    """
+    return os.path.join(venv_name, "Scripts", "pip.exe") if os.name == "nt" else os.path.join(venv_name, "bin", "pip")
+
+
+def create_virtual_environment(venv_name="venv"):
+    """
+    Creates a Python 3.10 virtual environment.
+
+    :param venv_name: The name of the virtual environment directory. Defaults to "venv".
+    """
+    if os.path.exists(venv_name):
+        print(f"Virtual environment '{venv_name}' already exists. Skipping creation.")
+        return
+
+    try:
+        # Check if Python 3.10 is installed
+        python_version_check = subprocess.run(["python", "--version"], capture_output=True, text=True)
+
+        # Install virtualenv package if not installed
+        subprocess.run(["python", "-m", "pip", "install", "virtualenv"], check=True)
+
+        # Create virtual environment using virtualenv
+        subprocess.run(["python", "-m", "virtualenv", venv_name, "--python=python3.10"], check=True)
+        print(f"Virtual environment '{venv_name}' created successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred while creating virtual environment: {e}")
+
+
+def activate_virtual_environment(venv_name="venv"):
+    """
+    Activates the virtual environment.
+
+    :param venv_name: The name of the virtual environment directory. Defaults to "venv".
+    """
+    activate_script = get_activate_script_path(venv_name)
+    if not os.path.exists(activate_script):
+        print(f"Activate script not found in the virtual environment '{venv_name}'. Make sure the virtual environment is created.")
+        return
+
+    if os.name == "nt":
+        subprocess.run(activate_script, shell=True)
+    else:
+        subprocess.run(["source", activate_script], shell=True, executable="/bin/bash")
+
+
+def deactivate_virtual_environment():
+    """
+    Deactivates the virtual environment.
+    """
+    if os.name == "nt":
+        subprocess.run("deactivate", shell=True)
+    else:
+        subprocess.run("deactivate", shell=True, executable="/bin/bash")
+
+
+def install_requirements(venv_name="venv", requirements_file="requirements.txt"):
+    """
+    Installs packages listed in a requirements file into the virtual environment.
+
+    :param venv_name: The name of the virtual environment directory. Defaults to "venv".
+    :param requirements_file: The path to the requirements.txt file. Defaults to "requirements.txt".
+    """
+    pip_path = get_pip_path(venv_name)
+    if not os.path.exists(pip_path):
+        print(f"Pip not found in the virtual environment '{venv_name}'. Make sure the virtual environment is created.")
+        return
+
+    if not os.path.isfile(requirements_file):
+        print(f"Requirements file '{requirements_file}' not found.")
+        return
+
+    try:
+        # Install requirements
+        subprocess.run([pip_path, "install", "-r", requirements_file], check=True)
+        print(f"Packages from '{requirements_file}' installed successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred while installing requirements: {e}")
+
+def get_python_version():
+    """
+    Checks and returns the current Python version installed on the system.
+
+    :return: A string representing the Python version, or None if an error occurs.
+    :rtype: str or None
+    """
+    try:
+        # Run the command to get the Python version
+        result = subprocess.run(["python", "--version"], capture_output=True, text=True, check=True)
+
+        # Output is usually in the form of "Python X.Y.Z\n"
+        version = result.stdout.strip()
+
+        return version
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred while checking Python version: {e}")
+        return None
+
+#----------------------------------------------------------------------------------------------------------------------
+#--------------------------------------------DOCKER SETUP FUNCTIONS----------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------
+def build_docker_image(module_path, image_name):
+    """
+    Build a Docker image for a Python module at a given path.
+
+    :param module_path: Path to the module (should contain Dockerfile)
+    :param image_name: Name of the Docker image to be created
+    :return: None
+    """
+    if not os.path.isdir(module_path):
+        raise FileNotFoundError(f"The specified module path '{module_path}' does not exist or is not a directory.")
+
+    dockerfile_path = os.path.join(module_path, 'Dockerfile')
+    if not os.path.isfile(dockerfile_path):
+        raise FileNotFoundError(f"No Dockerfile found in the specified module path '{module_path}'.")
+
+    try:
+        # Build the Docker image using the specified Dockerfile
+        command = ["docker", "build", "-t", image_name, module_path]
+        subprocess.run(command, check=True)
+        print(f"Successfully built Docker image '{image_name}' from '{module_path}'.")
+    except subprocess.CalledProcessError as e:
+        print(f"Failed to build Docker image. Error: {e}")
+
+
+def run_docker_container(image_name, container_name=None, ports=None):
+    """
+    Run a Docker container from an existing image.
+
+    :param image_name: Name of the Docker image to run
+    :param container_name: Optional name for the container
+    :param ports: Optional dictionary mapping container ports to host ports (e.g., {"8080": "8080"})
+    :return: None
+    """
+    try:
+        # Prepare the docker run command
+        command = ["docker", "run", "-d"]
+
+        if container_name:
+            command.extend(["--name", container_name])
+
+        if ports:
+            for host_port, container_port in ports.items():
+                command.extend(["-p", f"{host_port}:{container_port}"])
+
+        command.append(image_name)
+
+        # Run the Docker container
+        subprocess.run(command, check=True)
+        print(f"Successfully started container from image '{image_name}'.")
+    except subprocess.CalledProcessError as e:
+        print(f"Failed to run Docker container. Error: {e}")
+
+
+def get_docker_version():
+    """
+    Check if Docker is installed on the system
+
+    :return: String with docker version if Docker is installed, False otherwise
+    """
+    try:
+        result = subprocess.run(["docker", "--version"], capture_output=True, text=True, check=True)
+        version = result.stdout.strip()
+        return version
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return False
