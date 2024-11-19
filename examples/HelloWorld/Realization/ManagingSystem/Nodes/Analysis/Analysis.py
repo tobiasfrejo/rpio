@@ -7,8 +7,13 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.clientLibraries.rpclpy.node import Node
-from .messages import *
 import time
+
+try:
+    from .messages import *
+except (ValueError, ImportError):
+    from messages import *
+
 #<!-- cc_include START--!>
 from fractions import Fraction
 from lidarocclusion.masks import BoolLidarMask, ProbLidarMask
