@@ -53,3 +53,4 @@ sphinxcontrib-serializinghtml==2.0.0
 tomli==2.0.2
 urllib3==2.2.3
 textX==4.1.0
+path==17.0.0

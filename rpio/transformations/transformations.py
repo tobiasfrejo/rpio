@@ -208,6 +208,37 @@ def swc2launch(system=None,path="output/generated/lauch"):
         with open(join(processorPath, "launch.xml"), 'w') as f:
             f.write(template.render(processor=processor))
 
+def swc2main(system=None,package="",prefix=None,path="output/generated/main"):
+    """Function to generate main files for the given system deployment
+
+    :param [system]: [Managing or managed system model part of the adaptive systen within aadlil,either managing or managed system], defaults to [None]
+    :type [system]: [system (aadlil)](, optional)
+
+    :param [package]: [Package name], defaults to [""]
+    :type [package]: [string](, optional)
+
+    :param [path]: [Adaptive system model within aadlil], defaults to ["output/generated/launch"]
+    :type [path]: [string](, optional)
+
+    ...
+    :return: [Functions returns nothing]
+    :rtype: [None]
+    """
+    if not exists(path):
+        mkdir(path)
+
+    # Initialize the Templates engine.
+    this_folder = dirname(__file__)
+    jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(this_folder), trim_blocks=True, lstrip_blocks=True)
+
+    # Load the template
+    template = jinja_env.get_template('templates/swc_launch_main.template')
+
+    # Extract all processors of the managing system
+    for processor in system.processors:
+        with open(join(path, "main_"+processor.name+".py"), 'w') as f:
+            f.write(template.render(processor=processor,package=package,prefix="examples"))
+
 def robochart2aadlmessages(maplek=None,path="output/generated/messages"):
     """Function to generate AADL messages from robochart models
 

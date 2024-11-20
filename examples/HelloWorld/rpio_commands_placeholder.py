@@ -1,4 +1,4 @@
-from rpio.transformations.transformations import swc2code_py,message2code_py, swc2launch
+from rpio.transformations.transformations import swc2code_py,message2code_py, swc2launch, swc2main
 from examples.HelloWorld.Design.HelloWorld_AADLIL import *
 from rpio.utils.auxiliary import *
 from rpio.pyLauncher.pyLauncher import launch
@@ -6,6 +6,8 @@ from rpio.pyLauncher.pyLauncher import launch
 #-------------------------------------------------------------------------------------------------------
 # !! THESE COMMANDS NORMALLY ARE CALLED FROM THE RPIO CLI, FOR TESTING PURPOSE, A PYTHON FILE IS USED !!
 #-------------------------------------------------------------------------------------------------------
+# 0. GENERATE ROBOSAPIENSIO CODE PACKAGE
+packageName = "HelloWorld"
 
 # 1. GENERATE AADL FROM ROBOARCH (NOT IMPLEMENTED YET)
 
@@ -34,7 +36,11 @@ try:
 except:
     print("Failed to generate the software component launch files")
 
-
+# 6. GENERATE SWC MAIN FILE FOR THE IDENTIFIED PROCESSOR BINDINGS
+try:
+    swc2main(system=design.systems[0],package=packageName,prefix="examples",path="Resources")
+except:
+    print("Failed to generate the software component main file for the given platforms")
 
 
 # x. SETTING UP THE VIRTUAL ENVIRONMENT FOR APPLICATION DEPLOYMENT
@@ -45,5 +51,5 @@ except:
 #activate_virtual_environment(venv_name='rpiovenv')
 
 # y. LAUNCHING THE ADAPTIVE APPLICATION FOR A GIVEN PLATFORM
-launch('Realization/ManagingSystem/Platform/xeon1/launch.xml')
+#launch('Realization/ManagingSystem/Platform/xeon1/launch.xml')
 

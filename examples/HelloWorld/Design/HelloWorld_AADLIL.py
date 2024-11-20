@@ -188,7 +188,7 @@ def HelloWorld():
     laptop_xeon1.addProcessorBinding(process=monitor)
     laptop_xeon1.addProcessorBinding(process=analysis)
     laptop_xeon1.addProcessorBinding(process=plan)
-    laptop_xeon1.addProcessorBinding(process=legitimate)
+    #laptop_xeon1.addProcessorBinding(process=legitimate)
     laptop_xeon1.addProcessorBinding(process=execute)
 
     managingSystem.addProcessor(laptop_xeon1)
