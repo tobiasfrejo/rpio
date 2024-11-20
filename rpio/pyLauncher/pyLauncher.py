@@ -1,4 +1,5 @@
 from rpio.utils.auxiliary import *
+from subprocess import call
 
 
 def launch(launchFile='launch.xml'):
@@ -9,7 +10,7 @@ def launch(launchFile='launch.xml'):
         ...
         :return: [Functions returns nothing]
         :rtype: [None]
-        """
+    """
 
     # 0. interpret launch file
     launchDescription = parse_launch_xml(file=launchFile,formalism="python")
@@ -17,3 +18,14 @@ def launch(launchFile='launch.xml'):
     # 1. launch all commands at once
     execute_commands(extractCommands(launchDescription))
 
+def launch_main(mainFile='main.py'):
+    """Function to launch one or more python software component using a main file
+
+        :param [mainFile]: [launch description file(XML)], defaults to [launch.xml]
+        :type [mainFile]: [String](, optional)
+        ...
+        :return: [Functions returns nothing]
+        :rtype: [None]
+    """
+    command = ["python", mainFile]
+    call(command)

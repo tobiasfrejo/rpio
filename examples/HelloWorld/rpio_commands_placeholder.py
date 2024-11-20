@@ -1,7 +1,7 @@
 from rpio.transformations.transformations import swc2code_py,message2code_py, swc2launch, swc2main
 from examples.HelloWorld.Design.HelloWorld_AADLIL import *
 from rpio.utils.auxiliary import *
-from rpio.pyLauncher.pyLauncher import launch
+from rpio.pyLauncher.pyLauncher import launch,launch_main
 
 #-------------------------------------------------------------------------------------------------------
 # !! THESE COMMANDS NORMALLY ARE CALLED FROM THE RPIO CLI, FOR TESTING PURPOSE, A PYTHON FILE IS USED !!
@@ -50,6 +50,9 @@ except:
 #    install_requirements(venv_name='rpiovenv', requirements_file=component.path + "/requirements.txt")
 #activate_virtual_environment(venv_name='rpiovenv')
 
-# y. LAUNCHING THE ADAPTIVE APPLICATION FOR A GIVEN PLATFORM
+# y. LAUNCHING THE ADAPTIVE APPLICATION FOR A GIVEN PLATFORM USING LAUNC FILE
 #launch('Realization/ManagingSystem/Platform/xeon1/launch.xml')
+
+# y. LAUNCHING THE ADAPTIVE APPLICATION FOR A GIVEN PLATFORM USING MAIN
+#launch_main('Resources/main_xeon1.py')
 

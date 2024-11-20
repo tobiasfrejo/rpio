@@ -84,3 +84,16 @@ def transformation(verbose,roboarch2aadl,aadl2aadlil,aadlil2code):
         except:
             if verbose:print("ERROR: Code could not be generated, no design loaded.")
 
+        # 3. GENERATE PLATFORM LAUNCH FILES
+        try:
+            swc2launch(system=design.systems[0], path="Realization/ManagingSystem/Platform")
+            swc2launch(system=design.systems[1], path="Realization/ManagedSystem/Platform")
+        except:
+            if verbose: print("ERROR: Platform-specific launch file could not be generated, no design loaded.")
+
+        # 3. GENERATE PLATFORM MAIN FILES
+        try:
+            current_folder_path, current_folder_name = os.path.split(os.getcwd())
+            swc2main(system=design.systems[0],package=current_folder_name,prefix=None,path="Resources")
+        except:
+            if verbose: print("ERROR: Code could not be generated, no design loaded.")

@@ -15,7 +15,7 @@
 import click
 import os
 import subprocess
-from rpio.pyLauncher.pyLauncher import launch
+from rpio.pyLauncher.pyLauncher import launch,launch_main
 
 @click.group()
 @click.pass_context
@@ -25,7 +25,8 @@ def runCmds():
 @runCmds.command()
 @click.option('--verbose','-v', is_flag=True,default=False,help='Enable debug information.')
 @click.option('--platform','-p', default='none', help='Specify on which platform you want to run the adaptive application, based on the AADL deployment.')
-def run(verbose,platform):
+@click.option('--launchfile', is_flag=True,default=False,help='Specify the use of the launchfile to run the adaptive application.')
+def run(verbose,platform,launchfile):
     """Run standalone RoboSAPIENS Adaptive Platform application package."""
     if verbose:print("Run command under construction...")
 
@@ -41,11 +42,19 @@ def run(verbose,platform):
         except:
             print("FAIL - Running standalone robosapiensIO application failed")
     else:
-        if verbose:print("Executing the adaptive application using the provided launch file for platform {}".format(platform))
-        try:
-            launch('Realization/ManagingSystem/Platform/'+platform+'/launch.xml')
-        except:
-            print("FAIL - Launching the standalone robosapiensIO application failed")
+        if not launchfile:
+            if verbose:print("Executing the adaptive application using the provided main file for platform {}".format(platform))
+            try:
+                launch_main('Resources/main_'+platform+'.py')
+            except:
+                print("FAIL - Launching the standalone robosapiensIO application failed")
+        else:
+            if verbose: print(
+                "Executing the adaptive application using the provided launch file for platform {}".format(platform))
+            try:
+                launch('Realization/ManagingSystem/Platform/' + platform + '/launch.xml')
+            except:
+                print("FAIL - Launching the standalone robosapiensIO application failed")
 
 
 
