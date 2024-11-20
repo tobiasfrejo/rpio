@@ -1,0 +1,4 @@
+
+# to manually build rpio.exe, execute command in terminal:
+
+    pyinstaller .\rpio\__main__.py --onefile -n rpio
