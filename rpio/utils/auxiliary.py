@@ -192,15 +192,19 @@ def deactivate_virtual_environment():
 
 def install_requirements(venv_name="venv", requirements_file="requirements.txt"):
     """
-    Installs packages listed in a requirements file into the virtual environment.
+    Installs packages listed in a requirements file into the virtual or native environment .
 
     :param venv_name: The name of the virtual environment directory. Defaults to "venv".
     :param requirements_file: The path to the requirements.txt file. Defaults to "requirements.txt".
     """
-    pip_path = get_pip_path(venv_name)
-    if not os.path.exists(pip_path):
-        print(f"Pip not found in the virtual environment '{venv_name}'. Make sure the virtual environment is created.")
-        return
+    if venv_name is not None:
+        pip_path = get_pip_path(venv_name)
+        if not os.path.exists(pip_path):
+            print(f"Pip not found in the virtual environment '{venv_name}'. Make sure the virtual environment is created.")
+            return
+    else:
+        pip_path = "pip"
+        print(f"Using pip of native python environment.")
 
     if not os.path.isfile(requirements_file):
         print(f"Requirements file '{requirements_file}' not found.")
