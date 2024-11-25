@@ -204,11 +204,11 @@ def HelloWorld():
     legitimate.formalism = "python"
     execute.formalism = "python"
 
-    monitor.containerization = False
-    analysis.containerization = False
-    plan.containerization = False
-    legitimate.containerization = False
-    execute.containerization = False
+    monitor.containerization = True
+    analysis.containerization = True
+    plan.containerization = True
+    legitimate.containerization = True
+    execute.containerization = True
 
 
     return adaptiveSystem

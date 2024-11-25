@@ -103,3 +103,6 @@ def transformation(verbose,roboarch2aadl,aadl2aadlil,aadlil2code):
             swc2dockerCompose(system=design.systems[0], path="Realization/ManagingSystem/Platform")
         except:
             if verbose: print("ERROR: Platform(s) docker compose file could not be generated.")
+
+        # 8. update the roboSapiensIO.ini file based on the generation
+        update_robosapiensIO_ini(system=design, path=None)

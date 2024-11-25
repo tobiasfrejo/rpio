@@ -1,4 +1,4 @@
-from rpio.transformations.transformations import swc2code_py,message2code_py, swc2launch, swc2main,swc2dockerCompose
+from rpio.transformations.transformations import swc2code_py,message2code_py, swc2launch, swc2main,swc2dockerCompose,update_robosapiensIO_ini
 from examples.HelloWorld.Design.HelloWorld_AADLIL import *
 from rpio.utils.auxiliary import *
 from rpio.pyLauncher.pyLauncher import launch,launch_main
@@ -47,6 +47,9 @@ try:
     swc2dockerCompose(system=design.systems[0],path="Realization/ManagingSystem/Platform")
 except:
     print("Failed to generate the docker compose for the given platforms")
+
+# 8. update the roboSapiensIO.ini file based on the generation
+update_robosapiensIO_ini(system=design,path=None)
 
 # x. SETTING UP THE VIRTUAL ENVIRONMENT FOR APPLICATION DEPLOYMENT
 #create_virtual_environment(venv_name='rpiovenv')

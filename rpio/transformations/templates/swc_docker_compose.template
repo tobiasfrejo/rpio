@@ -37,6 +37,7 @@ services:
   {% endif %}
 
   {% for node in processor.processorBinding %}
+  {% if node.containerization == True %}
   {{node.name.lower()}}:
     build:
         context: ./../../Nodes/{{node.name}}
@@ -47,6 +48,8 @@ services:
             condition: service_healthy
     environment:
       - BROKER=emqx
+  {% endif %}
+
   {% endfor %}
 
 networks:
