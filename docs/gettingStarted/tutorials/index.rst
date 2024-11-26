@@ -20,6 +20,7 @@ Tutorials
     :maxdepth: 2
 
     basics/Beginner-basics
+    basics/Beginner-aadl
     CLI/Beginner-CLI-Tools
 
 Validation matrix
