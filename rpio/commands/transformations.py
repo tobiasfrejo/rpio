@@ -101,6 +101,7 @@ def transformation(verbose,roboarch2aadl,aadl2aadlil,aadlil2code):
         # 4. GENERATE PLATFORM DOCKER COMPOSE
         try:
             swc2dockerCompose(system=design.systems[0], path="Realization/ManagingSystem/Platform")
+            add_backbone_config(system=design, path="Resources")
         except:
             if verbose: print("ERROR: Platform(s) docker compose file could not be generated.")
 
