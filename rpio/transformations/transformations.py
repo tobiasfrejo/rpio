@@ -346,3 +346,38 @@ def update_robosapiensIO_ini(system=None,path="output/generated/docker"):
 
     with open(join(path, "robosapiensIO.ini"), 'w') as f:
         f.write(template.render(name=system.name,description=system.description, timestamp=formatted_timestamp.__str__(),managingSystem=managingSystem,managedSystem=managedSystem))
+
+
+def add_backbone_config(system=None,path='Resources'):
+    """Function to add the RoboSAPIENS Adaptive Platform backbone configuration to the repository
+
+    :param [system]: [Managing or managed system model part of the adaptive systen within aadlil,either managing or managed system], defaults to [None]
+    :type [system]: [system (aadlil)](, optional)
+
+    :param [path]: [robosapiensIO.ini], defaults to ["output/generated/launch"]
+    :type [path]: [string](, optional)
+
+    ...
+    :return: [Functions returns nothing]
+    :rtype: [None]
+    """
+
+    if path is None:
+        path = os.getcwd()
+    else:
+        if not exists(path):
+            mkdir(path)
+
+    # Initialize the Templates engine.
+    this_folder = dirname(__file__)
+    jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(this_folder), trim_blocks=True, lstrip_blocks=True)
+
+    # Load the templates
+    template_mqtt = jinja_env.get_template('templates/mqtt_config.template')
+    template_redis = jinja_env.get_template('templates/redis_config.template')
+
+    with open(join(path, "acl.conf"), 'w') as f:
+        f.write(template_mqtt.render(system=system))
+
+    with open(join(path, "redis.conf"), 'w') as f:
+        f.write(template_redis.render(system=system))
