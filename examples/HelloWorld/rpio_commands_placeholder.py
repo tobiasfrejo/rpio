@@ -1,5 +1,5 @@
 from rpio.transformations.transformations import swc2code_py,message2code_py, swc2launch, swc2main,swc2dockerCompose,update_robosapiensIO_ini,add_backbone_config
-from examples.HelloWorld.Design.HelloWorld_AADLIL import *
+from examples.HelloWorld.Design.AADLIL import *
 from rpio.utils.auxiliary import *
 from rpio.pyLauncher.pyLauncher import launch,launch_main
 
@@ -15,6 +15,7 @@ packageName = "HelloWorld"
 
 # 2. LOAD THE AADL INTERMEDUATE LANGUAGE (MOCKUP)
 design = HelloWorld()
+
 
 # 3. GENERATE CUSTOM MESSAGES FROM AADL INTERMEDIATE LANGUAGE
 try:

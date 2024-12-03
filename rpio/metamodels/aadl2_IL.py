@@ -489,8 +489,48 @@ class system(namedObject):
                         Tfeatures.append(tempF)
                     tempT = thread(name=t["_name"],featureList=Tfeatures,eventTrigger=t["_eventTrigger"])
                     tempP.addThread(tempT)
+                tempP.formalism=p['_formalism']
+                tempP.containerization=p['_containerization']
                 tempS.addProcess(tempP)
             self.addSystem(tempS)
+        # -- load processors --
+        for s in jsonObject['_systemList']:
+            for p in s['_processorList']:
+                tempProcessor = processor(name=p['_name'],description=p['_description'])
+                tempProcessor.runs_rap_backbone=p['rap_backbone']
+                tempProcessor.IP=p['_IP']
+                # processor bindings
+                for binding in p['_bindingList']:
+                    # find the system and append
+                    for sys in self.systems:
+                        if sys.name == s["_name"]:
+                            for comp in sys.processes:
+                                if binding["_name"] == comp.name:
+                                    tempProcessor.addProcessorBinding(process=comp)
+                #processor properties
+                for prop in p["_propertyList"]:
+                    tempProp = ""
+                    #TODO: extend the AADLIL TO SUPPORT PROCESSOR PROPERTIES
+
+                #processor features
+                for f in p['_featureList']:
+                    _m = None
+                    for m in self.messages:
+                        if f['_message'] is not None:
+                            if m.name == f['_message']['_name']:
+                                _m = m
+                    if f['_featureType'] == 'inport':
+                        tempF = inport(name=f['_name'], type=f['_type'], message=_m)
+                    elif f['_featureType'] == 'outport':
+                        tempF = outport(name=f['_name'], type=f['_type'], message=_m)
+                    elif f['_featureType'] == 'port':
+                        tempF = outport(name=f['_name'], type=f['_type'],initialValue=f["_initialValue"],valueReference=f["_valueReference"], message=_m)
+                    else:
+                        tempF = ''
+                    tempProcessor.addFeature(feature=tempF)
+                for _s in self.systems:
+                    if _s.name == s["_name"]:
+                        _s.addProcessor(processor=tempProcessor)
 
     def __eq__(self, other):
         if not isinstance(other, system):
