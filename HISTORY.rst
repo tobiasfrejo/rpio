@@ -67,3 +67,11 @@ robosapiensIO Preview
 ~~~~~~~~~~~~~~~~~~
 
 * AADLIL metamodel package added
+
+0.3.10 (2024-12-03)
+~~~~~~~~~~~~~~~~~~
+
+* Added deployment strategies {native python, virtual enviornment python, docker containerization}
+* Updated rpio CLI ( run, platform, transformations)
+* ADDED physical architecture and deployment to AADLIL
+* robosapiensIO backbone generation (containerized)
