@@ -35,12 +35,3 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
 )
-
-coll = COLLECT(exe,
-               a.binaries,
-               a.zipfiles,
-               a.datas,
-               pkg_data,  # <<< Add here the collected files
-               strip=False,
-               upx=True,
-               name='rpio')
