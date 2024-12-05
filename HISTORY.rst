@@ -75,3 +75,9 @@ robosapiensIO Preview
 * Updated rpio CLI ( run, platform, transformations)
 * ADDED physical architecture and deployment to AADLIL
 * robosapiensIO backbone generation (containerized)
+
+0.3.12 (2024-12-05)
+~~~~~~~~~~~~~~~~~~
+
+* Updated the run and transformation command (CLI)
+* Added template files (TESTING)

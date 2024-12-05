@@ -36,7 +36,7 @@ a = Analysis(
     ['rpio\\__main__.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('pio/transformations/templates/*.template', 'pio/transformations/templates/')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
