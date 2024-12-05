@@ -23,7 +23,7 @@ def _AddRequirementsFile(file="requirements.txt", path=None):
     f = open(path + "/" + file, "a")
 
     # --- custom file content ---
-    f.write("robosapiensio==0.3.18\n")
+    f.write("robosapiensio==0.3.19\n")
     f.write("jsonpickle==3.3.0\n")
     f.write("paho-mqtt==2.1.0\n")
     f.write("PyYAML==6.0.2\n")
