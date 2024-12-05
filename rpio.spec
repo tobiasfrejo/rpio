@@ -27,7 +27,7 @@ def collect_pkg_data(package, include_py_files=False, subdir=None):
 
     return data_toc
 
-pkg_data = collect_pkg_data('<yourapplication>')  # <<< Put the name of your package here
+pkg_data = collect_pkg_data('rpio')  # <<< Put the name of your package here
 # <<< END ADDED PART
 
 block_cipher = None
