@@ -82,3 +82,9 @@ robosapiensIO Preview
 * Updated the run and transformation command (CLI)
 * Added template files (TESTING)
 * Updated requirements.txt for all nodes
+
+0.3.20 (2024-12-05)
+~~~~~~~~~~~~~~~~~~
+
+* Update swc2main
+* swc2code updated (user todo added))

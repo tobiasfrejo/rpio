@@ -176,6 +176,7 @@ class Plan(Node):
 
         _success = self.knowledge.write(cls=_NewPlanMessage)
         _success = self.knowledge.write(cls=_Direction)
+        # TODO: Put desired publish event inside user code and uncomment!!
 
     def register_callbacks(self):
         self.register_event_callback(event_key='anomaly', callback=self.planner)     # LINK <eventTrigger> anomaly

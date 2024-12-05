@@ -248,7 +248,7 @@ def swc2main(system=None,package="",prefix=None,path="output/generated/main"):
     # Extract all processors of the managing system
     for processor in system.processors:
         with open(join(path, "main_"+processor.name+".py"), 'w') as f:
-            f.write(template.render(processor=processor,package=package,prefix="examples"))
+            f.write(template.render(processor=processor,package=package,prefix=prefix))
 
 def robochart2aadlmessages(maplek=None,path="output/generated/messages"):
     """Function to generate AADL messages from robochart models
