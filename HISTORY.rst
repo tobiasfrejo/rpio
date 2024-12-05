@@ -76,7 +76,7 @@ robosapiensIO Preview
 * ADDED physical architecture and deployment to AADLIL
 * robosapiensIO backbone generation (containerized)
 
-0.3.13 (2024-12-05)
+0.3.14 (2024-12-05)
 ~~~~~~~~~~~~~~~~~~
 
 * Updated the run and transformation command (CLI)
