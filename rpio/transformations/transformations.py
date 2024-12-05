@@ -181,7 +181,6 @@ def message2code_py(system=None,path="output/generated/messages"):
 
     # Load the template
     template = jinja_env.get_template('templates/messages_py.template')
-    print(system.name)
 
     # Extract all processes from AADL system model
     with open(join(path, "messages.py"), 'w') as f:
