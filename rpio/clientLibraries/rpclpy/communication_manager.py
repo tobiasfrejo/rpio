@@ -23,7 +23,6 @@ class CommunicationManager:
         # Get the subscribe topics from the config file
         if 'eventIn' in config and 'properties' in config['eventIn']:
             properties = config['eventIn']['properties']
-            self.logger.info(f"properties: {properties}")
             for item in properties:
                 if 'property' in item and 'name' in item['property']:
                     self.mqtt_subscribe_topics.append(item['property']['name'])
@@ -31,7 +30,6 @@ class CommunicationManager:
         # Get publish topic list from the config file 
         if 'eventOut' in config and 'properties' in config['eventIn']:
             properties = config['eventOut']['properties']
-            self.logger.info(f"properties: {properties}")
             for item in properties:
                 if 'property' in item and 'name' in item['property']:
                     self.mqtt_publish_topics.append(item['property']['name'])

@@ -1,7 +1,7 @@
 import yaml
 import logging
-from rpclpy.communication_manager import CommunicationManager
-from rpclpy.knowledge import KnowledgeManager
+from rpio.clientLibraries.rpclpy.communication_manager import CommunicationManager
+from rpio.clientLibraries.rpclpy.knowledge import KnowledgeManager
 
 class Node:
     def __init__(self, config, verbose = False):
