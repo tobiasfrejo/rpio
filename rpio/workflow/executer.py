@@ -81,7 +81,7 @@ class Executer_GUI:
 
     def start_workflow(self):
         self.start_button.config(state=tk.DISABLED)
-        self.logger.syslog(msg="Workflow "+self.name+" started")
+        self.logger.syslog(msg="Workflow --"+self.name+"-- started")
         Thread(target=self.run_tasks).start()
 
     def run_tasks(self):
