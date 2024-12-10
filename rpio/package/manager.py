@@ -190,6 +190,7 @@ class PackageManager(object):
         # top-level workflows
         self._mkdir_custom(prefix + "Workflows")
         self._addFile(file="AADL2CODE.py", path=prefix + "Workflows/")
+        self._addFile(file="ROBOCHART2AADL.py", path=prefix + "Workflows/")
         # temporary folder and resources
         self._mkdir_custom(prefix + "Resources")
 
@@ -263,7 +264,7 @@ class PackageManager(object):
             f.write("# **********************************************************************************\n")
             f.write("from rpio.workflow.tasks import *\n")
             f.write("from rpio.workflow.executer import Executer_GUI\n")
-
+            f.write("\n")
             f.write("# 1 . define the tasks\n")
             f.write("tasks = {\n")
             f.write('    "Generate custom messages": t_generate_messages,\n')
@@ -276,6 +277,29 @@ class PackageManager(object):
             f.write("\n")
             f.write("# 2. Launch the graphical executer\n")
             f.write('app = Executer_GUI(tasks=tasks,name="AADL2CODE")\n')
+            f.write("app.root.mainloop()\n")
+
+        if "ROBOCHART2AADL.py" in file:
+            f.write("# **********************************************************************************\n")
+            f.write("# * Copyright (C) 2024-present Bert Van Acker (B.MKR) <bert.vanacker@uantwerpen.be>\n")
+            f.write("# *\n")
+            f.write("# * This file is part of the roboarch R&D project.\n")
+            f.write("# *\n")
+            f.write("# * RAP R&D concepts can not be copied and/or distributed without the express\n")
+            f.write("# * permission of Bert Van Acker\n")
+            f.write("# **********************************************************************************\n")
+            f.write("from rpio.workflow.tasks import *\n")
+            f.write("from rpio.workflow.executer import Executer_GUI\n")
+            f.write("\n")
+            f.write("\n")
+            f.write("# 1 . define the tasks\n")
+            f.write("tasks = {\n")
+            f.write('    "Generate AADL messages": t_robochart_to_messages,\n')
+            f.write('    "Generate AADL Logical Architecture": t_robochart_to_logical\n')
+            f.write("}\n")
+            f.write("\n")
+            f.write("# 2. Launch the graphical executer\n")
+            f.write('app = Executer_GUI(tasks=tasks,name="ROBOCHART2AADL")\n')
             f.write("app.root.mainloop()\n")
 
         # --- close file ---

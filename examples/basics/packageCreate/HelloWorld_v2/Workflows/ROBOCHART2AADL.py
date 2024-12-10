@@ -9,16 +9,13 @@
 from rpio.workflow.tasks import *
 from rpio.workflow.executer import Executer_GUI
 
+
 # 1 . define the tasks
 tasks = {
-    "Generate custom messages": t_generate_messages,
-    "Generate swc code skeletons": t_generate_swc_skeletons,
-    "Generate swc launch files": t_generate_swc_launch,
-    "Generate main file": t_generate_main,
-    "Generate docker compose files": t_generate_docker,
-    "Update robosapiensIO.ini file": t_update_robosapiensIO_ini
+    "Generate AADL messages": t_robochart_to_messages,
+    "Generate AADL Logical Architecture": t_robochart_to_logical
 }
 
 # 2. Launch the graphical executer
-app = Executer_GUI(tasks=tasks,name="AADL2CODE")
+app = Executer_GUI(tasks=tasks,name="ROBOCHART2AADL")
 app.root.mainloop()
