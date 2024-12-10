@@ -3,8 +3,8 @@ name = {{system.name}}
 description = {{system.description}}
 
 [PACKAGE]
-name = {{system.package}}
-prefix = {{system.prefix}}
+name = {{package}}
+prefix = {{prefix}}
 
 [Code Generation]
 latest = {{timestamp}}

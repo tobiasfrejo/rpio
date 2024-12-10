@@ -313,7 +313,7 @@ def swc2dockerCompose(system=None,path="output/generated/docker"):
             f.write(template.render(processor=processor))
 
 
-def update_robosapiensIO_ini(system=None,path="output/generated/docker"):
+def update_robosapiensIO_ini(system=None,package="",prefix ="",path="output/generated/docker"):
     """Function to update the robosapiensIO configuration
 
     :param [system]: [Managing or managed system model part of the adaptive systen within aadlil,either managing or managed system], defaults to [None]
@@ -345,7 +345,7 @@ def update_robosapiensIO_ini(system=None,path="output/generated/docker"):
     managedSystem = system.systems[1]
 
     with open(join(path, "robosapiensIO.ini"), 'w') as f:
-        f.write(template.render(system=system, timestamp=formatted_timestamp.__str__(),managingSystem=managingSystem,managedSystem=managedSystem))
+        f.write(template.render(system=system,package=package,prefix=prefix, timestamp=formatted_timestamp.__str__(),managingSystem=managingSystem,managedSystem=managedSystem))
 
 
 def add_backbone_config(system=None,path='Resources'):

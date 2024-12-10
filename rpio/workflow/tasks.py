@@ -90,10 +90,15 @@ def t_generate_docker():
 
 def t_update_robosapiensIO_ini():
     try:
+        # load packageName and prefix from ini
+        config = configparser.ConfigParser()
+        config.read('../robosapiensIO.ini')
+        packageName = config['PACKAGE']['name']
+        prefix = config['PACKAGE']['prefix']
         # load design
         design = t_load_design()
         # update robosapiensIO ini file
-        update_robosapiensIO_ini(system=design, path="../")
+        update_robosapiensIO_ini(system=design,package=packageName,prefix=prefix, path="../")
         return True
     except:
         print("Could not update robosapiensIO.ini")

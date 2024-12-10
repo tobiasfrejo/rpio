@@ -37,8 +37,6 @@ def HelloWorld():
     #--------------------------------------- LOGICAL ARCHITECTURE ----------------------------------------------------------
     #-----------------------------------------------------------------------------------------------------------------------
     adaptiveSystem = system(name="adaptiveSystem", description="Example adaptive system",messageList=[laser_scan,direction,anomaly_message,new_plan_message])
-    adaptiveSystem.package = "HelloWorld"
-    adaptiveSystem.prefix = "examples"
 
     #-A- --- managed system ---
     managedSystem = system(name="managedSystem", description="managed system part")

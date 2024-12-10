@@ -1446,9 +1446,7 @@
                     "_IP": "192.168.56.1",
                     "rap_backbone": true
                 }
-            ],
-            "_package": "",
-            "_prefix": ""
+            ]
         },
         {
             "_name": "managedSystem",
@@ -1549,9 +1547,7 @@
                     "_IP": "192.168.56.5",
                     "rap_backbone": false
                 }
-            ],
-            "_package": "",
-            "_prefix": ""
+            ]
         }
     ],
     "_processList": [],
@@ -1627,7 +1623,5 @@
             ]
         }
     ],
-    "_processorList": [],
-    "_package": "HelloWorld",
-    "_prefix": "examples"
+    "_processorList": []
 }
