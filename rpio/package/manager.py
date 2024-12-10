@@ -172,12 +172,6 @@ class PackageManager(object):
         self._mkdir_custom(prefix + "Realization/ManagingSystem/Documentation")
         self._mkdir_custom(prefix + "Realization/ManagingSystem/Binaries")
         self._mkdir_custom(prefix + "Realization/ManagingSystem/Nodes")
-        #self._mkdir_custom(prefix + "Realization/ManagingSystem/02_Nodes/00_Monitor")
-        #self._mkdir_custom(prefix + "Realization/ManagingSystem/02_Nodes/01_Analysis")
-        #self._mkdir_custom(prefix + "Realization/ManagingSystem/02_Nodes/02_Plan")
-        #self._mkdir_custom(prefix + "Realization/ManagingSystem/02_Nodes/03_Legitimize")
-        #self._mkdir_custom(prefix + "Realization/ManagingSystem/02_Nodes/04_Execute")
-        #self._mkdir_custom(prefix + "Realization/ManagingSystem/02_Nodes/05_AdaptationOrchestration")
         self._mkdir_custom(prefix + "Realization/ManagingSystem/Messages")
         self._mkdir_custom(prefix + "Realization/ManagingSystem/Platform")
         self._mkdir_custom(prefix + "Realization/ManagingSystem/Actions")
@@ -191,6 +185,9 @@ class PackageManager(object):
         self._mkdir_custom(prefix + "Realization/ManagedSystem/Platform")
         self._mkdir_custom(prefix + "Realization/ManagedSystem/Actions")
         self._mkdir_custom(prefix + "Realization/ManagedSystem/Workflows")
+        # top-level workflows
+        self._mkdir_custom(prefix + "Workflows")
+        # temporary folder and resources
         self._mkdir_custom(prefix + "Resources")
 
         # add system log file
