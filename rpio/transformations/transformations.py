@@ -23,7 +23,7 @@ def _AddRequirementsFile(file="requirements.txt", path=None):
     f = open(path + "/" + file, "a")
 
     # --- custom file content ---
-    f.write("robosapiensio==0.3.9\n")
+    f.write("robosapiensio==0.3.19\n")
     f.write("jsonpickle==3.3.0\n")
     f.write("paho-mqtt==2.1.0\n")
     f.write("PyYAML==6.0.2\n")
@@ -248,7 +248,7 @@ def swc2main(system=None,package="",prefix=None,path="output/generated/main"):
     # Extract all processors of the managing system
     for processor in system.processors:
         with open(join(path, "main_"+processor.name+".py"), 'w') as f:
-            f.write(template.render(processor=processor,package=package,prefix="examples"))
+            f.write(template.render(processor=processor,package=package,prefix=prefix))
 
 def robochart2aadlmessages(maplek=None,path="output/generated/messages"):
     """Function to generate AADL messages from robochart models
@@ -313,7 +313,7 @@ def swc2dockerCompose(system=None,path="output/generated/docker"):
             f.write(template.render(processor=processor))
 
 
-def update_robosapiensIO_ini(system=None,path="output/generated/docker"):
+def update_robosapiensIO_ini(system=None,package="",prefix ="",path="output/generated/docker"):
     """Function to update the robosapiensIO configuration
 
     :param [system]: [Managing or managed system model part of the adaptive systen within aadlil,either managing or managed system], defaults to [None]
@@ -345,7 +345,7 @@ def update_robosapiensIO_ini(system=None,path="output/generated/docker"):
     managedSystem = system.systems[1]
 
     with open(join(path, "robosapiensIO.ini"), 'w') as f:
-        f.write(template.render(name=system.name,description=system.description, timestamp=formatted_timestamp.__str__(),managingSystem=managingSystem,managedSystem=managedSystem))
+        f.write(template.render(system=system,package=package,prefix=prefix, timestamp=formatted_timestamp.__str__(),managingSystem=managingSystem,managedSystem=managedSystem))
 
 
 def add_backbone_config(system=None,path='Resources'):

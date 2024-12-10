@@ -7,7 +7,9 @@
 # * permission of Bert Van Acker
 # *************************************************************************
 
-VERSION = (0, 3, "11")
+
+VERSION = (0, 3, "20")
+
 __version__ = ".".join([str(s) for s in VERSION])
 
 __title__ = "robosapiensio"
