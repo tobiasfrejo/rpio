@@ -122,7 +122,7 @@ def t_update_robosapiensIO_ini():
 def t_robochart_to_messages():
     try:
         # Parse robochart models
-        parser = robochart_parser(MAPLEK='input/MAPLE-K.rct',Monitor='input/Monitor.rct',Analysis='input/Analysis.rct',Plan='input/Plan.rct',Legitimate='input/Legitimate.rct',Execute='input/Execute.rct',Knowledge='input/Knowledge.rct')
+        parser = robochart_parser(MAPLEK='../Concept/MAPLE-K.rct',Monitor='../Concept/Monitor.rct',Analysis='../Concept/Analysis.rct',Plan='../Concept/Plan.rct',Legitimate='../Concept/Legitimate.rct',Execute='../Concept/Execute.rct',Knowledge='../Concept/Knowledge.rct')
         # generate messages
         robochart2aadlmessages(maplek=parser.maplek_model,path='../Design')
         return True
@@ -134,7 +134,7 @@ def t_robochart_to_logical():
 
     try:
         # Parse robochart models
-        parser = robochart_parser(MAPLEK='input/MAPLE-K.rct',Monitor='input/Monitor.rct',Analysis='input/Analysis.rct',Plan='input/Plan.rct',Legitimate='input/Legitimate.rct',Execute='input/Execute.rct',Knowledge='input/Knowledge.rct')
+        parser = robochart_parser(MAPLEK='../Concept/MAPLE-K.rct',Monitor='../Concept/Monitor.rct',Analysis='../Concept/Analysis.rct',Plan='../Concept/Plan.rct',Legitimate='../Concept/Legitimate.rct',Execute='../Concept/Execute.rct',Knowledge='../Concept/Knowledge.rct')
         # generate messages
         print("RoboChart to AADL logical architecture is not implemented yet!")
         # return True
