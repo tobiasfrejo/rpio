@@ -8,6 +8,7 @@
 # **********************************************************************************
 
 from rpio.transformations.transformations import swc2code_py, message2code_py, swc2launch, swc2main, swc2dockerCompose, update_robosapiensIO_ini, add_backbone_config
+from rpio.utils.auxiliary import *
 from rpio.metamodels.aadl2_IL import *
 import configparser
 
@@ -106,3 +107,7 @@ def t_update_robosapiensIO_ini():
     except:
         print("Could not update robosapiensIO.ini")
         return False
+
+def t_check_robosapiensio():
+    check = check_package_installation(package='robosapiensio')
+    return check
