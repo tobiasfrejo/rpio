@@ -11,6 +11,7 @@ from tkinter import messagebox
 from time import sleep
 from threading import Thread
 from rpio.utils.constants import *
+from rpio.logging.logger import *
 
 class Executer_GUI:
 
@@ -27,17 +28,19 @@ class Executer_GUI:
         StepStatus.FAILED: "❌"    # Cross for failed
     }
 
-    def __init__(self, tasks):
+    def __init__(self, tasks,name):
+        self.logger = Logger(name="Custom logger", path="../", verbose=False)
+        self.name = name
         self.tasks = tasks
         self.root = tk.Tk()
-        self.root.title("Workflow Status")
+        self.root.title("Workflow "+name+" Status")
         self.root.geometry("500x400")
         self.root.configure(bg="#1e1e1e")  # Dark background for a polished look
         self.task_widgets = {}
         self.create_gui()
 
     def create_gui(self):
-        title = tk.Label(self.root, text="Workflow Status", font=("Helvetica", 16, "bold"), bg="#1e1e1e", fg="white")
+        title = tk.Label(self.root, text="Workflow "+self.name+" Status", font=("Helvetica", 16, "bold"), bg="#1e1e1e", fg="white")
         title.pack(pady=10)
 
         self.status_frame = tk.Frame(self.root, bg="#1e1e1e")
@@ -78,6 +81,7 @@ class Executer_GUI:
 
     def start_workflow(self):
         self.start_button.config(state=tk.DISABLED)
+        self.logger.syslog(msg="Workflow "+self.name+" started")
         Thread(target=self.run_tasks).start()
 
     def run_tasks(self):
@@ -87,8 +91,10 @@ class Executer_GUI:
                 result = func()
                 if result:
                     self.update_status(task_name, StepStatus.PASSED)
+                    self.logger.syslog(msg="Task <<" + task_name + ">> successfully completed")
                 else:
                     self.update_status(task_name, StepStatus.FAILED)
+                    self.logger.syslog(msg="Task <<" + task_name + ">> failed to completed")
             except Exception as e:
                 self.update_status(task_name, StepStatus.FAILED)
                 messagebox.showerror("Error", f"Task '{task_name}' failed with error: {e}")
@@ -107,10 +113,14 @@ class Executer_GUI:
 
 class Executer_headless:
 
-    def __init__(self, tasks):
+    def __init__(self, tasks,name):
         self.tasks = tasks
+        self.name = name
+        self.logger = Logger(name="Custom logger", path="../", verbose=False)
+
 
     def start_workflow(self):
+        self.logger.syslog(msg="Workflow " + self.name + " started")
         Thread(target=self.run_tasks).start()
 
     def run_tasks(self):
@@ -119,8 +129,10 @@ class Executer_headless:
                 result = func()
                 if result:
                     print("Task '{}' succeeded".format(task_name))
+                    self.logger.syslog(msg="Task <<" + task_name + ">> successfully completed")
                 else:
                     print("Task '{}' failed".format(task_name))
+                    self.logger.syslog(msg="Task <<" + task_name + ">> failed to completed")
             except Exception as e:
                 print("Error", f"Task '{task_name}' failed with error: {e}")
                 break

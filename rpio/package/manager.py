@@ -158,10 +158,12 @@ class PackageManager(object):
             Path(self.standalonePath+"/"+self._packageName).mkdir(parents=True, exist_ok=True)
             prefix = self.standalonePath+"/"+self._packageName+'/'
             self._addFile(file="robosapiensIO.ini",name=self._packageName, path=prefix)
+            self._addFile(file="__init__.py", name=self._packageName, path=prefix)
             logfilepath = prefix+"/Resources"
         else:
             prefix=""
             self._addFile(file="robosapiensIO.ini",name=self._packageName)
+            self._addFile(file="__init__.py", name=self._packageName)
             logfilepath = self._directory + "/Resources"
 
         self._mkdir_custom(prefix + "Documentation")
@@ -222,6 +224,8 @@ class PackageManager(object):
 
         # --- custom file content ---
 
+        if "__init__.py" in file:
+            f.write("")
 
         if "readme" in file:
             f.write("Placeholder")
@@ -271,7 +275,7 @@ class PackageManager(object):
             f.write("}\n")
             f.write("\n")
             f.write("# 2. Launch the graphical executer\n")
-            f.write("app = Executer_GUI(tasks=tasks)\n")
+            f.write('app = Executer_GUI(tasks=tasks,name="AADL2CODE")\n')
             f.write("app.root.mainloop()\n")
 
         # --- close file ---

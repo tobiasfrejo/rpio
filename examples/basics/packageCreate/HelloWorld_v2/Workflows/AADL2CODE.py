@@ -19,5 +19,5 @@ tasks = {
 }
 
 # 2. Launch the graphical executer
-app = Executer_GUI(tasks=tasks)
+app = Executer_GUI(tasks=tasks,name="AADL2CODE")
 app.root.mainloop()
