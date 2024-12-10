@@ -70,7 +70,10 @@ def t_generate_main():
         # load design
         design = t_load_design()
         # generate main launch file
-        swc2main(system=design.systems[0], package=packageName, prefix=prefix, path="../Resources")
+        if prefix is not "":
+            swc2main(system=design.systems[0], package=packageName, prefix=prefix, path="../Resources")
+        else:
+            swc2main(system=design.systems[0], package=packageName, prefix=None, path="../Resources")
         return True
     except:
         print("Failed to generate the software component main file for the given platforms")
