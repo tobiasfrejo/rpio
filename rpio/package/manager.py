@@ -232,6 +232,11 @@ class PackageManager(object):
             f.write("[RoboSAPIENSIO]\n")
             f.write('name = '+name+'\n')
             f.write('description = " Add project description"\n')
+            f.write('\n')
+            f.write("[PACKAGE]\n")
+            f.write("[PACKAGE]\n")
+            f.write("name = "+name+"\n")
+            f.write("prefix = " + path + "\n")
 
 
         if "run.py" in file:
