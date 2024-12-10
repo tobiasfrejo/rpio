@@ -33,7 +33,8 @@ def run_command(command):
         stdout, stderr = process.communicate()
         print(process.stdout)
     except subprocess.CalledProcessError as e:
-        print(f"Command: {command}\nError: {e.stderr.decode('utf-8')}")
+        print(f"Failed to run command. Error: {e}")     #decode('utf-8') possible source of exe being flagged as virus
+        #print(f"Command: {command}\nError: {e.stderr.decode('utf-8')}")
 
 
 def execute_commands(commands):

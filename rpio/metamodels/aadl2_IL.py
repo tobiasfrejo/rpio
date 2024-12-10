@@ -357,7 +357,7 @@ class bus(namedObject):
 
 class system(namedObject):
 
-    def __init__(self,name='tbd', description='tbd', verbose=False,systemList = None,processList = None,featureList=None,messageList=None,processorList=None,JSONDescriptor=None):
+    def __init__(self,name='tbd', description='tbd', verbose=False,systemList = None,processList = None,featureList=None,messageList=None,processorList=None,package="",prefix="",JSONDescriptor=None):
         super().__init__(name=name,description = description,verbose=verbose)
 
         if featureList is not None:
@@ -384,6 +384,7 @@ class system(namedObject):
 
         if JSONDescriptor is not None:
             self.json2object(JSONDescriptor=JSONDescriptor)
+
 
     def addProcess(self,process):
         """Add a process to the process list """
