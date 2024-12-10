@@ -345,7 +345,7 @@ def update_robosapiensIO_ini(system=None,path="output/generated/docker"):
     managedSystem = system.systems[1]
 
     with open(join(path, "robosapiensIO.ini"), 'w') as f:
-        f.write(template.render(name=system.name,description=system.description, timestamp=formatted_timestamp.__str__(),managingSystem=managingSystem,managedSystem=managedSystem))
+        f.write(template.render(system=system, timestamp=formatted_timestamp.__str__(),managingSystem=managingSystem,managedSystem=managedSystem))
 
 
 def add_backbone_config(system=None,path='Resources'):

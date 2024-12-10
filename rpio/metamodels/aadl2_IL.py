@@ -357,7 +357,7 @@ class bus(namedObject):
 
 class system(namedObject):
 
-    def __init__(self,name='tbd', description='tbd', verbose=False,systemList = None,processList = None,featureList=None,messageList=None,processorList=None,JSONDescriptor=None):
+    def __init__(self,name='tbd', description='tbd', verbose=False,systemList = None,processList = None,featureList=None,messageList=None,processorList=None,package="",prefix="",JSONDescriptor=None):
         super().__init__(name=name,description = description,verbose=verbose)
 
         if featureList is not None:
@@ -381,9 +381,27 @@ class system(namedObject):
         else:
             self._processorList = []
 
+        self._package = package
+        self._prefix = prefix
+
 
         if JSONDescriptor is not None:
             self.json2object(JSONDescriptor=JSONDescriptor)
+
+    @property
+    def package(self):
+        return self._package
+    @package.setter
+    def package(self,p):
+        self._package = p
+
+    @property
+    def prefix(self):
+        return self._prefix
+
+    @prefix.setter
+    def prefix(self, p):
+        self._prefix = p
 
     def addProcess(self,process):
         """Add a process to the process list """
@@ -444,6 +462,8 @@ class system(namedObject):
         # --setup object--
         self._name = jsonObject['_name']
         self._description = jsonObject['_description']
+        self._package = jsonObject['_package']
+        self._prefix = jsonObject['_prefix']
         # -- load messages --
         for m in jsonObject['_messageList']:
             features = []

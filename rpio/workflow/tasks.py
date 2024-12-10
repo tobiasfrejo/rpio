@@ -65,8 +65,8 @@ def t_generate_main():
         # load packageName and prefix from ini
         config = configparser.ConfigParser()
         config.read('../robosapiensIO.ini')
-        packageName = config['RoboSAPIENSIO']['name']
-        prefix = config['RoboSAPIENSIO']['description']
+        packageName = config['PACKAGE']['name']
+        prefix = config['PACKAGE']['prefix']
         # load design
         design = t_load_design()
         # generate main launch file
@@ -82,7 +82,7 @@ def t_generate_docker():
         design = t_load_design()
         # generate docker compose file
         swc2dockerCompose(system=design.systems[0], path="../Realization/ManagingSystem/Platform")
-        add_backbone_config(system=design, path="Resources")
+        add_backbone_config(system=design, path="../Resources")
         return True
     except:
         print("Failed to generate the docker compose for the given platforms")

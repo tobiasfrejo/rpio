@@ -234,7 +234,6 @@ class PackageManager(object):
             f.write('description = " Add project description"\n')
             f.write('\n')
             f.write("[PACKAGE]\n")
-            f.write("[PACKAGE]\n")
             f.write("name = "+name+"\n")
             f.write("prefix = " + path + "\n")
 

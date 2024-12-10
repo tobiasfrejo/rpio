@@ -1,6 +1,10 @@
 [RoboSAPIENSIO]
-name = {{name}}
-description = {{description}}
+name = {{system.name}}
+description = {{system.description}}
+
+[PACKAGE]
+name = {{system.package}}
+prefix = {{system.prefix}}
 
 [Code Generation]
 latest = {{timestamp}}

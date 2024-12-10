@@ -7,8 +7,24 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 from rpio.workflow.tasks import *
+from rpio.workflow.executer import Executer_GUI, Executer_headless
 
-# 1. generate messages
-t_generate_messages()
+# 1 . define the tasks
+tasks = {
+    "Generate custom messages": t_generate_messages,
+    "Generate swc code skeletons": t_generate_swc_skeletons,
+    "Generate swc launch files": t_generate_swc_launch,
+    "Generate main file": t_generate_main,
+    "Generate docker compose files": t_generate_docker,
+    "Update robosapiensIO.ini file": t_update_robosapiensIO_ini
+}
 
-t_update_robosapiensIO_ini()
+# 2. Launch the graphical executer
+app = Executer_GUI(tasks=tasks)
+app.root.mainloop()
+
+#3. Launch the headless executer
+#app = Executer_headless(tasks=tasks)
+#app.start_workflow()
+
+

@@ -16,9 +16,14 @@ except (ValueError, ImportError):
 
 #<!-- cc_include START--!>
 from fractions import Fraction
-from lidarocclusion.masks import BoolLidarMask
-from lidarocclusion.sliding_lidar_masks import sliding_lidar_mask, sliding_prob_lidar_mask
-from typing import List, Tuple, Dict
+try:
+    from lidarocclusion.masks import BoolLidarMask, ProbLidarMask
+    from lidarocclusion.sliding_lidar_masks import sliding_lidar_mask, sliding_prob_lidar_mask
+    from lidarocclusion.masks import BoolLidarMask
+except:
+    from .lidarocclusion.masks import BoolLidarMask, ProbLidarMask
+    from .lidarocclusion.sliding_lidar_masks import sliding_lidar_mask, sliding_prob_lidar_mask
+    from .lidarocclusion.masks import BoolLidarMask
 import traceback
 import json
 import numpy as np
