@@ -70,7 +70,7 @@ def t_generate_main():
         # load design
         design = t_load_design()
         # generate main launch file
-        if prefix is not "":
+        if prefix != "":
             swc2main(system=design.systems[0], package=packageName, prefix=prefix, path="../Resources")
         else:
             swc2main(system=design.systems[0], package=packageName, prefix=None, path="../Resources")
