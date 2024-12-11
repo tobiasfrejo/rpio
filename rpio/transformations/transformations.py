@@ -278,6 +278,37 @@ def robochart2aadlmessages(maplek=None,path="output/generated/messages"):
     with open(join(path, "messages.aadl"), 'w') as f:
         f.write(template.render(types=maplek.types))
 
+def robochart2logical(parsed=None,path="output/generated/LogicalArchitecture"):
+    """Function to generate AADL logical architecture from robochart models
+
+    :param [MAPLEK]: [MAPLE-K components within robochart], defaults to [None]
+    :type [MAPLEK]: [maplek (robochart)](, optional)
+
+    :param [path]: [path to the output folder], defaults to ["output/generated/messages"]
+    :type [path]: [string](, optional)
+
+    ...
+    :return: [Functions returns nothing]
+    :rtype: [None]
+    """
+
+    if not exists(path):
+        mkdir(path)
+
+    # Initialize the Templates engine.
+    this_folder = dirname(__file__)
+    jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(this_folder), trim_blocks=True, lstrip_blocks=True)
+
+    # Load the template
+    template = jinja_env.get_template('templates/aadl_logical.template')
+
+    # Prepare the parsed models for code generation
+    elements = [parsed.monitor_model,parsed.analysis_model,parsed.plan_model,parsed.legitimate_model,parsed.execute_model,parsed.knowledge_model]
+
+    # Extract all processes from AADL system model
+    with open(join(path, "LogicalArchitecture.aadl"), 'w') as f:
+        f.write(template.render(elements=elements))
+
 
 def swc2dockerCompose(system=None,path="output/generated/docker"):
     """Function to generate docker compose for the given system deployment

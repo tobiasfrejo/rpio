@@ -7,7 +7,7 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 
-from rpio.transformations.transformations import swc2code_py, message2code_py, swc2launch, swc2main, swc2dockerCompose, update_robosapiensIO_ini, add_backbone_config, robochart2aadlmessages
+from rpio.transformations.transformations import swc2code_py, message2code_py, swc2launch, swc2main, swc2dockerCompose, update_robosapiensIO_ini, add_backbone_config, robochart2aadlmessages, robochart2logical
 from rpio.utils.auxiliary import *
 from rpio.parsers.parsers import *
 from rpio.metamodels.aadl2_IL import *
@@ -134,11 +134,11 @@ def t_robochart_to_logical():
 
     try:
         # Parse robochart models
-        parser = robochart_parser(MAPLEK='../Concept/MAPLE-K.rct',Monitor='../Concept/Monitor.rct',Analysis='../Concept/Analysis.rct',Plan='../Concept/Plan.rct',Legitimate='../Concept/Legitimate.rct',Execute='../Concept/Execute.rct',Knowledge='../Concept/Knowledge.rct')
-        # generate messages
+        models_parsed = robochart_parser(MAPLEK='../Concept/MAPLE-K.rct',Monitor='../Concept/Monitor.rct',Analysis='../Concept/Analysis.rct',Plan='../Concept/Plan.rct',Legitimate='../Concept/Legitimate.rct',Execute='../Concept/Execute.rct',Knowledge='../Concept/Knowledge.rct')
+        # generate logical architecture
+        robochart2logical(parsed=models_parsed,path='../Design')
         print("RoboChart to AADL logical architecture is not implemented yet!")
-        # return True
-        return False
+        return True
 
     except:
         print("Failed to generate AADL logical architecture from provided RoboChart models")
