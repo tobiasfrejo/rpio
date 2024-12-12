@@ -23,14 +23,14 @@ Prerequisites
 -------------
 
 - **rpio CLI**: Ensure that the `rpio` command-line tool is installed and available on your system.
-- **robosapiensio package**: Ensure that the `robosapiensio` python package is installed in your python, either system-wide or in python virtual environement. Installation instructions can be found `here <../../installation/methods/pypi.rst>`_
+- **robosapiensio package**: Ensure that the `robosapiensio` python package is installed in your python, either system-wide or in python virtual environement. Installation instructions can be found `here <../../installation/methods/pypi.html>`_
 
 Tasks
 -----
 
 1. **Run the Package Creation Command**
 
-   Open a terminal in the folder you want to create the new robosapiensIO application package, with name 'newPackage,' and run the following command:
+   Open a terminal in the folder you want to create the new robosapiensIO application package, with name ``newPackage`` and run the following command:
 
    .. code-block:: bash
 
@@ -68,10 +68,10 @@ Here's what each argument in the command does:
 
 4. **Developing the adaptive application design**
 
-   Within the newly generated application package, a folder is provided to develop the AADL design, namely `/Design`. Within this folder, the following design files are required:
+   Within the newly generated application package ``newPackage``, a folder is provided to develop the AADL design, namely `/Design`. Within this folder, the following design files are required:
 
-   - **LogicalArchitecture.aadl:** modeling the MAPLE-K components. Instructions how to model can be found `here <../basics/aadl_gettingStarted.rst>`_.
-   - **messages.aadl:** modeling the custom messages. Instructions how to model can be found `here <../basics/aadl_gettingStarted.rst>`_.
+   - **LogicalArchitecture.aadl:** modeling the MAPLE-K components. Instructions how to model can be found `here <../basics/aadl_gettingStarted.html>`_.
+   - **messages.aadl:** modeling the custom messages. Instructions how to model can be found `here <../basics/aadl_gettingStarted.html>`_.
    - **PhysicalArchitecture.aadl:** modeling the compute architecture. Instructions how to model can be found here !TODO!
    - **system.aadl:** modeling the logical-physical mapping architecture. Instructions how to model can be found here !TODO!
 
@@ -84,24 +84,26 @@ Here's what each argument in the command does:
 5. **Running the code generators**
 
    With the AADL design implemented (``Design/design.json`` available), we can trigger de code generation using the ``AADL2CODE`` transformation.
-   Open a terminal in the folder``newPackage`` and run:
+   Open a terminal in the folder ``newPackage`` and run:
 
    .. code-block:: bash
 
      python Workflows/AADL2CODE.py
 
-   This will pop-up a window to run the ``AADL2CODE`` transformation as shown below
+   This will pop-up a window to run the ``AADL2CODE transformation`` as shown below
 
-   TODO: add figure
+   .. image:: files/aadl2code_workflow.png
+   :width: 400
+   :alt: aadl2code workflow
 
-   alternatively, the ``AADL2CODE`` transformation can also be triggered using the `rpio` command-line tool.
-   Open a terminal in the folder``newPackage`` and run:
+   alternatively, the ``AADL2CODE transformation`` can also be triggered using the `rpio` command-line tool.
+   Open a terminal in the folder ``newPackage`` and run:
 
-    .. code-block:: bash
+   .. code-block:: bash
 
      rpio transformation --aadl2code
 
-   This will also pop-up the same window to run the ``AADL2CODE`` transformation.
+   This will also pop-up the same window to run the ``AADL2CODE transformation``.
 
 6. **Inspect the generated code skeletons**
 
@@ -110,5 +112,5 @@ Here's what each argument in the command does:
 Summary
 -------
 
-You have successfully created a new ``robosapiensIO`` package using the ``rpio`` CLI, added an AADL design, based on the hellow world example and generated code skeletons, configurations and deployment methods.
+You have successfully created a new ``robosapiensIO`` package using the `rpio` command-line tool, added an AADL design, based on the hellow world example and generated code skeletons, configurations and deployment methods.
 This package is now ready for further development. Please check the ``hello world`` example for an implemented example.
