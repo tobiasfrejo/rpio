@@ -104,6 +104,10 @@ Here's what each argument in the command does:
 
      rpio-cli transformation --aadl2code
 
+   .. warning::
+
+        rpio-cli aadl2code transformations under construction!
+
    This will also pop-up the same window to run the ``AADL2CODE transformation``.
 
 6. **Inspect the generated code skeletons**
