@@ -1,3 +1,4 @@
+.. _aadl_instructions_logical:
 # README: Defining the Logical Architecture using AADL for the MAPLE-K Loop
 
 ========================================
