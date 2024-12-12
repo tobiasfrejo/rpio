@@ -110,7 +110,7 @@ Here's what each argument in the command does:
    After executing the ``AADL2CODE transformation``, the code skeletons for all MAPLE-K components are generated.
    The code skeletons can be found in folder ``Realization/ManagingSystem/Nodes`` as shown below.
 
-   .. image:: files/code_skeletongs.png
+   .. image:: files/code_skeletons.png
       :width: 400
       :alt: code skeletons
 
