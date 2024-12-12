@@ -34,7 +34,7 @@ Tasks
 
    .. code-block:: bash
 
-        rpio package --create -n "newPackage" --verbose
+        rpio-cli package --create -n "newPackage" --verbose
 
 Here's what each argument in the command does:
 
@@ -58,7 +58,7 @@ Here's what each argument in the command does:
 
    .. code-block:: bash
 
-     rpio package --check
+     rpio-cli package --check
 
 
 Here's what each argument in the command does:
@@ -101,7 +101,7 @@ Here's what each argument in the command does:
 
    .. code-block:: bash
 
-     rpio transformation --aadl2code
+     rpio-cli transformation --aadl2code
 
    This will also pop-up the same window to run the ``AADL2CODE transformation``.
 

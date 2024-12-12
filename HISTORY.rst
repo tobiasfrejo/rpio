@@ -94,3 +94,10 @@ robosapiensIO Preview
 
 * Update the client library to read from configs
 * write-knowledge based on messages
+
+0.3.22 (2024-12-12)
+~~~~~~~~~~~~~~~~~~
+
+* Updated package generation to contain ROBOCHART2AADL transformation
+* Changed rpio.exe to rpio-cli.exe (integration along with system-level pypi install)
+
