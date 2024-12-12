@@ -88,7 +88,8 @@ Here's what each argument in the command does:
 
    .. code-block:: bash
 
-     python Workflows/AADL2CODE.py
+     cd Workflows
+     python AADL2CODE.py
 
    This will pop-up a window to run the ``AADL2CODE transformation`` as shown below
 
