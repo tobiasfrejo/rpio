@@ -95,7 +95,7 @@ robosapiensIO Preview
 * Update the client library to read from configs
 * write-knowledge based on messages
 
-0.3.22 (2024-12-12)
+0.3.23 (2024-12-12)
 ~~~~~~~~~~~~~~~~~~
 
 * Updated package generation to contain ROBOCHART2AADL transformation
