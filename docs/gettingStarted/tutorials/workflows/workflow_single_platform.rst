@@ -23,7 +23,7 @@ Prerequisites
 -------------
 
 - **rpio CLI**: Ensure that the `rpio` command-line tool is installed and available on your system.
-- **robosapiensio package**: Ensure that the `robosapiensio` python package is installed in your python, either system-wide or in python virtual environement. Installation instructions can be found here :ref:`_installation_pypi`.
+- **robosapiensio package**: Ensure that the `robosapiensio` python package is installed in your python, either system-wide or in python virtual environement. Installation instructions can be found `here <../../installation/methods/pypi.rst>`_
 
 Tasks
 -----
@@ -44,9 +44,9 @@ Here's what each argument in the command does:
 
 2. **Verify Package Structure**
 
-   Navigate to the directory where the ``test`` package was created and check its structure to confirm that all necessary files and folders have been set up correctly:
+   Navigate to the directory where the ``newPackage`` package was created and check its structure to confirm that all necessary files and folders have been set up correctly:
 
-    .. code-block:: bash
+   .. code-block:: bash
 
         cd newPackage
         ls
@@ -70,8 +70,8 @@ Here's what each argument in the command does:
 
    Within the newly generated application package, a folder is provided to develop the AADL design, namely `/Design`. Within this folder, the following design files are required:
 
-   - **LogicalArchitecture.aadl:** modeling the MAPLE-K components. Instructions how to model can be found here :ref:`_aadl_instructions_logical`.
-   - **messages.aadl:** modeling the custom messages. Instructions how to model can be found here :ref:`_aadl_instructions_logical`.
+   - **LogicalArchitecture.aadl:** modeling the MAPLE-K components. Instructions how to model can be found `here <../basics/aadl_gettingStarted.rst>`_.
+   - **messages.aadl:** modeling the custom messages. Instructions how to model can be found `here <../basics/aadl_gettingStarted.rst>`_.
    - **PhysicalArchitecture.aadl:** modeling the compute architecture. Instructions how to model can be found here !TODO!
    - **system.aadl:** modeling the logical-physical mapping architecture. Instructions how to model can be found here !TODO!
 
@@ -79,9 +79,29 @@ Here's what each argument in the command does:
 
     This tutorial focusses on the workflows instead of implementing the self-adaptive application design.
     Therefore the design file of the ``hello world`` example is provided as ``json file``.
-    Please download the hello world design file (:download:`design.json <files/design.json>`) and put in the `/Design` folder.
+    Please download the hello world design file (:download:`download<files/design.json>`) and put in the `/Design` folder.
 
 5. **Running the code generators**
+
+   With the AADL design implemented (``Design/design.json`` available), we can trigger de code generation using the ``AADL2CODE`` transformation.
+   Open a terminal in the folder``newPackage`` and run:
+
+   .. code-block:: bash
+
+     python Workflows/AADL2CODE.py
+
+   This will pop-up a window to run the ``AADL2CODE`` transformation as shown below
+
+   TODO: add figure
+
+   alternatively, the ``AADL2CODE`` transformation can also be triggered using the `rpio` command-line tool.
+   Open a terminal in the folder``newPackage`` and run:
+
+    .. code-block:: bash
+
+     rpio transformation --aadl2code
+
+   This will also pop-up the same window to run the ``AADL2CODE`` transformation.
 
 6. **Inspect the generated code skeletons**
 
