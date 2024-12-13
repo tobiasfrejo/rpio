@@ -22,15 +22,32 @@ This means that everything needed to go from conceptual design to realization an
 Prerequisites
 -------------
 
-- **rpio CLI**: Ensure that the `rpio` command-line tool is installed and available on your system.
 - **robosapiensio package**: Ensure that the `robosapiensio` python package is installed in your python, either system-wide or in python virtual environement. Installation instructions can be found `here <../../installation/methods/pypi.html>`_
+- **[optional] rpio CLI**: Ensure that the `rpio` command-line tool is installed and available on your system.
 
 Tasks
 -----
 
+0. **Check if robosapiensio is successfully installed**
+
+   Open a terminal and run the following command:
+
+   .. code-block:: bash
+
+        python -m rpio version
+
+   If the robosapiensio package is successfully installed, it will return the version of the robosapiensio framework, e.g. `rpio v0.3.24`.
+
 1. **Run the Package Creation Command**
 
    Open a terminal in the folder you want to create the new robosapiensIO application package, with name ``newPackage`` and run the following command:
+
+   .. code-block:: bash
+
+        python -m rpio package --create -n "newPackage" --verbose
+
+
+   Alternatively, creating the package can also be done using the `rpio` command-line tool.
 
    .. code-block:: bash
 
@@ -55,6 +72,12 @@ Here's what each argument in the command does:
 3. **Check the newly created robosapiensIO package**
 
    You can check that the newly created package is a valid robosapiensIO package, run:
+
+   .. code-block:: bash
+
+        python -m rpio package --check
+
+   Alternatively, checking the package can also be done using the `rpio` command-line tool.
 
    .. code-block:: bash
 
