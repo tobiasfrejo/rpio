@@ -275,9 +275,8 @@ This can be achieved by modeling the backend as a **AADL system** and bind it to
 
 .. warning::
 
-    Please note that two AADL extensions are used to add RoboSAPIENS specific properties, **rpio.aadl** and **mbed.aadl**.
+    Please note that two AADL extensions are used to add RoboSAPIENS specific properties, **rpio.aadl** (:download:`download<files/rpio.aadl>`) and **mbed.aadl** (:download:`download<files/mbed.aadl>`).
     They can be downloaded here for testing purposes. They are still under construction!
-    (:rpio:`download<files/rpio.aadl>`, :mbed:`download<files/mbed.aadl>`)
 
 
 Tasks
