@@ -147,9 +147,103 @@ Each message, **represented as an AADL data** follows a common modeling pattern:
         - Character
 
 
+Each of the MAPLE-K software components needs to be deployed and executed on a compute platform, e.g. a single-board computer.
+Currently, we have a simplified modeling pattern for modeling the compute units, focussing solely on the **processor** and the **networking/interfacing** method.
+A compute unit is represented as an **AADL system** containing an **AADL processor** for each processor of the platform, as shown below:
+
+.. code-block::
+
+    -- Single core Single-board computer, connected via wifi
+	system compute_unit
+		features
+			BusAccess1: requires bus access HardwareParts::wifi;
+	end compute_unit;
+
+	system implementation compute_unit.singleCore
+    subcomponents
+      MissionProcessor1: processor HardwareParts::Xeon.solo;
+  	end compute_unit.singleCore;
+
+Within this high-level compute unit model, we use the **AADL bus** (HardwareParts::wifi) and **AADL processor** (HardwareParts::Xeon.solo).
+A bus interface follows a common modeling pattern:
+
+.. code-block::
+
+    bus wifi
+    --features
+      --define features
+    properties
+      SEI::BandWidthCapacity => 100.0 Mbytesps;
+    end wifi;
+
 .. warning::
-    In order to automate the deployment, the physical architecture needs to be modeled and the mapping needs to be specified.
-    This will be added in this tutorial in later stages.
+    The modeling pattern of the bus interface is currently underspecified. This will be extended in future releases.
+
+A processor interface follows a common modeling pattern:
+
+.. code-block::
+
+    processor Xeon
+    features
+      HS: requires bus access wifi {
+        SEI::PowerBudget => 75.0 mW;
+        };
+      Power: requires bus access PowerSupply {
+        SEI::PowerBudget => 4.9 W;
+        };
+    properties
+      SEI::NetWeight => 0.3 kg;
+  end Xeon;
+
+  processor implementation Xeon.solo
+    subcomponents
+      MemBank1: memory RAM;
+      Membank2: memory ROM;
+    properties
+      SEI::NetWeight => 0.2 kg;
+      SEI::MIPSCapacity => 1000.0 MIPS;
+  end Xeon.solo;
+
+.. warning::
+    The modeling pattern of the processor is currently underspecified. This will be extended in future releases.
+
+The processor memory, represented as **AADL memory** follows a common modeling pattern:
+
+.. code-block::
+
+    memory RAM
+    features
+      Power: requires bus access PowerSupply {
+        SEI::PowerBudget => 0.1 W;
+        };
+    properties
+      Memory_size => 256000 Bytes;
+      SEI::RAMCapacity => 1.0 MByte;
+      SEI::ROMCapacity => 100.0 KByte;
+      SEI::NetWeight => 0.05 kg;
+	  end RAM;
+
+.. warning::
+    The modeling pattern of the processor is currently underspecified. This will be extended in future releases.
+
+Once the hardware platform is defined, we can specify on which compute unit the software components will be deployed and executed using AADL processor bindings. Several binding mechanisms are available:
+
+- **Actual processor binding:** the process is bound to a specific processor, indicating a fixed allocation.
+- **Allowed processor binding:** The process can be bound to one or more candidate processors, but the final allocation may be determined later.
+
+A generic processor binding pattern could be represented as follows:
+
+.. code-block::
+
+    Actual_Processor_Binding => (reference(compute_unit.singleCore.MainProcessor)) applies to SoftwareSystem.ComponentA;
+    Actual_Processor_Binding => (reference(compute_unit.singleCore.MainProcessor)) applies to SoftwareSystem.ComponentB;
+
+    Allowed_Processor_Binding => (reference(compute_unit.singleCore.MainProcessor)) applies to SoftwareSystem.ComponentC;
+    Allowed_Processor_Binding => (reference(AnotherPlatform.ServerProcessor)) applies to SoftwareSystem.ComponentC;
+
+In this scenario, Components A and B are statically bound to the **MainProcessor** on the single-core compute unit.
+Component C is allowed to execute on either **MainProcessor** or on **ServerProcessor** of a different platform,
+enabling flexibility and optimization during the system realization phase.
 
 Tasks
 -----
@@ -486,13 +580,45 @@ Below an example of the logical architecture of the NTNU case:
 
 3. **Specify the physical architecture (by example)**
 
-.. warning::
-    This part is under construction
+.. code-block::
+
+    TODO
 
 4. **Specify the deployment (by example)**
 
-.. warning::
-    This part is under construction
+Below an example of the mapping architecture of the NTNU case:
+
+
+.. code-block::
+
+    system adaptiveSystem
+
+	end adaptiveSystem;
+
+	system implementation adaptiveSystem.impl
+		subcomponents
+			-- software
+			managedSystem: system managedSystem.impl;
+			managingSystem: system managingSystem.impl;
+			-- hardware
+			platform: system PhysicalArchitecture::turtlebot.impl1;
+		connections
+			c1: port managedSystem.weatherConditions -> managingSystem.weatherConditions;
+			c2: port managedSystem.shipPose -> managingSystem.shipPose;
+			c3: port managedSystem.shipAction -> managingSystem.shipAction;
+
+			c4: port managingSystem.predictedPath -> managedSystem.predictedPath;
+		properties
+			Actual_Processor_Binding => ( reference( platform.controller.MissionProcessor1) ) applies to managingSystem.m;
+			Actual_Processor_Binding => ( reference( platform.controller.MissionProcessor1) ) applies to managingSystem.a;
+			Actual_Processor_Binding => ( reference( platform.controller.MissionProcessor1) ) applies to managingSystem.p;
+			Actual_Processor_Binding => ( reference( platform.controller.MissionProcessor1) ) applies to managingSystem.l;
+			Actual_Processor_Binding => ( reference( platform.controller.MissionProcessor1) ) applies to managingSystem.e;
+			Actual_Processor_Binding => ( reference( platform.controller.MissionProcessor1) ) applies to managingSystem.k;
+
+			Actual_Processor_Binding => ( reference( platform.robot.RPI) ) applies to managedSystem.controlSoftware;
+
+	end adaptiveSystem.impl;
 
 Summary
 -------
