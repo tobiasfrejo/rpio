@@ -94,7 +94,7 @@ class Executer_GUI:
                     self.logger.syslog(msg="Task <<" + task_name + ">> successfully completed")
                 else:
                     self.update_status(task_name, StepStatus.FAILED)
-                    self.logger.syslog(msg="Task <<" + task_name + ">> failed to completed")
+                    self.logger.syslog(msg="Task <<" + task_name + ">> failed to complete")
             except Exception as e:
                 self.update_status(task_name, StepStatus.FAILED)
                 messagebox.showerror("Error", f"Task '{task_name}' failed with error: {e}")
@@ -132,7 +132,7 @@ class Executer_headless:
                     self.logger.syslog(msg="Task <<" + task_name + ">> successfully completed")
                 else:
                     print("Task '{}' failed".format(task_name))
-                    self.logger.syslog(msg="Task <<" + task_name + ">> failed to completed")
+                    self.logger.syslog(msg="Task <<" + task_name + ">> failed to complete")
             except Exception as e:
                 print("Error", f"Task '{task_name}' failed with error: {e}")
                 break

@@ -1,7 +1,7 @@
-from .HelloWorld_v2.Realization.ManagingSystem.Nodes.Monitor.Monitor import Monitor
-from .HelloWorld_v2.Realization.ManagingSystem.Nodes.Analysis.Analysis import Analysis
-from .HelloWorld_v2.Realization.ManagingSystem.Nodes.Plan.Plan import Plan
-from .HelloWorld_v2.Realization.ManagingSystem.Nodes.Execute.Execute import Execute
+from examples.basics.transformations.HelloWorld.Realization.ManagingSystem.Nodes.Monitor.Monitor import Monitor
+from examples.basics.transformations.HelloWorld.Realization.ManagingSystem.Nodes.Analysis.Analysis import Analysis
+from examples.basics.transformations.HelloWorld.Realization.ManagingSystem.Nodes.Plan.Plan import Plan
+from examples.basics.transformations.HelloWorld.Realization.ManagingSystem.Nodes.Execute.Execute import Execute
 import time
 
 _Monitor = Monitor("../Realization/ManagingSystem/Nodes/Monitor/config.yaml")

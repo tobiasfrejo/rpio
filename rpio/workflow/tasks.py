@@ -7,10 +7,16 @@
 # * permission of Bert Van Acker
 # **********************************************************************************
 
-from rpio.transformations.transformations import swc2code_py, message2code_py, swc2launch, swc2main, swc2dockerCompose, update_robosapiensIO_ini, add_backbone_config
+from rpio.transformations.transformations import swc2code_py, message2code_py, swc2launch, swc2main, swc2dockerCompose, update_robosapiensIO_ini, add_backbone_config, robochart2aadlmessages, robochart2logical
+from rpio.utils.auxiliary import *
+from rpio.parsers.parsers import *
 from rpio.metamodels.aadl2_IL import *
+
 import configparser
 
+# ------------------------------------------------------------------------------------
+# ------------------------------AADL2CODE TASKS --------------------------------------
+# ------------------------------------------------------------------------------------
 def t_load_design():
 
     # load name and description from ini
@@ -70,7 +76,7 @@ def t_generate_main():
         # load design
         design = t_load_design()
         # generate main launch file
-        if prefix is not "":
+        if prefix != "":
             swc2main(system=design.systems[0], package=packageName, prefix=prefix, path="../Resources")
         else:
             swc2main(system=design.systems[0], package=packageName, prefix=None, path="../Resources")
@@ -106,3 +112,42 @@ def t_update_robosapiensIO_ini():
     except:
         print("Could not update robosapiensIO.ini")
         return False
+
+
+
+# ------------------------------------------------------------------------------------
+# --------------------------RoboChart2AADL TASKS -------------------------------------
+# ------------------------------------------------------------------------------------
+
+def t_robochart_to_messages():
+    try:
+        # Parse robochart models
+        parser = robochart_parser(MAPLEK='../Concept/MAPLE-K.rct',Monitor='../Concept/Monitor.rct',Analysis='../Concept/Analysis.rct',Plan='../Concept/Plan.rct',Legitimate='../Concept/Legitimate.rct',Execute='../Concept/Execute.rct',Knowledge='../Concept/Knowledge.rct')
+        # generate messages
+        robochart2aadlmessages(maplek=parser.maplek_model,path='../Design')
+        return True
+    except:
+        print("Failed to generate AADL messages from provided RoboChart models")
+        return False
+
+def t_robochart_to_logical():
+
+    try:
+        # Parse robochart models
+        models_parsed = robochart_parser(MAPLEK='../Concept/MAPLE-K.rct',Monitor='../Concept/Monitor.rct',Analysis='../Concept/Analysis.rct',Plan='../Concept/Plan.rct',Legitimate='../Concept/Legitimate.rct',Execute='../Concept/Execute.rct',Knowledge='../Concept/Knowledge.rct')
+        # generate logical architecture
+        robochart2logical(parsed=models_parsed,path='../Design')
+        print("RoboChart to AADL logical architecture is not implemented yet!")
+        return True
+
+    except:
+        print("Failed to generate AADL logical architecture from provided RoboChart models")
+        return False
+
+
+# ------------------------------------------------------------------------------------
+# ------------------------------ CHECKING TASKS --------------------------------------
+# ------------------------------------------------------------------------------------
+def t_check_robosapiensio():
+    check = check_package_installation(package='robosapiensio')
+    return check
