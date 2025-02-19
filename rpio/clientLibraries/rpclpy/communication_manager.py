@@ -16,23 +16,23 @@ class CommunicationManager:
         # self.ros2_node = None  # Commented out for now
         self.redis_thread = None  # Redis thread for listening
         self.event_callbacks = {}  # Store callbacks for MQTT, Redis
-        self.mqtt_subscribe_topics = []
-        self.mqtt_publish_topics = []
+        self.mqtt_subscribe_topics_map = {}
+        self.mqtt_publish_topics_map = {}
         # MQTT and Redis topics/keys from config
 
         # Get the subscribe topics from the config file
         if 'eventIn' in config and 'properties' in config['eventIn']:
             properties = config['eventIn']['properties']
             for item in properties:
-                if 'property' in item and 'name' in item['property']:
-                    self.mqtt_subscribe_topics.append(item['property']['name'])
+                if 'property' in item and 'name' in item['property'] and 'topic' in item['property']:
+                    self.mqtt_subscribe_topics_map[item['property']['topic']] = item['property']['name']
 
         # Get publish topic list from the config file 
         if 'eventOut' in config and 'properties' in config['eventIn']:
             properties = config['eventOut']['properties']
             for item in properties:
-                if 'property' in item and 'name' in item['property']:
-                    self.mqtt_publish_topics.append(item['property']['name'])
+                if 'property' in item and 'name' in item['property'] and 'topic' in item['property']:
+                    self.mqtt_publish_topics_map[item['property']['name']] = item['property']['topic']
 
         self.redis_keys = self.config.get("redis_keys", [])
 
@@ -67,13 +67,14 @@ class CommunicationManager:
         self.event_callbacks[event_key].append(callback)
         self.logger.info(f"Registered callback for event: {event_key}")
         
-    def send(self, topic, message = "TRUE"):
+    def send(self, name, message = "TRUE"):
         """Publish an event to an MQTT topic."""
-        if topic in self.mqtt_publish_topics:
+        if name in self.mqtt_publish_topics_map:
+            topic = self.mqtt_publish_topics_map[name]
             self.mqtt_client.publish(topic, message)
             self.logger.info(f"Published to MQTT topic {topic}: {message}")
         else:
-            self.logger.warning(f"Cannot publish to {topic}: Not configured in yaml")
+            self.logger.warning(f"Cannot publish to {name}: Not configured in yaml")
 
     def trigger_callbacks(self, event_key, data):
         """
@@ -92,7 +93,7 @@ class CommunicationManager:
         self.mqtt_client.on_message = self.on_mqtt_message
         self.mqtt_client.connect(self.config['mqtt_broker'], self.config['mqtt_port'])
         
-        for topic in self.mqtt_subscribe_topics:
+        for topic in self.mqtt_subscribe_topics_map.keys():
             self.mqtt_client.subscribe(topic)
             self.logger.info(f"Subscribed to MQTT topic: {topic}")
         
@@ -104,8 +105,10 @@ class CommunicationManager:
         topic = message.topic
         self.logger.info(f"Received MQTT message: {payload} on topic: {topic}")
         
+        event_name = self.mqtt_subscribe_topics_map.get(topic)
+
         # Trigger any registered callbacks for this topic
-        self.trigger_callbacks(topic, payload)
+        self.trigger_callbacks(event_name, payload)
 
     def publish_mqtt(self, topic, message):
         """Publish a message to an MQTT topic."""
