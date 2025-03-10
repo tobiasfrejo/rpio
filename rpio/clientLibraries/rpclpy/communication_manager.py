@@ -28,7 +28,7 @@ class CommunicationManager:
                     self.mqtt_subscribe_topics_map[item['property']['topic']] = item['property']['name']
 
         # Get publish topic list from the config file 
-        if 'eventOut' in config and 'properties' in config['eventIn']:
+        if 'eventOut' in config and 'properties' in config['eventOut']:
             properties = config['eventOut']['properties']
             for item in properties:
                 if 'property' in item and 'name' in item['property'] and 'topic' in item['property']:
@@ -146,7 +146,7 @@ class CommunicationManager:
         self.logger.info(f"Received Redis message on key {key}: {data}")
         
         # Store the message in knowledge
-        self.knowledge.write(key, data)
+        #self.knowledge.write(key, data) # Would this not introduce a loop? write to knowledge -> subscription event -> write the same to knowledge ...
 
         # Trigger any registered callbacks for this Redis key
         self.trigger_callbacks(key, data)
